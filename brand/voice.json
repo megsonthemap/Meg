@@ -12,14 +12,19 @@
   },
   "words": {
     "says": [
-      "Come with me"
+      "Come with me",
+      "Come with me to …",
+      "3, 2, 1, come with me to …"
     ],
     "never": [],
     "spelling": "British (colour, favourite, travelling)",
     "punctuation": "Casing: the opening headline is ALL CAPS; the subtitle line under it is lower case. Captions are not shouted."
   },
   "openers": {
-    "habits": [],
+    "habits": [
+      "Come with me to … (\"Come with me to see penguins for free\")",
+      "3, 2, 1, come with me to …"
+    ],
     "avoid": []
   },
   "effects": {
