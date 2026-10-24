@@ -8,10 +8,12 @@
     "reply": null,
     "keywords": [],
     "verbs": [],
-    "notes": "Every reel is different. Megs says what the ending should ask for while editing each reel; ask her then, never pick a default."
+    "notes": "Every reel is different. Megs says what the ending should ask for while editing each reel; ask her then, never pick a default. Her one signature phrase is \"Come with me\": use it whatever the reel is about."
   },
   "words": {
-    "says": [],
+    "says": [
+      "Come with me"
+    ],
     "never": [],
     "spelling": null,
     "punctuation": null
