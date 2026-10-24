@@ -17,3 +17,6 @@
 - Cut tight: take out every gap and pause. Some shots only 0.1 to 0.2 seconds long, in quick
   bursts, to grab attention (especially the opening and location jumps).
 - Nothing she has ruled out yet.
+- Wants travel stickers: plane ticket, backpack, passport, suitcase, location pin, all travel
+  things, popping in on the line that mentions them (`sticker` effect, PNGs in brand/shelf/stickers/).
+  The location-pin sticker over a place name (from zoe_wanderingwaves) fits here too.
