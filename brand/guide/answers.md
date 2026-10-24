@@ -20,3 +20,10 @@
 - Wants travel stickers: plane ticket, backpack, passport, suitcase, location pin, all travel
   things, popping in on the line that mentions them (`sticker` effect, PNGs in brand/shelf/stickers/).
   The location-pin sticker over a place name (from zoe_wanderingwaves) fits here too.
+
+## 3. Formats
+1. "Come with me" guides: a place or experience, often free or cheap (penguins, Puffing Billy).
+2. Trip diaries / series: "2 weeks in Tasmania", "Day 2 of Asia fund".
+3. Life updates and stories: "100 days left on my visa", "I'm coming home" (voice over).
+4. Hauls and lists: "Aussie snacks for home", "things to do in Tassie".
+5. UGC examples: brand-style travel and tech pieces made to show brands what she can do.
