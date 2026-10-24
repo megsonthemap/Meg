@@ -12,10 +12,10 @@
   },
   "reel": {
     "captions": {
-      "mode": "stack",
+      "mode": "word",
       "size": 60,
-      "y": 0.6,
-      "maxWords": 5
+      "y": 0.72,
+      "maxWords": 1
     },
     "safe": {
       "top": 0.12,

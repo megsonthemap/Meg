@@ -1,0 +1,271 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Megs Reel Guide</title>
+<style>
+  :root {
+    --butter: #FFEFC3;
+    --cream: #FFF8E7;
+    --choc: #4E3C3C;
+    --white: #FFFFFF;
+    --dark: #1E1E1E;
+    --bg: var(--cream);
+    --fg: var(--choc);
+    --card: var(--white);
+    --line: #E9DCC0;
+    --muted: #7A6A66;
+    --display: 'Avenir Next', 'Avenir Next Heavy', 'Segoe UI Black', 'Arial Black', sans-serif;
+    --quiet: Georgia, 'Times New Roman', serif;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #2A2121; --fg: var(--cream); --card: #362B2A; --line: #4E3C3C; --muted: #CBBBAE;
+    }
+  }
+  :root[data-theme="dark"] { --bg: #2A2121; --fg: var(--cream); --card: #362B2A; --line: #4E3C3C; --muted: #CBBBAE; }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--fg); font: 17px/1.55 var(--quiet); }
+  main { max-width: 760px; margin: 0 auto; padding: 0 16px 64px; }
+  header.hero { background: var(--choc); color: var(--white); padding: 56px 16px 40px; text-align: center; }
+  .kicker { font-family: var(--quiet); font-style: italic; font-size: 18px; opacity: .9; }
+  .hero h1 { font: 900 clamp(40px, 11vw, 76px)/0.95 var(--display); color: var(--butter); text-transform: uppercase; letter-spacing: -0.01em; margin: 10px 0 12px; }
+  .hero .sub { font-size: 18px; text-transform: lowercase; }
+  nav { display: flex; flex-wrap: wrap; gap: 6px; justify-content: center; padding: 18px 0 4px; }
+  nav a { font: 700 13px/1 var(--display); color: var(--fg); text-decoration: none; border: 1px solid var(--line); border-radius: 999px; padding: 7px 11px; background: var(--card); }
+  section { margin-top: 44px; }
+  h2 { font: 900 30px/1.1 var(--display); text-transform: uppercase; margin: 0 0 6px; }
+  h2 small { display: block; font: italic 400 16px/1.4 var(--quiet); text-transform: none; color: var(--muted); margin-top: 4px; }
+  h3 { font: 800 18px/1.3 var(--display); margin: 22px 0 6px; }
+  ul { padding-left: 20px; } li { margin: 4px 0; }
+  .card { background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 16px 18px; margin: 14px 0; }
+  .flag { border-left: 4px solid var(--butter); background: var(--card); padding: 10px 14px; border-radius: 0 10px 10px 0; margin: 14px 0; font-size: 15px; }
+  table { width: 100%; border-collapse: collapse; font-size: 15px; }
+  th, td { text-align: left; padding: 8px 6px; border-bottom: 1px solid var(--line); vertical-align: top; }
+  th { font: 800 13px/1.2 var(--display); text-transform: uppercase; color: var(--muted); }
+  .scroll { overflow-x: auto; }
+  .swatches { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px; }
+  .sw { border-radius: 14px; overflow: hidden; border: 1px solid var(--line); background: var(--card); }
+  .sw .chip { height: 86px; display: flex; align-items: flex-end; padding: 8px 10px; font: 900 22px/1 var(--display); }
+  .sw .meta { padding: 8px 10px; font-size: 14px; }
+  .sw code { font-size: 13px; }
+  .phone { width: 220px; aspect-ratio: 9 / 16; margin: 10px auto; border-radius: 22px; position: relative; overflow: hidden;
+           background: linear-gradient(160deg, #8FB3CF 0%, #B9C9A8 45%, #6E7B5E 100%); border: 4px solid var(--dark); }
+  .phone .zone { position: absolute; left: 0; right: 0; background: rgba(30,30,30,.35); color: #fff; font: 700 9px/1 var(--display); display: flex; align-items: center; justify-content: center; text-transform: uppercase; letter-spacing: .05em; }
+  .phone .icons { position: absolute; top: 12%; bottom: 20%; right: 0; width: 14%; background: rgba(30,30,30,.25); }
+  .phone .t-kick { position: absolute; top: 14.5%; width: 100%; text-align: center; color: #fff; font: italic 10px var(--quiet); }
+  .phone .t-big { position: absolute; top: 18%; width: 100%; text-align: center; color: var(--butter); font: 900 25px/0.92 var(--display); text-transform: uppercase; text-shadow: 0 2px 6px rgba(0,0,0,.35); }
+  .phone .t-sub { position: absolute; top: 34%; width: 100%; text-align: center; color: #fff; font: 11px var(--quiet); text-shadow: 0 1px 4px rgba(0,0,0,.5); }
+  .phone .cap { position: absolute; top: 70%; width: 86%; text-align: center; color: var(--butter); font: 900 17px var(--display); -webkit-text-stroke: 1px var(--choc); }
+  .say { font: 900 26px/1.15 var(--display); }
+  .say em { font-style: normal; background: var(--butter); color: var(--choc); padding: 0 6px; border-radius: 6px; }
+  footer { margin-top: 56px; font-size: 14px; color: var(--muted); text-align: center; }
+</style>
+</head>
+<body>
+<header class="hero">
+  <div class="kicker">my reel brand guide</div>
+  <h1>Megs on the map</h1>
+  <div class="sub">@megsonthemapsocials · women solo travel, ugc for travel and tech</div>
+</header>
+<main>
+<nav>
+  <a href="#look">Look</a><a href="#type">Type</a><a href="#colour">Colour</a><a href="#layout">Layout</a>
+  <a href="#captions">Captions</a><a href="#cut">Cut</a><a href="#sound">Sound</a><a href="#effects">Effects</a>
+  <a href="#formats">Formats</a><a href="#shooting">Shooting</a><a href="#ideas">Ideas</a><a href="#words">My words</a><a href="#footage">Hand me footage</a>
+</nav>
+
+<section id="why">
+  <h2>Who it's for<small>Every reel has three jobs</small></h2>
+  <div class="card">
+    <ul>
+      <li><b>Useful to women travelling solo and backpacking.</b> A real place, a real price, a reason to save it.</li>
+      <li><b>Warm for people back home.</b> It's my life, not an advert.</li>
+      <li><b>A portfolio piece a brand would pay for.</b> Clean enough that an Airbnb, hostel, eSIM, travel or tech brand could repost it as UGC.</li>
+    </ul>
+    <p>Three seconds in, someone should feel: <i>I want to go there with her.</i></p>
+  </div>
+</section>
+
+<section id="look">
+  <h2>The look<small>Read from my own reels</small></h2>
+  <ul>
+    <li><b>Handheld, wide-angle selfie, walking and talking.</b> Tilted horizons and motion blur are part of it; never straighten or stabilise them away.</li>
+    <li><b>Out and about.</b> Streets, piers, train platforms, car parks, hostel kitchens. Places get their own shots with a title over them.</li>
+    <li><b>Natural light, true colour.</b> No heavy grade. Blue sky stays blue, skin stays warm.</li>
+    <li><b>Energy.</b> Quick, playful, smiling. Never slow and moody.</li>
+  </ul>
+</section>
+
+<section id="type">
+  <h2>Type<small>Big and loud on top, small and handwritten underneath</small></h2>
+  <div class="card">
+    <h3>Loud: the headline</h3>
+    <p class="say" style="text-transform:uppercase">St Kilda penguins</p>
+    <p>In CapCut this is <b>Kak</b>: chunky, rounded, heavy. In the studio it renders in <b>Avenir Next Heavy</b> until I add a font file of my own. Always ALL CAPS.</p>
+    <h3>Quiet: the line under it</h3>
+    <p style="font-size:20px">in melbourne for free 🐧</p>
+    <p>In CapCut this is <b>Bulb</b>: thin and handwritten. In the studio it renders in the quiet font (Georgia) until I add a handwritten font file. Always lower case, emoji welcome at the end.</p>
+  </div>
+  <div class="flag">CapCut's Kak and Bulb live inside CapCut and can't be copied out. If I buy matching font files, they go in <code>brand/fonts/</code> and every reel switches to them.</div>
+  <p>Also allowed now and then: an elegant serif with one or two words in italic (like the Puffing Billy title), or hand lettering for one-off titles.</p>
+</section>
+
+<section id="colour">
+  <h2>Colour<small>Four colours, nothing else on screen</small></h2>
+  <div class="swatches">
+    <div class="sw"><div class="chip" style="background:var(--butter);color:var(--choc)">Punch</div><div class="meta">Butter yellow <code>#FFEFC3</code><br>The headline and the one loud word.</div></div>
+    <div class="sw"><div class="chip" style="background:var(--white);color:var(--choc)">Accent</div><div class="meta">White <code>#FFFFFF</code><br>The handwritten line, labels, captions on bright footage.</div></div>
+    <div class="sw"><div class="chip" style="background:var(--cream);color:var(--choc)">Paper</div><div class="meta">Cream <code>#FFF8E7</code><br>Cards, notes, receipts, end cards.</div></div>
+    <div class="sw"><div class="chip" style="background:var(--choc);color:var(--butter)">Ink</div><div class="meta">Chocolate <code>#4E3C3C</code><br>Text on light cards, outlines on captions. Never pure black text.</div></div>
+  </div>
+  <p>No pink in the brand set. Colour goes on the type, never washed over the footage.</p>
+</section>
+
+<section id="layout">
+  <h2>Layout<small>Positions at 1080 × 1920</small></h2>
+  <div class="phone" aria-label="Where things sit on screen">
+    <div class="zone" style="top:0;height:12%">Instagram top · keep clear</div>
+    <div class="icons"></div>
+    <div class="t-kick">day 2 of</div>
+    <div class="t-big">Asia<br>fund</div>
+    <div class="t-sub">come with me to bangkok ✌️</div>
+    <div class="cap" style="left:0">just</div>
+    <div class="zone" style="bottom:0;height:20%">Caption + buttons · keep clear</div>
+  </div>
+  <div class="scroll"><table>
+    <tr><th>Thing</th><th>Where</th><th>Size</th></tr>
+    <tr><td>Optional kicker ("day 2 of", "chapter 3")</td><td>Centred, top at 14% (y 270 px)</td><td>Quiet font, 38 to 44 px, lower case</td></tr>
+    <tr><td>Headline</td><td>Centred, 17% to 33% of the height</td><td>Display font, 120 to 150 px, caps, 2 lines max, width ≤ 860 px</td></tr>
+    <tr><td>Line under it</td><td>Directly under the headline, 24 px gap</td><td>Quiet font, 44 to 50 px, lower case</td></tr>
+    <tr><td>Captions</td><td>Centred at 72% (y 1380 px)</td><td>60 px, never under 56 px</td></tr>
+    <tr><td>Labels and place names</td><td>Left third or beside me, never on my face</td><td>Quiet font, 44 px, white</td></tr>
+    <tr><td>Stickers</td><td>Beside me, opposite side to my face</td><td>220 to 320 px wide</td></tr>
+  </table></div>
+  <p>Never anything in the top 12%, the bottom 20%, or under the icon strip on the right (from 86% across). Nothing over my face.</p>
+</section>
+
+<section id="captions">
+  <h2>Captions<small>One word at a time</small></h2>
+  <ul>
+    <li><b>One word on screen at a time</b>, timed to my voice.</li>
+    <li>Display font, butter yellow with a thin chocolate outline; white on very yellow or bright footage.</li>
+    <li>Small and low so the headline does the shouting.</li>
+    <li>Captions step aside while a big graphic (list, receipt, counter) is up.</li>
+    <li>Not shouted: captions are never ALL CAPS sentences.</li>
+  </ul>
+</section>
+
+<section id="cut">
+  <h2>The cut<small>Tight, fast, no dead air</small></h2>
+  <ul>
+    <li><b>Every gap and pause out.</b> Keep about 0.05 s of air either side of a word so it doesn't clip.</li>
+    <li><b>Flash cuts:</b> bursts of 0.1 to 0.2 s clips at the start and whenever I jump to a new place or day.</li>
+    <li>Something changes on screen every 1.5 to 3 seconds.</li>
+    <li>The first frame already has the headline on it. The hook lands in the first second.</li>
+    <li>Expect the final cut to be 30 to 40% shorter than the raw take.</li>
+    <li>B-roll of the place goes full screen or rising up behind me, and only over the words that name it.</li>
+  </ul>
+</section>
+
+<section id="sound">
+  <h2>Sound<small>My voice always wins</small></h2>
+  <ul>
+    <li><b>Sound effects on the moment they match:</b> mouse click, follow notification, whoosh or wave, typing. Files live in <code>brand/sfx/</code>.</li>
+    <li><b>Music under the whole reel, always quiet under my voice.</b></li>
+  </ul>
+  <div class="flag">Trending Instagram sounds are licensed inside the app. Default: the reel is exported with my voice clean, and I add the trending sound in Instagram with its volume turned right down. If I want music baked in, Claude uses a track I own, sitting well under my voice.</div>
+</section>
+
+<section id="effects">
+  <h2>Effects to offer me<small>A menu, not a recipe. Each reel picks a few from its own lines.</small></h2>
+  <div class="scroll"><table>
+    <tr><th>Effect</th><th>The line it sits on</th></tr>
+    <tr><td>A small line above your head</td><td>My title block: the place big, the reason to watch small</td></tr>
+    <tr><td>A quiet lead-in over one huge word</td><td>"in melbourne for… FREE"</td></tr>
+    <tr><td>A name tag</td><td>Place names as I arrive ("St Kilda Pier", "Day 2 · Asia fund")</td></tr>
+    <tr><td>A number counting up</td><td>"100 days left", "10 months", the Asia fund total</td></tr>
+    <tr><td>A list filling in one line at a time</td><td>"things to do in Tassie"</td></tr>
+    <tr><td>Photos snapping in, one flash each</td><td>Snack hauls, everything I packed, every stop of the day</td></tr>
+    <tr><td>A clip rising up behind you</td><td>B-roll of the place I'm talking about</td></tr>
+    <tr><td>A receipt, then struck out</td><td>"for free", what a trip really cost</td></tr>
+    <tr><td>A doodle drawn around you</td><td>Light, funny moments (I love doodled stars)</td></tr>
+    <tr><td>The screen tearing like paper</td><td>Jumping to a new place or day</td></tr>
+    <tr><td>A sticker popping in beside you</td><td>Plane ticket, backpack, passport, suitcase, location pin on the line that names them</td></tr>
+    <tr><td>One giant word behind your head</td><td>The one word the reel hangs on ("HOME"). Needs the Mac.</td></tr>
+  </table></div>
+  <p>About five a minute is plenty. Claude offers four to six and I choose.</p>
+</section>
+
+<section id="formats">
+  <h2>Formats<small>The five kinds of reel I make</small></h2>
+  <div class="card"><h3>1 · "Come with me" guides</h3><p>A place or experience, often free or cheap (penguins, Puffing Billy). Headline = the place. Line under = the reason (for free, in Melbourne). 20 to 45 s.</p></div>
+  <div class="card"><h3>2 · Trip diaries and series</h3><p>"2 weeks in Tasmania", "Day 2 of Asia fund". Kicker carries the series number. Flash cuts between stops. 30 to 60 s.</p></div>
+  <div class="card"><h3>3 · Life updates and stories</h3><p>"100 days left on my visa", "I'm coming home". Often voice over. Slower than the rest, still no dead air. 20 to 60 s.</p></div>
+  <div class="card"><h3>4 · Hauls and lists</h3><p>"Aussie snacks for home", "things to do in Tassie". Photos snapping in, a list filling in, stickers. 20 to 40 s.</p></div>
+  <div class="card"><h3>5 · UGC examples for brands</h3><p>Travel and tech pieces made to show brands what I can do. Cleaner and more polished: product clearly shown, benefits said out loud, one tidy headline, no inside jokes. 15 to 30 s, repostable by the brand.</p></div>
+</section>
+
+<section id="shooting">
+  <h2>Shooting<small>Habits that make the edit better</small></h2>
+  <ul>
+    <li>Film a 3 to 5 second clip of every place as I arrive: that's the b-roll and the flash cuts.</li>
+    <li>Start talking with "come with me to…" so the hook is already said.</li>
+    <li>For UGC pieces, film the product close up in good light, in use, from two angles.</li>
+  </ul>
+  <div class="flag">I haven't said my filming setup yet. From the reels it looks like a phone on the wide lens, handheld. Claude will check when the first footage arrives.</div>
+</section>
+
+<section id="ideas">
+  <h2>Idea bank<small>Brands I want to work with</small></h2>
+  <p>Airbnb · hotels · hostels · eSIM providers · backpacker brands · travel and tech brands.</p>
+  <ul>
+    <li>Hostel or Airbnb room tour: "come with me to my room for the night".</li>
+    <li>eSIM: landing somewhere new and getting online in under a minute.</li>
+    <li>Backpack: everything I carry for months, packed in one go.</li>
+    <li>Travel tech I use every day: the apps and gadgets on a travel day.</li>
+    <li>Hotel or hostel "for free / under $X" finds, in the "come with me" format.</li>
+  </ul>
+</section>
+
+<section id="words">
+  <h2>My words<small>Read before a single word goes on screen</small></h2>
+  <div class="card">
+    <h3>Signature phrase</h3>
+    <p class="say"><em>Come with me</em></p>
+    <p>In every reel, whatever it's about.</p>
+    <h3>How I open</h3>
+    <ul>
+      <li>"Come with me to see penguins for free"</li>
+      <li>"3, 2, 1, come with me to…"</li>
+    </ul>
+    <h3>How a reel ends</h3>
+    <p>Decided per reel. Claude asks me every time and never picks a default.</p>
+    <h3>Spelling and casing</h3>
+    <ul>
+      <li>British spelling: colour, favourite, travelling.</li>
+      <li>Opening headline ALL CAPS, the line under it lower case.</li>
+    </ul>
+  </div>
+</section>
+
+<section id="footage">
+  <h2>Hand me footage<small>How Claude edits for me</small></h2>
+  <ol>
+    <li>Read this guide, <code>brand/brand.json</code>, <code>brand/voice.json</code> and <code>brand/rules.json</code> first.</li>
+    <li>Describe every clip by what it shows. A clip nobody described is not used.</li>
+    <li>Find my "come with me" line and build the opening on it: headline in caps in the top third, the lower-case line under it, on screen from frame one.</li>
+    <li>Cut every gap. Flash-cut the opening and every place change.</li>
+    <li>Offer me four to six effects, each quoting the line it sits on, in plain words. I choose. If I said "just cut it", choose a few and tell me which.</li>
+    <li>Ask me how this reel ends. Don't assume.</li>
+    <li>Sound effects only on the moment they match. My voice always on top.</li>
+    <li>Every word on screen comes from what I said in the footage or from My words. British spelling.</li>
+    <li>Never hand me a cut that fails the check.</li>
+  </ol>
+</section>
+
+<footer>Megs · @megsonthemapsocials · contact@megsonthemap.com</footer>
+</main>
+</body>
+</html>

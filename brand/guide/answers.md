@@ -27,3 +27,6 @@
 3. Life updates and stories: "100 days left on my visa", "I'm coming home" (voice over).
 4. Hauls and lists: "Aussie snacks for home", "things to do in Tassie".
 5. UGC examples: brand-style travel and tech pieces made to show brands what she can do.
+
+## 4. Brands and ideas
+- Brands she wants: Airbnb, hotels, hostels, eSIM providers, backpacker brands, travel and tech brands.
