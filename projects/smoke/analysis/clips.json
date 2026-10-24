@@ -1,0 +1,14 @@
+{
+  "smoke": {
+    "file": "smoke.mp4",
+    "proxy": "proxy/smoke.mp4",
+    "hdr": false,
+    "portrait": true,
+    "width": 1080,
+    "height": 1920,
+    "hasAudio": true,
+    "duration": 10.666667,
+    "words": 33,
+    "text": "I haven't spoken about this before because it is one of the most embarrassing moments of my life I interviewed Caleb Ralston who did the content strategy behind Gary Vee and the Hormosis"
+  }
+}

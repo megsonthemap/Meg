@@ -38,6 +38,8 @@ import {loadVoice, blankVoice, voiceFile, readHistory, noteHistory} from './lib/
 import {menu} from './lib/menu.mjs';
 import {ffmpegPath, ffprobePath, ffEnv, h264Args, chromePath, fileUrl, linkDir, whisperCli, whisperModel, toolPath, canCutout, canFaceBox, cutoutWhy, faceWhy, downloadsDir, relPosix} from './lib/platform.mjs';
 import {withoutCutout} from './lib/no-cutout.mjs';
+// Remotion refuses more threads than the machine has cores, so six is a ceiling, not a demand
+const RENDER_THREADS = Math.max(1, Math.min(6, os.cpus().length));
 
 // Everything is resolved from where this script lives, so the kit can sit in any folder:
 //   <studio>/engine/reel.mjs (this file), <studio>/brand/brand.json + fonts, <studio>/projects, <studio>/inbox
@@ -694,7 +696,7 @@ async function cmdPreview(slug, n) {
   if (!m) throw new Error(`no moment ${n}`);
   const from = Math.max(0, Math.round((m.start - 0.6) * 30)), to = Math.min(composition.durationInFrames - 1, Math.round((m.end + 0.6) * 30));
   const out = path.join(dir, `m${String(m.n).padStart(2, '0')}.mp4`);
-  await R.renderMedia({composition, serveUrl, codec: 'h264', outputLocation: out, inputProps, frameRange: [from, to], scale: 0.5, crf: 26, concurrency: 6, timeoutInMilliseconds: 120000, chromiumOptions: {gl: 'angle'}});
+  await R.renderMedia({composition, serveUrl, codec: 'h264', outputLocation: out, inputProps, frameRange: [from, to], scale: 0.5, crf: 26, concurrency: RENDER_THREADS, timeoutInMilliseconds: 120000, chromiumOptions: {gl: 'angle'}});
   m.clip = path.basename(out); fs.writeFileSync(path.join(dir, 'moments.json'), JSON.stringify(mj, null, 1));
   log('preview:', out);
 }
@@ -857,7 +859,7 @@ async function cmdClip(slug, from, to) {
   if (!(b > a)) throw new Error('clip: say where it starts and ends');
   const dir = P(slug, 'out', 'clips'); fs.mkdirSync(dir, {recursive: true});
   const out = path.join(dir, 'clip.mp4');
-  await R.renderMedia({composition, serveUrl, codec: 'h264', outputLocation: out, inputProps, frameRange: [a, b], scale: 0.5, crf: 26, concurrency: 6, timeoutInMilliseconds: 120000, chromiumOptions: {gl: 'angle'}});
+  await R.renderMedia({composition, serveUrl, codec: 'h264', outputLocation: out, inputProps, frameRange: [a, b], scale: 0.5, crf: 26, concurrency: RENDER_THREADS, timeoutInMilliseconds: 120000, chromiumOptions: {gl: 'angle'}});
   wj(path.join(dir, 'clip.json'), {slug, from: a / 30, to: b / 30, at: Date.now()});
   log('clip:', out);
 }
@@ -898,7 +900,7 @@ async function cmdRender(slug, opts = {}) {
   let last = 0;
   await renderMedia({
     composition, serveUrl, codec: 'h264', outputLocation: out, inputProps,
-    crf: opts.draft ? 28 : 19, scale: opts.draft ? 0.5 : 1, concurrency: 6, timeoutInMilliseconds: 120000, hardwareAcceleration: 'if-possible',
+    crf: opts.draft ? 28 : 19, scale: opts.draft ? 0.5 : 1, concurrency: RENDER_THREADS, timeoutInMilliseconds: 120000, hardwareAcceleration: 'if-possible',
     audioBitrate: '256k', chromiumOptions: {gl: 'angle'},
     onProgress: ({progress}) => { const p = Math.floor(progress * 10); if (p > last) { last = p; process.stdout.write(`${p * 10}% `); } },
   });
@@ -1221,7 +1223,7 @@ else if (cmd === 'capcut') {
   const composition = await selectComposition({serveUrl, id: plan?.format === 'wide' || inputProps?.plan?.format === 'wide' ? 'ReelWide' : 'Reel', inputProps});
   const overlayFile = P(slug, 'out', `${slug}-graphics.mov`);
   log('rendering transparent graphics layer…');
-  await renderMedia({composition, serveUrl, inputProps, codec: 'prores', proResProfile: '4444', imageFormat: 'png', pixelFormat: 'yuva444p10le', muted: true, outputLocation: overlayFile, concurrency: 6});
+  await renderMedia({composition, serveUrl, inputProps, codec: 'prores', proResProfile: '4444', imageFormat: 'png', pixelFormat: 'yuva444p10le', muted: true, outputLocation: overlayFile, concurrency: RENDER_THREADS});
   const {exportCapCut} = await import('./lib/capcut.mjs');
   await exportCapCut(slug, plan, {P, info: rj(P(slug, 'analysis', 'clips.json')), overlayFile});
 }

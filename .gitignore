@@ -5,3 +5,11 @@ engine/.cmake-venv/
 engine/tools/bin/*
 !engine/tools/bin/deep-filter
 .DS_Store
+
+# Regenerated on every render or prep; the finished out/<slug>.mp4 is what is kept
+.stage/
+projects/*/proxy/
+projects/*/raw/
+projects/*/out/check/
+projects/*/out/light/
+projects/*/out/versions/

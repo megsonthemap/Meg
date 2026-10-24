@@ -1,0 +1,43 @@
+{
+  "slug": "smoke",
+  "_comment": "Install smoke test. One 10 s take, stack captions on their own panel, a hook on bars and one big word drawn behind the subject. If this renders and passes the check, fonts, captions, whisper and the Vision cutout all work.",
+  "captions": {
+    "mode": "stack",
+    "box": true,
+    "y": 0.72,
+    "maxWords": 4
+  },
+  "fix": {
+    "Hormoses.": "Hormozis."
+  },
+  "cuts": [
+    {
+      "src": "smoke",
+      "in": 0.0,
+      "out": 10.6
+    }
+  ],
+  "hook": {
+    "mode": "bars",
+    "text": "I haven't spoken\nabout this before.",
+    "end": 3.0,
+    "y": 0.14
+  },
+  "emphasis": [
+    {
+      "word": "embarrassing",
+      "style": "punch"
+    }
+  ],
+  "fx": [
+    {
+      "type": "bigword",
+      "text": "EMBARRASSING",
+      "at": 4.35,
+      "dur": 1.6,
+      "behind": true,
+      "y": 0.36,
+      "size": 84
+    }
+  ]
+}

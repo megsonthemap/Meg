@@ -1,0 +1,23 @@
+{
+  "$schema": "reel-studio/history.json v1",
+  "note": "What each rendered cut opened with and which effects it used, newest last. Claude reads the last few before planning so one person's third reel does not open like their first. Safe to delete; it only ever costs you the anti-repeat.",
+  "reels": [
+    {
+      "slug": "smoke",
+      "v": 2,
+      "at": 1792829213572,
+      "hook": {
+        "mode": "bars",
+        "text": "I haven't spoken"
+      },
+      "captions": "stack",
+      "opening": [
+        "bigword"
+      ],
+      "fx": [
+        "bigword"
+      ],
+      "end": null
+    }
+  ]
+}
