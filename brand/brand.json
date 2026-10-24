@@ -3,10 +3,10 @@
   "name": "Megs",
   "handle": "megsonthemapsocials",
   "colours": {
-    "punch": "#FFE14D",
-    "accent": "#9FB8D6",
-    "paper": "#F4F4F2",
-    "ink": "#444444",
+    "punch": "#FFEFC3",
+    "accent": "#FFFFFF",
+    "paper": "#FFF8E7",
+    "ink": "#4E3C3C",
     "dark": "#1E1E1E",
     "white": "#FFFFFF"
   },
