@@ -1,0 +1,30 @@
+{
+  "$schema": "reel-studio/brand.json v1",
+  "name": "Your Name",
+  "handle": "yourhandle",
+  "colours": {
+    "punch": "#FFE14D",
+    "accent": "#9FB8D6",
+    "paper": "#F4F4F2",
+    "ink": "#444444",
+    "dark": "#1E1E1E",
+    "white": "#FFFFFF"
+  },
+  "reel": {
+    "captions": {
+      "mode": "stack",
+      "size": 60,
+      "y": 0.6,
+      "maxWords": 5
+    },
+    "safe": {
+      "top": 0.12,
+      "bottom": 0.2,
+      "iconColumn": 0.86,
+      "minCaptionSize": 56,
+      "minContrast": 4.5,
+      "brightBackground": 0.55,
+      "onBrightText": "ink"
+    }
+  }
+}

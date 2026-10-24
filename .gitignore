@@ -1,0 +1,7 @@
+# Installed by install.sh / engine/setup.mjs — rebuilt on each machine
+engine/node_modules/
+engine/whisper.cpp/
+engine/.cmake-venv/
+engine/tools/bin/*
+!engine/tools/bin/deep-filter
+.DS_Store

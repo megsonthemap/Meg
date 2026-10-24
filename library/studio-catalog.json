@@ -1,0 +1,1055 @@
+{
+ "groups": [
+  [
+   "hooks",
+   "Hooks + captions"
+  ],
+  [
+   "text",
+   "Type moments"
+  ],
+  [
+   "media",
+   "Photos, b-roll + proof"
+  ],
+  [
+   "ui",
+   "Screens + UI cards"
+  ],
+  [
+   "move",
+   "Moves + transitions"
+  ]
+ ],
+ "effects": [
+  {
+   "id": "hook-bars",
+   "name": "Highlight-bar hook",
+   "group": "hooks",
+   "when": "Every reel\u2019s first frame. Highlight bars in my brand yellow and charcoal, on screen from frame one.",
+   "types": [],
+   "patch": "A",
+   "img": "/library/img/hook-bars.jpg"
+  },
+  {
+   "id": "hook-top",
+   "name": "Compact yellow hook",
+   "group": "hooks",
+   "when": "A quieter opener when the shot itself is the hook.",
+   "types": [],
+   "patch": "B",
+   "img": "/library/img/hook-top.jpg"
+  },
+  {
+   "id": "hook-behind",
+   "name": "Hook behind your head",
+   "group": "hooks",
+   "when": "Short, punchy titles (2 lines max) tucked behind my head.",
+   "types": [],
+   "patch": "C",
+   "img": "/library/img/hook-behind.jpg",
+   "macOnly": true,
+   "onWindows": "The hook sits on top of the shot instead of behind your head."
+  },
+  {
+   "id": "cap-stack",
+   "name": "Stacked captions",
+   "group": "hooks",
+   "when": "Default. Your display font for the loud words, your caption font for the small ones between.",
+   "types": [],
+   "patch": "A",
+   "img": "/library/img/cap-stack.jpg"
+  },
+  {
+   "id": "cap-phrase",
+   "name": "Lead-in + punch word",
+   "group": "hooks",
+   "when": "A small serif lead-in above one huge yellow word.",
+   "types": [],
+   "patch": "B",
+   "img": "/library/img/cap-phrase.jpg"
+  },
+  {
+   "id": "cap-word",
+   "name": "One word at a time",
+   "group": "hooks",
+   "when": "Calmer, premium, story-led reels.",
+   "types": [],
+   "patch": "C",
+   "img": "/library/img/cap-word.jpg"
+  },
+  {
+   "id": "cap-glow",
+   "name": "Glow captions",
+   "group": "hooks",
+   "when": "Teaching and list reels: the whole line sits up, and each word lights up as you say it, so people read along.",
+   "types": [],
+   "patch": "H",
+   "img": "/library/img/cap-glow.jpg"
+  },
+  {
+   "id": "cap-box",
+   "name": "Boxed captions",
+   "group": "hooks",
+   "when": "Busy or bright backgrounds where floating captions get lost.",
+   "types": [],
+   "patch": "D",
+   "img": "/library/img/cap-box.jpg"
+  },
+  {
+   "id": "cap-blur",
+   "name": "Blur-in captions",
+   "group": "hooks",
+   "when": "A softer caption entrance for slower, reflective reels.",
+   "types": [],
+   "patch": "E",
+   "img": "/library/img/cap-blur.jpg"
+  },
+  {
+   "id": "checklist",
+   "name": "Checklist that fills in",
+   "group": "hooks",
+   "when": "\"Ask yourself these 3 questions\" reels. One line fills in per point, as it\u2019s said.",
+   "types": [],
+   "patch": "A",
+   "img": "/library/img/checklist.jpg"
+  },
+  {
+   "id": "endcard",
+   "name": "End card",
+   "group": "hooks",
+   "when": "Last 2 to 3 seconds: the keyword or \"part 2\".",
+   "types": [],
+   "patch": "A",
+   "img": "/library/img/endcard.jpg"
+  },
+  {
+   "id": "bigword",
+   "name": "Giant word behind your head",
+   "group": "text",
+   "when": "The one word the reel hangs on, behind my head (ICON, LABEL).",
+   "types": [
+    "bigword"
+   ],
+   "patch": null,
+   "img": "/library/img/bigword.jpg",
+   "macOnly": true,
+   "onWindows": "The giant word is drawn in front of you."
+  },
+  {
+   "id": "bigword-serif",
+   "name": "Serif numbers",
+   "group": "text",
+   "when": "Numbered steps and big moments (\"1 2 3\", \"BETTER RESULT\").",
+   "types": [
+    "bigword"
+   ],
+   "patch": null,
+   "img": "/library/img/bigword-serif.jpg",
+   "macOnly": true,
+   "onWindows": "The numbers are drawn in front of you."
+  },
+  {
+   "id": "strike",
+   "name": "Word struck through",
+   "group": "text",
+   "when": "Killing an old idea (\"PROMPTS\", \"COURSES\").",
+   "types": [
+    "bigword"
+   ],
+   "patch": null,
+   "img": "/library/img/strike.jpg"
+  },
+  {
+   "id": "label",
+   "name": "Name label",
+   "group": "text",
+   "when": "Introducing a person, step or section (\"Step 1 \u00b7 Photos\").",
+   "types": [
+    "label"
+   ],
+   "patch": null,
+   "img": "/library/img/label.jpg"
+  },
+  {
+   "id": "label-blue",
+   "name": "Accent label bar",
+   "group": "text",
+   "when": "Brand moments: your show or business name on an accent-colour bar.",
+   "types": [
+    "label"
+   ],
+   "patch": null,
+   "img": "/library/img/label-blue.jpg"
+  },
+  {
+   "id": "counter",
+   "name": "Counter",
+   "group": "text",
+   "when": "Any number that changed: 300 to 3,000 plays.",
+   "types": [
+    "counter"
+   ],
+   "patch": null,
+   "img": "/library/img/counter.jpg"
+  },
+  {
+   "id": "counter-roll",
+   "name": "Slot-machine number",
+   "group": "text",
+   "when": "A big reveal number (26 effects, $85K).",
+   "types": [
+    "counter"
+   ],
+   "patch": null,
+   "img": "/library/img/counter-roll.jpg"
+  },
+  {
+   "id": "burn",
+   "name": "Burning word",
+   "group": "text",
+   "when": "A dramatic one-liner (\"COOKED.\"). Rarely.",
+   "types": [
+    "burn"
+   ],
+   "patch": null,
+   "img": "/library/img/burn.jpg"
+  },
+  {
+   "id": "glass",
+   "name": "Glass type",
+   "group": "text",
+   "when": "A premium title behind me (brand or platform names).",
+   "types": [
+    "glass"
+   ],
+   "patch": null,
+   "img": "/library/img/glass.jpg",
+   "macOnly": true,
+   "onWindows": "The glass word is drawn over the shot."
+  },
+  {
+   "id": "wrap",
+   "name": "Headline wrap",
+   "group": "text",
+   "when": "A big statement in three or four short lines: the top lines tuck behind your head and the rest land in front of you, one by one.",
+   "types": [
+    "wrap"
+   ],
+   "patch": null,
+   "img": "/library/img/wrap.jpg",
+   "macOnly": true,
+   "onWindows": "All the lines are drawn in front of you, none tuck behind your head."
+  },
+  {
+   "id": "cover",
+   "name": "Magazine cover",
+   "group": "text",
+   "when": "Story reels and \"the story of\u2026\" openers.",
+   "types": [
+    "cover"
+   ],
+   "patch": null,
+   "img": "/library/img/cover.jpg",
+   "macOnly": true,
+   "onWindows": "The masthead and cover lines are drawn over the shot."
+  },
+  {
+   "id": "paper",
+   "name": "Paper cut",
+   "group": "text",
+   "when": "A playful chapter break, with a white sticker outline around me.",
+   "types": [
+    "paper"
+   ],
+   "patch": null,
+   "img": "/library/img/paper.jpg",
+   "macOnly": true,
+   "onWindows": "Shown as a full-screen paper title card, without the white outline around you."
+  },
+  {
+   "id": "annotate",
+   "name": "Arrow note",
+   "group": "text",
+   "when": "Pointing at me or something in frame (\"can\u2019t edit\").",
+   "types": [
+    "annotate"
+   ],
+   "patch": null,
+   "img": "/library/img/annotate.jpg"
+  },
+  {
+   "id": "header",
+   "name": "Pinned question",
+   "group": "text",
+   "when": "Framing the whole reel as a question.",
+   "types": [
+    "header"
+   ],
+   "patch": null,
+   "img": "/library/img/header.jpg"
+  },
+  {
+   "id": "colourbg",
+   "name": "Colour title",
+   "group": "text",
+   "when": "Opening line or chapter break: the background turns brand blue, I stay in front.",
+   "types": [
+    "colourbg"
+   ],
+   "patch": null,
+   "img": "/library/img/colourbg.jpg",
+   "macOnly": true,
+   "onWindows": "Shown as a full-screen colour title card for the same seconds; your voice carries on underneath."
+  },
+  {
+   "id": "backdrop",
+   "name": "Screen behind you",
+   "group": "media",
+   "when": "Real screenshots or b-roll of exactly what\u2019s being said, fading into the shot.",
+   "types": [
+    "backdrop"
+   ],
+   "patch": null,
+   "img": "/library/img/backdrop.jpg",
+   "macOnly": true,
+   "onWindows": "Becomes a stacked shot: the screenshot or b-roll on the top half, you moved down underneath it."
+  },
+  {
+   "id": "band",
+   "name": "Stacked shot, blur seam",
+   "group": "media",
+   "when": "A guest or second angle on top, me below. Never a hard split.",
+   "types": [
+    "band"
+   ],
+   "patch": null,
+   "img": "/library/img/band.jpg"
+  },
+  {
+   "id": "deck-fan",
+   "name": "Photo fan",
+   "group": "media",
+   "when": "Showing a set of things (clothes, episodes, guests).",
+   "types": [
+    "deck"
+   ],
+   "patch": null,
+   "img": "/library/img/deck-fan.jpg",
+   "macOnly": true,
+   "onWindows": "The photos are drawn in front of you."
+  },
+  {
+   "id": "deck-snap",
+   "name": "Camera snaps",
+   "group": "media",
+   "when": "\"Take photos of\u2026\" moments, one flash per photo.",
+   "types": [
+    "deck"
+   ],
+   "patch": null,
+   "img": "/library/img/deck-snap.jpg",
+   "macOnly": true,
+   "onWindows": "The photos are drawn in front of you."
+  },
+  {
+   "id": "deck-wall",
+   "name": "Photo wall",
+   "group": "media",
+   "when": "Volume and proof (every reel, every client).",
+   "types": [
+    "deck"
+   ],
+   "patch": null,
+   "img": "/library/img/deck-wall.jpg",
+   "macOnly": true,
+   "onWindows": "The photos are drawn in front of you."
+  },
+  {
+   "id": "deck-scatter",
+   "name": "Headline scatter",
+   "group": "media",
+   "when": "Press, DMs or reviews landing around me.",
+   "types": [
+    "deck"
+   ],
+   "patch": null,
+   "img": "/library/img/deck-scatter.jpg",
+   "macOnly": true,
+   "onWindows": "The headlines are drawn in front of you."
+  },
+  {
+   "id": "orbit",
+   "name": "Orbit",
+   "group": "media",
+   "when": "Cards circling me: tools, guests, platforms.",
+   "types": [
+    "orbit"
+   ],
+   "patch": null,
+   "img": "/library/img/orbit.jpg",
+   "macOnly": true,
+   "onWindows": "The cards circle over the shot rather than passing behind you."
+  },
+  {
+   "id": "sticker",
+   "name": "Sticker",
+   "group": "media",
+   "when": "A logo or cut-out object popping in beside me.",
+   "types": [
+    "sticker"
+   ],
+   "patch": null,
+   "img": "/library/img/sticker.jpg"
+  },
+  {
+   "id": "sticker-strike",
+   "name": "Icon strike",
+   "group": "media",
+   "when": "\"You don\u2019t need CapCut\" moments.",
+   "types": [
+    "sticker"
+   ],
+   "patch": null,
+   "img": "/library/img/sticker-strike.jpg"
+  },
+  {
+   "id": "folder",
+   "name": "Folder drop",
+   "group": "media",
+   "when": "\"Put them all in one folder\" moments.",
+   "types": [
+    "folder"
+   ],
+   "patch": null,
+   "img": "/library/img/folder.jpg"
+  },
+  {
+   "id": "phone",
+   "name": "Phone with views",
+   "group": "media",
+   "when": "Showing a real post, with its view count ticking up.",
+   "types": [
+    "phone"
+   ],
+   "patch": null,
+   "img": "/library/img/phone.jpg"
+  },
+  {
+   "id": "envelope",
+   "name": "Envelope reveal",
+   "group": "media",
+   "when": "The free guide or lead magnet in the call to action.",
+   "types": [
+    "envelope"
+   ],
+   "patch": null,
+   "img": "/library/img/envelope.jpg"
+  },
+  {
+   "id": "swatches",
+   "name": "Brand swatches",
+   "group": "media",
+   "when": "Branding talk: brand colours and fonts fanning out.",
+   "types": [
+    "swatches"
+   ],
+   "patch": null,
+   "img": "/library/img/swatches.jpg"
+  },
+  {
+   "id": "receipts",
+   "name": "Receipts",
+   "group": "media",
+   "when": "What something costs, then striking it out.",
+   "types": [
+    "receipts"
+   ],
+   "patch": null,
+   "img": "/library/img/receipts.jpg"
+  },
+  {
+   "id": "prompt",
+   "name": "Prompt bar",
+   "group": "ui",
+   "when": "The exact prompt, typing out.",
+   "types": [
+    "prompt"
+   ],
+   "patch": null,
+   "img": "/library/img/prompt.jpg"
+  },
+  {
+   "id": "prompt-files",
+   "name": "Prompt with files",
+   "group": "ui",
+   "when": "\"I dropped my raw clips in\u2026\" moments.",
+   "types": [
+    "prompt"
+   ],
+   "patch": null,
+   "img": "/library/img/prompt-files.jpg"
+  },
+  {
+   "id": "chat",
+   "name": "Chat",
+   "group": "ui",
+   "when": "A real back-and-forth with AI or a client.",
+   "types": [
+    "chat"
+   ],
+   "patch": null,
+   "img": "/library/img/chat.jpg"
+  },
+  {
+   "id": "pills",
+   "name": "Approval pile-up",
+   "group": "ui",
+   "when": "Showing a pain multiplying (approvals, notifications).",
+   "types": [
+    "pills"
+   ],
+   "patch": null,
+   "img": "/library/img/pills.jpg"
+  },
+  {
+   "id": "tasks",
+   "name": "Task list",
+   "group": "ui",
+   "when": "A process ticking itself off.",
+   "types": [
+    "tasks"
+   ],
+   "patch": null,
+   "img": "/library/img/tasks.jpg"
+  },
+  {
+   "id": "calendar",
+   "name": "Calendar",
+   "group": "ui",
+   "when": "A content plan or posting week.",
+   "types": [
+    "calendar"
+   ],
+   "patch": null,
+   "img": "/library/img/calendar.jpg"
+  },
+  {
+   "id": "dropdown",
+   "name": "Dropdown pick",
+   "group": "ui",
+   "when": "Choosing a model, setting or option.",
+   "types": [
+    "dropdown"
+   ],
+   "patch": null,
+   "img": "/library/img/dropdown.jpg"
+  },
+  {
+   "id": "dial",
+   "name": "Effort dial",
+   "group": "ui",
+   "when": "\u201cTurn it up to max\u201d moments.",
+   "types": [
+    "dial"
+   ],
+   "patch": null,
+   "img": "/library/img/dial.jpg"
+  },
+  {
+   "id": "note",
+   "name": "Struck-out note",
+   "group": "ui",
+   "when": "\"You don\u2019t need X\" lists.",
+   "types": [
+    "note"
+   ],
+   "patch": null,
+   "img": "/library/img/note.jpg"
+  },
+  {
+   "id": "spotlight",
+   "name": "Tool spotlight",
+   "group": "ui",
+   "when": "\"The one that matters is\u2026\": a grid, then one steps forward.",
+   "types": [
+    "canvas",
+    "spotlight"
+   ],
+   "patch": null,
+   "img": "/library/img/spotlight.jpg"
+  },
+  {
+   "id": "statbars",
+   "name": "Stat bars",
+   "group": "ui",
+   "when": "Show stats, before and after.",
+   "types": [
+    "statbars"
+   ],
+   "patch": null,
+   "img": "/library/img/statbars.jpg"
+  },
+  {
+   "id": "flow",
+   "name": "Flow arrows",
+   "group": "ui",
+   "when": "Any process, step by step, on the explainer board.",
+   "types": [
+    "canvas",
+    "flow"
+   ],
+   "patch": null,
+   "img": "/library/img/flow.jpg"
+  },
+  {
+   "id": "chart",
+   "name": "Glowing chart",
+   "group": "ui",
+   "when": "Growth over time (downloads, followers, revenue).",
+   "types": [
+    "chart"
+   ],
+   "patch": null,
+   "img": "/library/img/chart.jpg"
+  },
+  {
+   "id": "timeline",
+   "name": "Edit timeline",
+   "group": "ui",
+   "when": "Talking about editing or production.",
+   "types": [
+    "timeline"
+   ],
+   "patch": null,
+   "img": "/library/img/timeline.jpg"
+  },
+  {
+   "id": "uiworld",
+   "name": "App background",
+   "group": "ui",
+   "when": "The whole background becomes the app I\u2019m using.",
+   "types": [
+    "uiworld"
+   ],
+   "patch": null,
+   "img": "/library/img/uiworld.jpg",
+   "macOnly": true,
+   "onWindows": "Becomes the prompt bar over your shot, with the same typing."
+  },
+  {
+   "id": "dm",
+   "name": "DM card",
+   "group": "ui",
+   "when": "The comment-keyword CTA, with the reply landing.",
+   "types": [
+    "dm"
+   ],
+   "patch": null,
+   "img": "/library/img/dm.jpg"
+  },
+  {
+   "id": "comment",
+   "name": "Comment box",
+   "group": "ui",
+   "when": "CTA: the keyword typing into a comment, then Follow.",
+   "types": [
+    "comment"
+   ],
+   "patch": null,
+   "img": "/library/img/comment.jpg"
+  },
+  {
+   "id": "framebreak",
+   "name": "Frame break",
+   "group": "move",
+   "when": "A big moment: I pop out of the frame.",
+   "types": [
+    "framebreak"
+   ],
+   "patch": null,
+   "img": "/library/img/framebreak.jpg",
+   "macOnly": true,
+   "onWindows": "The frame shrinks with you inside it; you do not step out of the frame."
+  },
+  {
+   "id": "pullback",
+   "name": "Pull-back reveal",
+   "group": "move",
+   "when": "Revealing the process behind the video.",
+   "types": [
+    "pullback"
+   ],
+   "patch": null,
+   "img": "/library/img/pullback.jpg",
+   "macOnly": true,
+   "onWindows": "The whole shot pulls back, you included."
+  },
+  {
+   "id": "doodle",
+   "name": "Doodle outline",
+   "group": "move",
+   "when": "Light, funny moments.",
+   "types": [
+    "doodle"
+   ],
+   "patch": null,
+   "img": "/library/img/doodle.jpg",
+   "macOnly": true,
+   "onWindows": "The doodles wobble around you, without the white outline."
+  },
+  {
+   "id": "vertigo",
+   "name": "Vertigo",
+   "group": "move",
+   "when": "A realisation or an \"it hit me\" moment: the room stretches behind me while I stay still.",
+   "types": [
+    "vertigo"
+   ],
+   "patch": null,
+   "img": "/library/img/vertigo.jpg",
+   "macOnly": true,
+   "onWindows": "The whole shot zooms; you do not hold still while the room moves."
+  },
+  {
+   "id": "dzoom",
+   "name": "Snap zoom",
+   "group": "move",
+   "when": "Landing a punch line: the shot snaps in tight on the word, then holds.",
+   "types": [
+    "dzoom"
+   ],
+   "patch": null,
+   "img": "/library/img/dzoom.jpg"
+  },
+  {
+   "id": "zoomthrough",
+   "name": "Zoom-through cut",
+   "group": "move",
+   "when": "Diving into the next point or a new location: the shot rushes forward into the next one.",
+   "types": [
+    "zoomthrough"
+   ],
+   "patch": null,
+   "img": "/library/img/zoomthrough.jpg"
+  },
+  {
+   "id": "zoomblur",
+   "name": "Zoom-blur cut",
+   "group": "move",
+   "when": "Jumping to the next point.",
+   "types": [
+    "zoomblur"
+   ],
+   "patch": null,
+   "img": "/library/img/zoomblur.jpg"
+  },
+  {
+   "id": "rip",
+   "name": "Paper rip",
+   "group": "move",
+   "when": "Hard change of topic or location.",
+   "types": [
+    "rip"
+   ],
+   "patch": null,
+   "img": "/library/img/rip.jpg"
+  },
+  {
+   "id": "glitch",
+   "name": "Glitch cut",
+   "group": "move",
+   "when": "Tech moments, quick switches.",
+   "types": [
+    "glitch"
+   ],
+   "patch": null,
+   "img": "/library/img/glitch.jpg"
+  },
+  {
+   "id": "flash",
+   "name": "Light flash",
+   "group": "move",
+   "when": "Time jumps. Once a reel, max.",
+   "types": [
+    "flash"
+   ],
+   "patch": null,
+   "img": "/library/img/flash.jpg"
+  },
+  {
+   "id": "badges",
+   "name": "Badges fly in",
+   "group": "text",
+   "when": "Two or three short reactions or labels stacking beside me (\"same feeling?\", \"new audience\").",
+   "types": [
+    "badges"
+   ],
+   "patch": null,
+   "img": "/library/img/badges.jpg"
+  },
+  {
+   "id": "polaroids",
+   "name": "Polaroids scatter",
+   "group": "media",
+   "when": "Photos of real things I mention: products, people, moments. Taped polaroids drop in around me.",
+   "types": [
+    "polaroids"
+   ],
+   "patch": null,
+   "img": "/library/img/polaroids.jpg"
+  },
+  {
+   "id": "circle",
+   "name": "Hand-drawn circle",
+   "group": "text",
+   "when": "Pointing at one thing on screen: a number, a word, a detail in a screenshot.",
+   "types": [
+    "bigword",
+    "circle"
+   ],
+   "patch": null,
+   "img": "/library/img/circle.jpg"
+  },
+  {
+   "id": "stampcal",
+   "name": "Stamped calendar",
+   "group": "ui",
+   "when": "Dates, launches, a posting schedule: stamps slam onto the days I name.",
+   "types": [
+    "stampcal"
+   ],
+   "patch": null,
+   "img": "/library/img/stampcal.jpg"
+  },
+  {
+   "id": "collage",
+   "name": "Collage title",
+   "group": "text",
+   "when": "Introducing who I am or what this is about: a huge word up the edge with paper tags.",
+   "types": [
+    "collage"
+   ],
+   "patch": null,
+   "img": "/library/img/collage.jpg"
+  },
+  {
+   "id": "photostrip",
+   "name": "Photo-booth strip",
+   "group": "media",
+   "when": "A run of moments or outfits; a 3D paper strip floats beside me.",
+   "types": [
+    "photostrip"
+   ],
+   "patch": null,
+   "img": "/library/img/photostrip.jpg"
+  },
+  {
+   "id": "curtain",
+   "name": "Paper curtain",
+   "group": "move",
+   "when": "A clean chapter change: paper closes over the frame and opens on the next part.",
+   "types": [
+    "curtain"
+   ],
+   "patch": null,
+   "img": "/library/img/curtain.jpg"
+  },
+  {
+   "id": "paperslide",
+   "name": "Paper slides in",
+   "group": "move",
+   "when": "Into a new section or a list: a sheet slides up over the shot.",
+   "types": [
+    "paperslide"
+   ],
+   "patch": null,
+   "img": "/library/img/paperslide.jpg"
+  },
+  {
+   "id": "pageturn",
+   "name": "Page turn",
+   "group": "move",
+   "when": "Moving the story on (\"next...\", \"then...\"): a page sweeps across.",
+   "types": [
+    "pageturn"
+   ],
+   "patch": null,
+   "img": "/library/img/pageturn.jpg"
+  },
+  {
+   "id": "paperturn",
+   "name": "Paper flip",
+   "group": "move",
+   "when": "A reveal or a reset: the frame flips over to a paper card and back.",
+   "types": [
+    "paperturn"
+   ],
+   "patch": null,
+   "img": "/library/img/paperturn.jpg"
+  },
+  {
+   "id": "cap-drop",
+   "name": "Drop-in captions",
+   "group": "hooks",
+   "when": "Punchy reels: each phrase drops in from above.",
+   "types": [],
+   "patch": "F",
+   "img": "/library/img/cap-drop.jpg"
+  },
+  {
+   "id": "cap-rise",
+   "name": "Rise-from-blur captions",
+   "group": "hooks",
+   "when": "Softer, story reels: phrases rise up out of a blur.",
+   "types": [],
+   "patch": "G",
+   "img": "/library/img/cap-rise.jpg"
+  },
+  {
+   "id": "stamp",
+   "name": "Rubber stamp",
+   "group": "text",
+   "when": "A verdict: SOLD, BOOKED, APPROVED, DONE. One slam, on the word.",
+   "types": [
+    "shake",
+    "stamp"
+   ],
+   "patch": null,
+   "img": "/library/img/stamp.jpg"
+  },
+  {
+   "id": "shake",
+   "name": "Screen shake",
+   "group": "move",
+   "when": "A jolt on a punch line or a shock number. Pair it with a stamp or a big word.",
+   "types": [
+    "bigword",
+    "shake"
+   ],
+   "patch": null,
+   "img": "/library/img/shake.jpg"
+  },
+  {
+   "id": "notifs",
+   "name": "Phone notifications",
+   "group": "ui",
+   "when": "Results arriving: sales, bookings, new followers, DMs. Banners slide down and stack.",
+   "types": [
+    "notifs"
+   ],
+   "patch": null,
+   "img": "/library/img/notifs.jpg"
+  },
+  {
+   "id": "post",
+   "name": "Social post card",
+   "group": "ui",
+   "when": "Proof someone said it: a client win, a review, a quote. Real words only.",
+   "types": [
+    "post"
+   ],
+   "patch": null,
+   "img": "/library/img/post.jpg"
+  },
+  {
+   "id": "confetti",
+   "name": "Confetti burst",
+   "group": "text",
+   "when": "A genuine win: a launch, a milestone, a sale. Use rarely, it loses its pop.",
+   "types": [
+    "confetti"
+   ],
+   "patch": null,
+   "img": "/library/img/confetti.jpg"
+  },
+  {
+   "id": "splitflap",
+   "name": "Split-flap board",
+   "group": "text",
+   "when": "A reveal of a place, a destination or a big word: the letters flip until they land.",
+   "types": [
+    "splitflap"
+   ],
+   "patch": null,
+   "img": "/library/img/splitflap.jpg"
+  },
+  {
+   "id": "scratch",
+   "name": "Scratch-off reveal",
+   "group": "text",
+   "when": "Holding back the answer for a beat: the foil scratches away on the word.",
+   "types": [
+    "scratch"
+   ],
+   "patch": null,
+   "img": "/library/img/scratch.jpg"
+  },
+  {
+   "id": "rewind",
+   "name": "VHS rewind",
+   "group": "move",
+   "when": "\"Let me go back\", \"rewind to 2019\": a flashback or a correction.",
+   "types": [
+    "rewind"
+   ],
+   "patch": null,
+   "img": "/library/img/rewind.jpg"
+  },
+  {
+   "id": "igpoll",
+   "name": "Poll results",
+   "group": "ui",
+   "when": "When I quote a split (\"most people say...\"): the poll fills to the real numbers.",
+   "types": [
+    "igpoll"
+   ],
+   "patch": null,
+   "img": "/library/img/igpoll.jpg"
+  },
+  {
+   "id": "pricetag",
+   "name": "Price tag",
+   "group": "text",
+   "when": "A price or a cost: a paper tag drops in and swings.",
+   "types": [
+    "pricetag"
+   ],
+   "patch": null,
+   "img": "/library/img/pricetag.jpg"
+  },
+  {
+   "id": "ticker",
+   "name": "News ticker",
+   "group": "text",
+   "when": "Breaking news, a launch or an announcement: a lower-third ticker scrolls.",
+   "types": [
+    "ticker"
+   ],
+   "patch": null,
+   "img": "/library/img/ticker.jpg"
+  },
+  {
+   "id": "wipe",
+   "name": "Before and after wipe",
+   "group": "media",
+   "when": "Showing the raw take turning into the edit (or any before and after).",
+   "types": [
+    "wipe"
+   ],
+   "patch": null,
+   "img": "/library/img/wipe.jpg"
+  },
+  {
+   "id": "doc",
+   "name": "Doc page",
+   "group": "ui",
+   "when": "Scripts, plans, briefs, SOPs: a doc page types out and the key line gets highlighted.",
+   "types": [
+    "doc"
+   ],
+   "patch": null,
+   "img": "/library/img/doc.jpg"
+  }
+ ]
+}

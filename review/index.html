@@ -1,0 +1,1092 @@
+<!doctype html>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Reel Review</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100..125,500..900&family=Inter:wght@400;500;600&display=swap">
+<style>
+  .smgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px} .smlist{margin:8px 0 0;padding-left:18px} .smlist li{margin:5px 0} .smrule{padding:12px 0;border-top:1px solid var(--line)}
+  .looks{display:grid;grid-template-columns:repeat(2,1fr);gap:5px} .look{background:none;border:2px solid transparent;border-radius:7px;padding:0;cursor:pointer;color:var(--muted);font-size:11px;line-height:1.2} .look img{width:100%;aspect-ratio:9/16;object-fit:cover;border-radius:5px;display:block} .look span{display:block;padding:2px 0} .look.on{border-color:var(--yellow);color:var(--fg)}
+  .qf{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+  .mgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px} .mtile{position:relative;background:var(--panel2,#222);border-radius:12px;padding:8px;display:flex;flex-direction:column;gap:6px} .mimg{width:100%;aspect-ratio:9/16;object-fit:cover;border-radius:8px;background:#000} .mnum{position:absolute;top:12px;left:12px;background:var(--yellow);color:#151515;font-weight:800;border-radius:999px;min-width:26px;height:26px;display:grid;place-items:center;font-size:13px;z-index:1} .mlab{font-size:12px;line-height:1.3} .mtile textarea{font-size:13px;min-height:44px;font-family:inherit} .chipbtn{background:#2c3330;color:var(--fg);border:0;border-radius:8px;padding:6px 8px;font-size:12px;cursor:pointer;min-height:32px}
+  .tap .chips{display:flex;flex-wrap:wrap;gap:6px} .tapvid{width:100%;max-height:60vh;border-radius:10px;background:#000;margin-top:8px} .tapin{flex:1;min-width:140px;background:var(--panel2,#222);color:var(--fg);border:1px solid var(--line);border-radius:10px;padding:9px 12px;font:inherit} .cgrid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px} .cgrid .tile img{aspect-ratio:9/16;object-fit:cover} .pending ul.chg{margin:0;padding-left:18px;font-size:13px;line-height:1.5} .shelfdrop{border:1px dashed var(--line);border-radius:12px;padding:14px;text-align:center;color:var(--muted);cursor:pointer;margin:8px 0} .shelfdrop.over{border-color:var(--yellow);color:var(--fg)} .blk.dragging{opacity:.85;outline:2px dashed var(--yellow);z-index:4} .blk.moved{outline:2px dashed var(--yellow)} .overlay{position:fixed;inset:0;background:rgba(0,0,0,.7);display:grid;place-items:center;z-index:50;padding:16px} .cmp{width:min(900px,100%);max-height:94vh;overflow:auto} .cmpgrid{display:grid;grid-template-columns:1fr 1fr;gap:12px} .cmpgrid .vid{height:min(62vh,640px)} .cmpgrid video{width:100%;height:100%;object-fit:contain;background:#000} .tgrid.hooks .tile img{aspect-ratio:9/16;object-fit:cover} @media (max-width:640px){.cgrid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+  /* The review workspace: the page never scrolls on a computer; video, note box and timeline stay put, the right column scrolls on its own */
+  .tabs{display:flex;gap:4px;background:var(--panel);border:1px solid var(--line);border-radius:999px;padding:4px;margin-bottom:10px;flex-shrink:0}
+  .tabs button{flex:1;border:0;background:none;color:var(--muted);border-radius:999px;padding:7px 10px;font-weight:600;font-size:13px}
+  .tabs button[aria-selected="true"]{background:var(--fg);color:var(--bg)}
+  .pane{display:none;gap:12px} .pane.on{display:grid;align-content:start}
+  .changehint{padding:4px 2px} .pane .tap:not([style*="none"]) ~ .changehint{display:none}
+  .box.dock{gap:8px;padding:10px} .dock textarea{min-height:44px !important;height:44px;resize:none} .row.dockrow{flex-wrap:nowrap;align-items:stretch} .dockrow textarea{flex:1} .dockrow .btn{white-space:nowrap}
+  .dock .qf{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;padding-bottom:2px} .dock .qf::-webkit-scrollbar{display:none} .dock .qf .hint{display:none} .dock .qf .chipbtn{white-space:nowrap;flex-shrink:0}
+  .pendbar{display:flex;align-items:center;gap:10px;background:rgba(254,252,142,.12);border:1px solid rgba(254,252,142,.35);border-radius:999px;padding:4px 6px 4px 14px;font-size:13px;position:relative}
+  .pendbar summary{cursor:pointer;font-weight:600;color:var(--yellow);list-style:none} .pendbar summary::after{content:' ▾';color:var(--muted)}
+  .pendbar details[open] ul{position:absolute;top:calc(100% + 6px);left:0;z-index:30;background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:10px 14px 10px 28px;min-width:300px;box-shadow:0 8px 24px rgba(0,0,0,.4)}
+  .btn.sm{padding:6px 12px;font-size:13px}
+  @media(min-width:900px){
+    body.ws .wrap{max-width:1500px;height:100vh;height:100dvh;display:flex;flex-direction:column;padding-block:10px 10px}
+    body.ws .top{margin-bottom:4px} body.ws .top h1{display:none} body.ws .top .sub{font-family:var(--display);font-stretch:112%;font-weight:800;text-transform:uppercase;color:var(--fg);font-size:14px}
+    body.ws #main > .row:first-child{margin-bottom:8px !important}
+    body.ws .box.dock{padding:8px;gap:6px} body.ws .tabs{padding:3px;margin-bottom:8px} body.ws .tabs button{padding:5px 10px}
+    body.ws .note{padding:8px 10px;gap:8px} body.ws .note .meta{margin-top:2px}
+    body.ws .tl{--rh:24px;padding:6px 8px} body.ws .tlbar{margin-bottom:4px} body.ws .tlbar .hint{font-size:11px} body.ws .ruler{height:18px}
+    body.tlmin .tlgrid{display:none} body.tlmin .tlbar{margin-bottom:0}
+    body.ws #main{flex:1;min-height:0;display:flex;flex-direction:column}
+    body.ws .view.ws{flex:1;min-height:0;grid-template-columns:minmax(260px,calc((100dvh - 150px) * 9 / 16)) minmax(0,1fr);grid-template-rows:minmax(0,1fr) auto;grid-template-areas:'stage side' 'stage tl';align-items:stretch;gap:12px}
+    body.ws .stage{min-height:0;display:flex;flex-direction:column;gap:8px;overflow:hidden}
+    body.ws .stage .vid{flex:1 1 0;min-height:300px;height:auto;width:100%;max-width:100%;aspect-ratio:auto;align-self:stretch}
+    body.ws .stage .vid video{object-fit:contain}
+    body.ws .stage > :not(.vid){flex-shrink:0}
+    body.ws .now{min-height:0;padding-top:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    body.ws .side > .dock{flex-shrink:0;margin-bottom:10px}
+    body.ws .side{display:flex;flex-direction:column;min-height:0}
+    body.ws .pane.on{flex:1;min-height:0;overflow:auto;padding-right:4px}
+    body.ws .stage{grid-area:stage} body.ws .side{grid-area:side} body.ws .tlrow{grid-area:tl;min-width:0}
+    body.ws .tl{padding:8px}
+  }
+  @media(max-width:899px){
+    body.ws .stage{position:sticky;top:0;z-index:15;background:var(--bg);padding-top:4px}
+    body.ws .vid{height:34vh}
+    body.ws .box.dock{position:fixed;left:0;right:0;bottom:0;z-index:25;border-radius:16px 16px 0 0;padding:10px 12px calc(10px + env(safe-area-inset-bottom,0px));background:var(--panel)}
+    body.ws #main{padding-bottom:130px}
+    body.ws .now{display:none}
+    body.ws .row.dockrow{flex-wrap:wrap} body.ws .dockrow textarea{flex:1 1 100%} body.ws .dockrow .btn{padding:8px 14px;font-size:14px}
+  }
+  .cutwrap{display:grid;grid-template-columns:minmax(160px,240px) 1fr;gap:14px;align-items:start} .cutvid{width:100%;aspect-ratio:9/16;border-radius:10px;background:#000} .cutlines{display:flex;flex-direction:column;gap:6px;max-height:520px;overflow:auto} .cutline{display:grid;grid-template-columns:auto 1fr auto;gap:10px;align-items:center;background:var(--panel2,#222);border-radius:10px;padding:8px} .cutline .ct{font-size:14px;line-height:1.35} .cutline.off .ct{text-decoration:line-through;opacity:.45} @media (max-width:640px){.cutwrap{grid-template-columns:1fr} .cutvid{max-height:60vh}}
+  .maconly{margin-left:6px;font-size:10px;font-weight:700;letter-spacing:.04em;padding:1px 6px;border-radius:6px;background:#2c3330;color:#b9c4bf;vertical-align:middle}
+  .wlog{list-style:none;margin:10px 0 0;padding:0} .wlog li{display:flex;gap:10px;align-items:flex-start;padding:5px 0;font-size:14px;color:var(--muted)} .wlog li .m{flex:1} .wlog li .tm{font-size:12px;opacity:.6;white-space:nowrap} .wlog .dot{width:9px;height:9px;border-radius:50%;background:#5f6b66;margin-top:6px;flex:none} .wlog li.now{color:var(--fg);font-weight:600} .wlog li.now .dot{background:var(--yellow);box-shadow:0 0 0 0 rgba(254,252,142,.7);animation:wpulse 1.4s infinite} @keyframes wpulse{0%{box-shadow:0 0 0 0 rgba(254,252,142,.6)}70%{box-shadow:0 0 0 9px rgba(254,252,142,0)}100%{box-shadow:0 0 0 0 rgba(254,252,142,0)}} .wstill{width:100%;border-radius:10px;display:block} .wdone{margin-top:12px} .wdone summary{cursor:pointer;color:var(--muted);font-size:13px}
+  .plan{margin-top:14px} .md table{border-collapse:collapse;width:100%;font-size:13px;margin:8px 0} .md th,.md td{border:1px solid var(--line);padding:6px 8px;text-align:left;vertical-align:top} .md th{color:var(--muted,#9aa)} .md h3,.md h4,.md h5{margin:14px 0 6px} .md ul,.md ol{padding-left:20px} .md p{margin:6px 0} .work{margin-top:12px;padding:14px;border:1px solid var(--line);border-radius:14px}
+/* Layout: a dark screening room. Phone: video, timeline, notes stacked. Desktop: video left, notes right. */
+:root{
+  --bg:#141514; --panel:#1D1F1E; --panel2:#262927; --line:#333735; --fg:#EDEDE8; --muted:#9A9D97;
+  --yellow:#FEFC8E; --blue:#AFC0DA; --green:#8FD3A8; --red:#F07C74; --pink:#E7A6C8;
+  --display:'Archivo','Helvetica Neue',Arial,sans-serif; --body:'Inter',-apple-system,'Helvetica Neue',sans-serif;
+  color-scheme:dark; --rh:34px;
+}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--fg);font-family:var(--body);font-size:15px;line-height:1.45;margin:0}
+.wrap{max-width:1180px;margin:0 auto;padding-inline:16px;padding-block:18px 60px}
+h1,h2{font-family:var(--display);font-stretch:112%;font-weight:900;text-transform:uppercase;letter-spacing:.005em;margin:0;line-height:1}
+h1{font-size:26px} h2{font-size:18px}
+.top{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:16px}
+.top .sub{color:var(--muted);font-size:13px}
+button,select{font:inherit;color:inherit;cursor:pointer}
+button:focus-visible,textarea:focus-visible,select:focus-visible{outline:2px solid var(--yellow);outline-offset:2px}
+.pill{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:600;padding:3px 10px;border-radius:999px;background:var(--panel2);color:var(--muted);white-space:nowrap}
+.pill.review{background:color-mix(in srgb,var(--blue) 18%,transparent);color:var(--blue)}
+.pill.changes{background:color-mix(in srgb,var(--red) 16%,transparent);color:var(--red)}
+.pill.approved{background:color-mix(in srgb,var(--green) 16%,transparent);color:var(--green)}
+.list{display:grid;gap:12px;grid-template-columns:repeat(auto-fill,minmax(260px,1fr))}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:16px;text-align:left;display:grid;gap:10px;min-width:0}
+.card:hover{border-color:#4a4f4c}
+.card .t{font-family:var(--display);font-stretch:112%;font-weight:800;font-size:17px;text-transform:uppercase;line-height:1.05}
+.card .m{display:flex;gap:8px;flex-wrap:wrap;color:var(--muted);font-size:13px}
+.empty{background:var(--panel);border:1px dashed var(--line);border-radius:16px;padding:28px;color:var(--muted);max-width:620px}
+.empty b{color:var(--fg)}
+.empty code{background:var(--panel2);border-radius:5px;padding:1px 6px;font-size:13px}
+.back{background:none;border:0;color:var(--muted);padding:0;font-size:14px}
+.view{display:grid;gap:18px;grid-template-columns:minmax(0,1fr)}
+.tlrow{min-width:0}
+@media(max-width:899px){.tlrow{order:2}.side{order:3}}
+@media(min-width:900px){.view{grid-template-columns:minmax(0,380px) minmax(0,1fr);align-items:start}.tlrow{grid-column:1 / -1}.vid{height:min(48vh,560px)}}
+.stage{display:grid;gap:12px;min-width:0}
+.vid{position:relative;background:#000;border-radius:16px;overflow:hidden;aspect-ratio:9/16;height:min(54vh,620px);max-width:100%;margin:0 auto}
+.vid video{width:100%;height:100%;display:block;object-fit:contain;background:#000}
+.ctrls{display:flex;align-items:center;gap:10px}
+.play{width:44px;height:44px;border-radius:22px;border:0;background:var(--yellow);color:#141514;font-size:18px;font-weight:900;flex-shrink:0}
+.tc{font-variant-numeric:tabular-nums;color:var(--muted);font-size:13px}
+.speed{margin-left:auto;background:var(--panel2);border:1px solid var(--line);border-radius:999px;padding:6px 12px;font-size:12px;color:var(--fg)}
+.vsel{background:var(--panel2);border:1px solid var(--line);border-radius:999px;padding:6px 10px;font-size:12px;color:var(--fg)}
+.older{background:color-mix(in srgb,var(--yellow) 14%,transparent);border:1px solid color-mix(in srgb,var(--yellow) 40%,transparent);border-radius:12px;padding:8px 12px;font-size:13px;color:var(--fg);display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.older button{border:0;background:var(--yellow);color:#141514;border-radius:999px;padding:5px 12px;font-weight:600;font-size:12px}
+.tl{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:10px;user-select:none}
+.tlbar{display:flex;align-items:center;gap:8px;margin-bottom:8px}
+.tlbar .hint{margin-right:auto}
+.zoom{display:flex;gap:4px}
+.zoom button{border:1px solid var(--line);background:none;border-radius:8px;padding:4px 10px;font-size:12px;color:var(--muted)}
+.zoom button[aria-pressed="true"]{background:var(--fg);color:var(--bg);border-color:var(--fg)}
+.tlgrid{display:grid;grid-template-columns:92px minmax(0,1fr);gap:0}
+.names{display:grid;align-content:start}
+.names div{height:var(--rh);display:flex;align-items:center;font-size:11px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;color:var(--muted);border-bottom:1px solid var(--line);padding-right:6px}
+.names div i{display:inline-block;width:8px;height:8px;border-radius:2px;margin-right:6px;flex-shrink:0}
+.scroller{overflow-x:auto;overflow-y:hidden;touch-action:pan-x;border-left:1px solid var(--line);-webkit-overflow-scrolling:touch}
+.lanes{position:relative;min-width:100%}
+.ruler{height:22px;position:relative;border-bottom:1px solid var(--line)}
+.ruler span{position:absolute;top:4px;font-size:10px;color:var(--muted);transform:translateX(-50%);font-variant-numeric:tabular-nums}
+.ruler b{position:absolute;bottom:0;width:1px;height:6px;background:#555}
+.lane{position:relative;height:var(--rh);border-bottom:1px solid var(--line)}
+.lane:nth-child(odd){background:rgba(255,255,255,.02)}
+.blk{position:absolute;top:5px;bottom:5px;border-radius:6px;font-size:11px;font-weight:600;color:#141514;padding:0 6px;display:flex;align-items:center;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;cursor:pointer;border:1px solid rgba(0,0,0,.25);min-width:4px}
+.blk.on{outline:2px solid #fff;outline-offset:1px}
+.blk.text{background:var(--yellow)} .blk.cap{background:#E9E6DA} .blk.media{background:var(--blue)} .blk.ui{background:var(--green)} .blk.move{background:var(--pink)}
+.cut{position:absolute;top:6px;bottom:6px;width:2px;margin-left:-1px;background:#8a908c;border-radius:1px}
+.pin{position:absolute;top:50%;width:16px;height:16px;margin:-8px 0 0 -8px;background:var(--red);border-radius:8px 8px 8px 2px;transform:rotate(-45deg);cursor:pointer}
+.pin.done{background:#5d6460}
+.head{position:absolute;top:0;bottom:0;width:2px;margin-left:-1px;background:#fff;box-shadow:0 0 8px rgba(255,255,255,.8);pointer-events:none;z-index:3}
+.head::before{content:'';position:absolute;top:0;left:-6px;border-left:7px solid transparent;border-right:7px solid transparent;border-top:9px solid #fff}
+.now{min-height:20px;font-size:13px;color:var(--muted);padding:8px 2px 0}
+.now b{color:var(--fg);font-weight:600}
+.side{display:grid;gap:14px;min-width:0}
+.box{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:14px;display:grid;gap:10px}
+.compose textarea{width:100%;min-height:76px;resize:vertical;background:var(--panel2);color:var(--fg);border:1px solid var(--line);border-radius:12px;padding:12px;font:inherit}
+.row{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.btn{border:0;border-radius:999px;padding:10px 16px;font-weight:600;background:var(--panel2);color:var(--fg)}
+.btn.y{background:var(--yellow);color:#141514}
+.btn.g{background:color-mix(in srgb,var(--green) 18%,transparent);color:var(--green)}
+.btn:disabled{opacity:.45;cursor:default}
+.notes{display:grid;gap:8px}
+.note{display:grid;grid-template-columns:auto 1fr auto;gap:10px;align-items:start;background:var(--panel2);border-radius:12px;padding:10px 12px}
+.note.done{opacity:.55}
+.note.done .txt{text-decoration:line-through}
+.stamp{font-variant-numeric:tabular-nums;font-weight:700;color:var(--yellow);background:none;border:0;padding:2px 0;font-size:14px}
+.txt{white-space:pre-wrap;word-break:break-word;min-width:0}
+.meta{font-size:11px;color:var(--muted);margin-top:4px}
+.tick{width:26px;height:26px;border-radius:13px;border:2px solid #5d6460;background:none;color:#141514;font-weight:900;display:grid;place-items:center;padding:0}
+.note.done .tick{background:var(--green);border-color:var(--green)}
+.filters{display:flex;gap:6px;flex-wrap:wrap}
+.chip{border:1px solid var(--line);background:none;border-radius:999px;padding:5px 12px;font-size:12px;color:var(--muted)}
+.chip[aria-pressed="true"]{background:var(--fg);color:var(--bg);border-color:var(--fg)}
+.hint{font-size:12px;color:var(--muted)}
+.steps{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:4px}
+.steps span{font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:4px 10px;border-radius:999px;background:var(--panel2);color:var(--muted)}
+.steps span.on{background:var(--yellow);color:#141514}
+.modes{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+.mode{background:var(--panel2);border:2px solid transparent;border-radius:14px;padding:12px;text-align:left;color:var(--fg);display:grid;gap:4px}
+.mode b{font-family:var(--display);font-stretch:112%;font-weight:800;text-transform:uppercase;font-size:14px}
+.mode.on{border-color:var(--yellow)}
+.swatches{display:flex;gap:6px;margin-top:4px}.swatches i{width:18px;height:18px;border-radius:50%;border:1px solid #0003;display:block}
+.tgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px}
+.fgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(118px,1fr));gap:8px}
+.tile{position:relative;background:var(--panel2);border:2px solid transparent;border-radius:12px;padding:0;overflow:hidden;text-align:left;color:var(--fg);display:grid}
+.tile img{width:100%;aspect-ratio:9/14;object-fit:cover;display:block;background:#000}
+.tile .nm{padding:7px 8px 8px;font-size:12px;font-weight:700;line-height:1.2}
+.tile .ds{padding:0 8px 8px;font-size:11px;color:var(--muted);line-height:1.3}
+.tile.on{border-color:var(--yellow)}
+.tile.on::after{content:'✓';position:absolute;top:6px;right:6px;width:24px;height:24px;border-radius:50%;background:var(--yellow);color:#141514;display:grid;place-items:center;font-weight:900;font-size:14px}
+.chips{display:flex;gap:6px;flex-wrap:wrap}.chips button{border:0;border-radius:999px;padding:6px 12px;background:var(--panel2);color:var(--muted);font-weight:600;font-size:12px}.chips button.on{background:var(--fg);color:#141514}
+.check{display:flex;gap:8px;align-items:center;font-size:13px;font-weight:600}
+@media (max-width:520px){.modes{grid-template-columns:1fr}}
+
+.err{color:var(--red);font-size:13px}
+.drop{background:var(--panel);border:2px dashed var(--line);border-radius:16px;padding:34px 20px;text-align:center;display:grid;gap:8px;cursor:pointer}
+.drop.over{border-color:var(--yellow);background:color-mix(in srgb,var(--yellow) 8%,var(--panel))}
+.drop b{font-family:var(--display);font-stretch:112%;font-weight:800;text-transform:uppercase;font-size:17px}
+.drop .hint{max-width:40ch;margin:0 auto}
+.files{display:grid;gap:6px;font-size:13px}
+.files div{display:flex;justify-content:space-between;gap:10px;background:var(--panel2);border-radius:10px;padding:8px 12px}
+.files div span:last-child{color:var(--muted);font-variant-numeric:tabular-nums;flex-shrink:0}
+.field{display:grid;gap:6px}
+.field label{font-size:12px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;color:var(--muted)}
+.field textarea{width:100%;min-height:96px;resize:vertical;background:var(--panel2);color:var(--fg);border:1px solid var(--line);border-radius:12px;padding:12px;font:inherit}
+.field input{background:var(--panel2);color:var(--fg);border:1px solid var(--line);border-radius:12px;padding:12px;font:inherit}
+.bar{height:6px;border-radius:3px;background:var(--panel2);overflow:hidden}
+.bar i{display:block;height:100%;width:0;background:var(--yellow);transition:width .2s}
+.prog{font-size:14px}
+.prog b{font-weight:600}
+.logbox{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:12px;color:var(--muted);background:var(--panel2);border-radius:10px;padding:10px 12px;max-height:150px;overflow:auto;white-space:pre-wrap}
+.done{background:color-mix(in srgb,var(--green) 14%,transparent);border:1px solid color-mix(in srgb,var(--green) 40%,transparent);border-radius:14px;padding:16px;display:grid;gap:8px}
+.work .say,.done .say{font-family:var(--display);font-stretch:112%;font-weight:900;text-transform:uppercase;font-size:20px;color:var(--fg)}
+.done code{background:var(--panel2);border-radius:6px;padding:2px 8px}
+.fail{background:color-mix(in srgb,var(--red) 12%,transparent);border:1px solid color-mix(in srgb,var(--red) 40%,transparent);border-radius:14px;padding:16px;display:grid;gap:8px}
+.banner{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:12px 14px;margin-bottom:12px;display:flex;gap:10px;align-items:center;flex-wrap:wrap;font-size:14px}
+@media (prefers-reduced-motion:no-preference){.card{transition:border-color .15s}}
+</style>
+
+<div class="wrap" id="app">
+  <div class="top">
+    <div><h1>Reel Review</h1><div class="sub" id="sub">Watch, tap the moment, leave a note. Claude picks them up.</div></div>
+  </div>
+  <div id="main"><div class="empty">Loading reels…</div></div>
+</div>
+
+<script>
+(() => {
+  const $ = (s, r = document) => r.querySelector(s);
+  const el = (tag, props = {}, ...kids) => { const n = document.createElement(tag); for (const [k, v] of Object.entries(props)) { if (k === 'class') n.className = v; else if (k.startsWith('on')) n.addEventListener(k.slice(2), v); else if (v !== undefined && v !== null) n.setAttribute(k, v); } for (const c of kids.flat()) if (c !== null && c !== undefined) n.append(c.nodeType ? c : document.createTextNode(String(c))); return n; };
+  const fmt = (t) => { t = Math.max(0, t || 0); const m = Math.floor(t / 60), s = t - m * 60; return `${m}:${s < 10 ? '0' : ''}${s.toFixed(1)}`; };
+  const statusOf = (r, open) => r.status === 'approved' ? ['approved', 'Approved'] : open > 0 ? ['changes', `${open} note${open > 1 ? 's' : ''} open`] : ['review', 'Ready to review'];
+  const api = async (p, opts) => { const res = await fetch('/api' + p, {headers: {'content-type': 'application/json'}, ...opts}); if (!res.ok) throw new Error((await res.json().catch(() => ({}))).error || res.status); return res.json(); };
+  const main = $('#main');
+  let reels = [], jobs = [], current = null, poll = null;
+
+  // brand colours drive the pills, ticks and punch colour
+  (async () => {
+    try {
+      const b = await api('/brand');
+      const c = b.colours || {};
+      if (c.punch) document.documentElement.style.setProperty('--yellow', c.punch);
+      if (c.accent) document.documentElement.style.setProperty('--blue', c.accent);
+      if (b.name) $('h1').textContent = 'Reel Review';
+    } catch {}
+  })();
+
+  const setPoll = (fn) => { if (poll) clearInterval(poll); poll = fn ? setInterval(fn, 4000) : null; };
+
+  async function boot(opts = {}) {
+    document.body.classList.remove('ws');
+    try { [reels, jobs] = await Promise.all([api('/reels'), api('/jobs').catch(() => [])]); }
+    catch { main.replaceChildren(el('div', {class: 'empty'}, el('b', {}, 'The review studio is not running. '), 'Ask Claude to start it, or run ', el('code', {}, 'node engine/reel.mjs studio'), ' and reload.')); return; }
+    // a reload in the middle of a prep comes straight back to the job it left
+    const live = jobs.find((j) => j.state === 'running');
+    if (live && !opts.stayOnList) return openJob(live.slug);
+    renderList();
+    setPoll(async () => { try { [reels, jobs] = await Promise.all([api('/reels'), api('/jobs').catch(() => [])]); if (!current) renderList(); } catch {} });
+  }
+
+  // What I know about your style: everything the editor has learned, in plain words. Rules only count
+  // once she says yes, so the ones waiting get a Yes / Not for me right here.
+  async function renderStyleMemory() {
+    setPoll(null); current = null;
+    $('#sub').textContent = 'What I know about your style';
+    let m;
+    try { m = await api('/style-memory'); } catch { main.replaceChildren(el('div', {class: 'err'}, 'Could not read your style just now.')); return; }
+    const col = (title, items, empty) => el('div', {class: 'box'}, el('h2', {}, title), items.length ? el('ul', {class: 'smlist'}, ...items.map((x) => el('li', {}, x))) : el('div', {class: 'hint'}, empty));
+    const pend = m.pending.map((r) => {
+      const yes = el('button', {class: 'btn y', style: 'padding:6px 14px'}, 'Yes, always');
+      const no = el('button', {class: 'btn', style: 'padding:6px 14px'}, 'Not for me');
+      const go = async (decision, b) => { b.disabled = true; try { await api('/style-memory/rule', {method: 'POST', body: JSON.stringify({id: r.id, decision})}); renderStyleMemory(); } catch (e) { b.disabled = false; alert(String(e.message || e)); } };
+      yes.onclick = () => go('approve', yes); no.onclick = () => go('reject', no);
+      return el('div', {class: 'smrule'}, el('b', {}, r.label), el('div', {class: 'hint'}, r.because), r.example ? el('div', {class: 'hint', style: 'font-style:italic'}, `Your note: “${r.example.slice(0, 140)}”`) : null, el('div', {class: 'row', style: 'margin-top:8px'}, yes, no));
+    });
+    main.replaceChildren(
+      el('button', {class: 'back', style: 'margin-bottom:12px', onclick: () => boot({stayOnList: true})}, '← All reels'),
+      el('div', {class: 'hint', style: 'margin-bottom:12px'}, 'Everything I have learned about how you like your reels. I read this before every cut. Nothing becomes a rule until you say yes.'),
+      el('div', {class: 'smgrid'}, col('You like', m.likes, 'Nothing yet. It fills in as you leave notes.'), col('You avoid', m.avoid, 'Nothing yet.')),
+      pend.length ? el('div', {class: 'box', style: 'margin-top:14px'}, el('h2', {}, `Waiting for your yes (${pend.length})`), el('div', {class: 'hint', style: 'margin-bottom:10px'}, 'I noticed these in your notes. Say yes and I follow them on every reel from now on.'), ...pend) : '',
+      el('div', {class: 'smgrid', style: 'margin-top:14px'},
+        col('Your rules', m.rules.map((r) => r.label + (r.because ? ` (${r.because})` : '')), 'No rules yet: approve one above and it lands here.'),
+        col('My words', m.words.map((w) => `“${w.heard}” is always written “${w.write}”`), 'None saved yet.')));
+  }
+
+  function renderList() {
+    document.body.classList.remove('ws');
+    $('#sub').textContent = 'Watch, tap the moment, leave a note. Claude picks them up.';
+    const banners = jobs.filter((j) => (j.state === 'ready' || j.state === 'failed') && !(j.state === 'ready' && j.go && reels.some((r) => r.slug === j.slug))).map((j) => j.state === 'ready'
+      ? el('div', {class: 'banner'}, el('span', {}, j.go ? '✅' : '📥'),
+          el('span', {}, el('b', {}, j.slug), j.go ? ' is with the editor. Open it for the plan and progress.' : ' is prepped. Next: your notes, then the style.'),
+          el('button', {class: j.go ? 'btn' : 'btn y', style: 'margin-left:auto;padding:6px 14px', onclick: () => j.go ? renderBriefed(j) : renderBrief(j)}, j.go ? 'Open' : 'Add notes + style →'),
+          el('button', {class: 'btn', style: 'padding:6px 14px', onclick: () => clearJob(j.slug)}, 'Clear'))
+      : el('div', {class: 'banner'}, el('span', {}, '⚠️'), el('span', {}, el('b', {}, j.slug), ' did not finish. ', j.error || 'Ask Claude what happened.'), el('button', {class: 'btn', style: 'margin-left:auto;padding:6px 14px', onclick: () => clearJob(j.slug)}, 'Dismiss')));
+    const newBtn = el('button', {class: 'btn y', onclick: () => renderNew()}, '+ New reel');
+    const head = el('div', {class: 'row', style: 'justify-content:space-between;margin-bottom:12px'}, el('span', {class: 'hint'}, 'Drop footage here to start one, or open a cut to review it.'), el('div', {class: 'row'}, el('button', {class: 'btn', onclick: () => renderStyleMemory()}, 'My style'), el('button', {class: 'btn', onclick: () => renderTaste()}, 'Taste test'), newBtn));
+    if (!reels.length) {
+      main.replaceChildren(...banners, head, el('div', {class: 'empty'}, el('b', {}, 'No reels yet. '), 'Tap ', el('b', {}, '+ New reel'), ' and drag your footage in, and Claude cuts it. When a cut is finished it lands here with its timeline: open it, play, and tap “Add note” at any moment.'));
+      return;
+    }
+    main.replaceChildren(...banners, head, el('div', {class: 'list'}, reels.map((r) => {
+      const [cls, txt] = statusOf(r, r.openNotes || 0);
+      return el('button', {class: 'card', onclick: () => openReel(r.slug)},
+        el('div', {class: 't'}, r.title || r.slug),
+        el('div', {class: 'm'}, el('span', {class: `pill ${cls}`}, txt), el('span', {}, `v${r.version || 1}`), el('span', {}, fmt(r.duration || 0).replace(/\.\d$/, '') + ' long')),
+        r.summary ? el('div', {class: 'hint'}, r.summary) : null);
+    })));
+  }
+
+  async function clearJob(slug) {
+    try { await fetch('/api/jobs/' + encodeURIComponent(slug), {method: 'DELETE'}); } catch {}
+    jobs = jobs.filter((j) => j.slug !== slug);
+    renderList();
+  }
+
+  const MB = (b) => b >= 1e9 ? (b / 1e9).toFixed(1) + ' GB' : Math.max(1, Math.round(b / 1e6)) + ' MB';
+  const slugify = (name) => name.replace(/\.[^.]+$/, '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '').slice(0, 40) || 'reel';
+
+  // The drop zone. It collects footage and runs the mechanical prep, and stops there:
+  // the plan and the cut are Claude's, in the chat.
+  function renderNew(addSlug = null) {
+    document.body.classList.remove('ws');
+    setPoll(null); current = null;
+    let picked = [];
+    const input = el('input', {type: 'file', multiple: '', accept: 'video/*,audio/*,image/*', style: 'display:none'});
+    const zone = el('div', {class: 'drop', tabindex: '0', role: 'button'},
+      el('b', {}, 'Drag your footage here'),
+      el('div', {class: 'hint'}, 'Video, audio or stills, straight off your phone or your desktop. Or tap to choose files.'));
+    const chosen = el('div', {class: 'files'});
+    const slugIn = el('input', {id: 'slug', placeholder: 'client-launch', autocapitalize: 'off', autocorrect: 'off', spellcheck: 'false', value: addSlug ?? null, disabled: addSlug ? '' : null});
+    const go = el('button', {class: 'btn y', disabled: ''}, addSlug ? 'Add it to ' + addSlug : 'Prep this footage');
+    const bar = el('i');
+    const barWrap = el('div', {class: 'bar', style: 'display:none'}, bar);
+    const msg = el('div', {class: 'prog hint'}, 'Nothing dropped yet.');
+    const err = el('div', {class: 'err'});
+
+    const show = () => {
+      chosen.replaceChildren(...picked.map((f) => el('div', {}, el('span', {}, f.name), el('span', {}, MB(f.size)))));
+      go.disabled = !picked.length;
+      msg.textContent = picked.length ? `${picked.length} file${picked.length > 1 ? 's' : ''} ready, ${MB(picked.reduce((a, f) => a + f.size, 0))} in total.` : 'Nothing dropped yet.';
+      // camera names (IMG_0581, DSC_, PXL_) make useless reel names, so leave those for her to name
+      if (picked.length && !slugIn.value && !/^(img|dsc|dscf|pxl|mvi|vid|gopr|dji|c\d)[-_ ]?\d/i.test(picked[0].name)) slugIn.value = slugify(picked[0].name);
+    };
+    const take = (list) => {
+      const ok = [...list].filter((f) => /\.(mov|mp4|m4v|hevc|png|jpe?g|heic|webp|m4a|mp3|wav|aac)$/i.test(f.name));
+      const no = [...list].length - ok.length;
+      picked = picked.concat(ok.filter((f) => !picked.some((x) => x.name === f.name && x.size === f.size)));
+      err.textContent = no ? `${no} file${no > 1 ? 's' : ''} ignored: only video, audio and images can go in a reel.` : '';
+      show();
+    };
+    zone.onclick = () => input.click();
+    zone.onkeydown = (ev) => { if (ev.key === 'Enter' || ev.key === ' ') { ev.preventDefault(); input.click(); } };
+    input.onchange = () => take(input.files);
+    for (const ev of ['dragenter', 'dragover']) zone.addEventListener(ev, (e) => { e.preventDefault(); zone.classList.add('over'); });
+    for (const ev of ['dragleave', 'drop']) zone.addEventListener(ev, () => zone.classList.remove('over'));
+    zone.addEventListener('drop', (e) => { e.preventDefault(); take(e.dataTransfer.files); });
+    // without this the browser opens the file instead when a drop lands just outside the zone
+    if (!window.__dropGuard) { window.__dropGuard = true; for (const ev of ['dragover', 'drop']) document.addEventListener(ev, (e) => { if (!e.target.closest('.drop')) e.preventDefault(); }); }
+
+    go.onclick = async () => {
+      const slug = (addSlug || slugIn.value).trim().toLowerCase();
+      if (!/^[a-z0-9][a-z0-9-]{0,40}$/.test(slug)) { err.textContent = 'Name it with lower-case letters, numbers and dashes, like client-launch.'; slugIn.focus(); return; }
+      go.disabled = true; err.textContent = '';
+      // check before sending hundreds of MB: only one lot preps at a time
+      try {
+        const busy = (await api('/jobs')).find((x) => x.state === 'running');
+        if (busy) {
+          const same = !addSlug && picked.every((f) => (busy.files || []).includes(f.name));
+          err.replaceChildren(same ? `These clips are already being prepped as “${busy.slug}”. ` : `“${busy.slug}” is still being prepared. Wait for it to finish, then drop this lot. `,
+            el('button', {class: 'btn', style: 'margin-left:6px;padding:4px 12px', onclick: () => openJob(busy.slug)}, 'Open ' + busy.slug));
+          go.disabled = false; return;
+        }
+      } catch (e) { /* fall through: the server still refuses a second drop */ }
+      barWrap.style.display = 'block';
+      const fd = new FormData();
+      for (const f of picked) fd.append('file', f, f.name);
+      try {
+        await new Promise((resolve, reject) => {
+          const x = new XMLHttpRequest();
+          x.open('POST', '/api/inbox');
+          x.upload.onprogress = (e) => { if (e.lengthComputable) { bar.style.width = (e.loaded / e.total * 100) + '%'; msg.textContent = `Copying your footage in… ${MB(e.loaded)} of ${MB(e.total)}.`; } };
+          x.onload = () => x.status === 200 ? resolve() : reject(new Error(JSON.parse(x.responseText || '{}').error || 'upload failed'));
+          x.onerror = () => reject(new Error('The studio stopped answering. Is it still running?'));
+          x.send(fd);
+        });
+        msg.textContent = 'Footage copied in. Getting it ready…';
+        if (addSlug) await api(`/jobs/${encodeURIComponent(addSlug)}/add`, {method: 'POST', body: '{}'});
+        else await api('/jobs', {method: 'POST', body: JSON.stringify({slug})});
+        openJob(addSlug || slug);
+      } catch (e) {
+        err.textContent = String(e.message || e);
+        barWrap.style.display = 'none'; go.disabled = false;
+      }
+    };
+
+    main.replaceChildren(
+      el('button', {class: 'back', style: 'margin-bottom:12px', onclick: () => boot({stayOnList: true})}, '← All reels'),
+      el('div', {class: 'box', style: 'max-width:620px'},
+        stepsBar(1), el('h2', {}, addSlug ? 'Add to ' + addSlug : 'New reel'),
+        el('div', {class: 'hint'}, addSlug
+          ? 'More footage for this reel: b-roll, a second take, screenshots, photos. It gets ready the same way and joins the same project.'
+          : 'This copies your footage in and gets it ready: proxies, a transcript and contact sheets. Then you tell it what the reel is about.'),
+        zone, input, chosen,
+        el('div', {class: 'field'}, el('label', {for: 'slug'}, 'Call this reel'), slugIn),
+        el('div', {class: 'row'}, go, msg), barWrap, err));
+    $('#sub').textContent = 'New reel';
+    show();
+  }
+
+  // Where the reel actually gets briefed. The page cannot start Claude: it takes everything off the
+  // owner here so that the chat has nothing left to ask.
+  function renderBrief(j) {
+    document.body.classList.remove('ws');
+    setPoll(null); current = null;
+    $('#sub').textContent = j.slug;
+    const ta = el('textarea', {id: 'brief', placeholder: 'This is a reel about… I want the hook on the bit where I say… add b-roll of… use the photos I dropped in…', 'aria-label': 'What this reel is about'}, j.brief || '');
+    const saved = el('div', {class: 'hint'});
+    const err = el('div', {class: 'err'});
+    const send = async (go, btn) => {
+      btn.disabled = true; err.textContent = '';
+      try {
+        await api('/jobs/' + encodeURIComponent(j.slug), {method: 'PATCH', body: JSON.stringify({brief: ta.value, go})});
+        j.brief = ta.value; j.go = go; renderBriefed(j);
+      } catch (e) { err.textContent = String(e.message || e); btn.disabled = false; }
+    };
+    const nextBtn = el('button', {class: 'btn y'}, 'Next: choose a style →');
+    nextBtn.onclick = () => { j.brief = ta.value; renderStyle(j); };
+    const planBtn = nextBtn, cutBtn = el('span', {});
+    main.replaceChildren(
+      el('button', {class: 'back', style: 'margin-bottom:12px', onclick: () => boot({stayOnList: true})}, '← All reels'),
+      el('div', {class: 'box', style: 'max-width:620px'},
+        stepsBar(2),
+        el('h2', {}, j.slug),
+        el('div', {class: 'hint'}, el('b', {}, 'Your footage is ready.'), ' ', `${(j.files || []).length} file${(j.files || []).length === 1 ? '' : 's'} in, with the transcript and contact sheets done. Add more, or tell me what you want and I will start on it.`),
+        el('div', {class: 'row'}, el('button', {class: 'btn', onclick: () => renderNew(j.slug)}, '+ Add more footage')),
+        el('div', {class: 'field'}, el('label', {for: 'brief'}, 'What is this reel about? (optional)'), ta),
+        el('div', {class: 'hint'}, 'Anything you would have said out loud: the point of it, the line that matters, b-roll or photos you want in, a reel of someone else’s to match. Or leave it empty and let me choose.'),
+        el('div', {class: 'row'}, planBtn, cutBtn), saved, err));
+  }
+
+  const stepsBar = (n) => el('div', {class: 'steps'}, ...['Footage', 'Notes', 'Style', 'Review'].map((s, i) => el('span', {class: i + 1 === n ? 'on' : ''}, `${i + 1} ${s}`)));
+  let LIB = null, TPL = null, BRAND = null, LOOKS = [];
+  // Step 3: the look. Their brand guide, a ready-made template, or Claude's call; then the effects
+  // (every one shown as a still from the library) and the caption style. All of it goes to Claude
+  // in the handoff file, so the cut uses exactly these picks.
+  async function renderStyle(j) {
+    document.body.classList.remove('ws');
+    $('#sub').textContent = j.slug + ' · style';
+    if (!LIB) main.replaceChildren(el('div', {class: 'box', style: 'max-width:620px'}, stepsBar(3), el('div', {class: 'hint'}, 'Loading the styles and effects…')));
+    if (!LIB) { try { [LIB, TPL, BRAND, LOOKS] = await Promise.all([api('/effects'), api('/templates'), api('/brand'), api('/looks').catch(() => [])]); } catch (e) { LIB = {groups: [], effects: []}; TPL = []; BRAND = {}; } }
+    const st = Object.assign({mode: 'brand', template: null, effects: [], claudeEffects: false, captions: null, energy: (BRAND && BRAND.energy) || 'balanced', cutFirst: false, sameAs: null}, j.style || {});
+    let last = null; try { last = await api('/last-style?except=' + encodeURIComponent(j.slug)); if (!last || !last.style) last = null; } catch {}
+    const KEYS = ['mode', 'template', 'effects', 'claudeEffects', 'captions', 'energy'];
+    let before = null;
+    const sameBox = el('div', {}), cutBox = el('div', {});
+    const err = el('div', {class: 'err'});
+    let group = 'all';
+    const lookBox = el('div', {});
+    const modesBox = el('div', {class: 'modes'}), energyBox = el('div', {}), tplBox = el('div', {}), fxBox = el('div', {}), capBox = el('div', {});
+    const cols = BRAND && BRAND.colours ? Object.values(BRAND.colours).slice(0, 5) : [];
+    const paint = () => {
+      if (last) {
+        const cb = el('input', {type: 'checkbox', id: 'same'}); cb.checked = st.sameAs === last.slug;
+        cb.onchange = () => {
+          if (cb.checked) { before = Object.fromEntries(KEYS.map((k) => [k, st[k]])); for (const k of KEYS) if (k in last.style) st[k] = Array.isArray(last.style[k]) ? last.style[k].slice() : last.style[k]; st.sameAs = last.slug; }
+          else { if (before) Object.assign(st, before); st.sameAs = null; }
+          paint();
+        };
+        sameBox.replaceChildren(el('label', {class: 'check', for: 'same', style: 'margin-bottom:10px'}, cb, el('span', {}, el('b', {}, 'Same as last time.'), ` Use the look from ${last.slug}, just for this reel.`)));
+      }
+      const cf = el('input', {type: 'checkbox', id: 'cutfirst'}); cf.checked = !!st.cutFirst; cf.onchange = () => { st.cutFirst = cf.checked; };
+      cutBox.replaceChildren(el('label', {class: 'check', for: 'cutfirst'}, cf, el('span', {}, el('b', {}, 'Cut first.'), ' Show me the cut line by line, with a plain preview, so I can keep or cut lines before any styling.')));
+      const mode = (id, title, sub, extra) => el('button', {class: 'mode' + (st.mode === id ? ' on' : ''), onclick: () => { st.mode = id; if (id === 'claude') st.claudeEffects = true; paint(); }}, el('b', {}, title), el('span', {class: 'hint'}, sub), extra || null);
+      modesBox.replaceChildren(
+        mode('brand', 'My brand guide', 'Your fonts, colours and rules.' + (BRAND && BRAND.fonts && BRAND.fonts.display ? ' ' + BRAND.fonts.display + ' + ' + (BRAND.fonts.serif || '') : ''), el('div', {class: 'swatches'}, ...cols.map((c) => el('i', {style: 'background:' + c})))),
+        mode('template', 'A template', 'A ready-made look, in your fonts and colours.'),
+        mode('claude', 'Let Claude choose', 'I pick the look and the effects from your footage.'));
+      // the look: their own brand, or one of the starter looks (fonts, colours and pace together)
+      lookBox.replaceChildren(LOOKS.length ? el('div', {class: 'field'}, el('label', {}, 'Look'),
+        el('div', {class: 'tgrid'}, el('button', {class: 'tile' + (!st.look ? ' on' : ''), onclick: () => { st.look = null; paint(); }},
+          el('div', {style: 'aspect-ratio:9/16;border-radius:10px;display:grid;place-items:center;background:var(--panel2,#222);font-weight:700'}, 'Your brand'), el('div', {class: 'nm'}, 'My brand'), el('div', {class: 'ds'}, 'Your own fonts and colours.')),
+          ...LOOKS.map((l) => el('button', {class: 'tile' + (st.look === l.id ? ' on' : ''), title: l.blurb, onclick: () => { st.look = l.id; paint(); }},
+            el('img', {src: l.img, alt: '', loading: 'lazy'}), el('div', {class: 'nm'}, l.name), el('div', {class: 'ds'}, l.blurb))))) : '');
+      // energy: how busy this one should feel
+      const EN = [['quiet', 'Quiet', 'Hook and clean captions, two or three moments, no sound effects. For stories and serious ones.'], ['balanced', 'Balanced', 'A moment every few lines, light sound.'], ['full', 'Full', 'Something on screen every few seconds, sound on every move. For teaching and lists.']];
+      energyBox.replaceChildren(el('div', {class: 'field'}, el('label', {}, 'Energy'), el('div', {class: 'modes'}, ...EN.map(([id, nm, ds]) => el('button', {class: 'mode' + (st.energy === id ? ' on' : ''), onclick: () => { st.energy = id; paint(); }}, el('b', {}, nm), el('span', {class: 'hint'}, ds))))));
+      // templates
+      if (st.mode === 'template') {
+        tplBox.replaceChildren(el('div', {class: 'field'}, el('label', {}, 'Templates'), el('div', {class: 'tgrid'}, ...TPL.map((t) => el('button', {class: 'tile' + (st.template === t.id ? ' on' : ''), onclick: () => { st.template = t.id; st.effects = t.effects.slice(); st.captions = t.captions; st.claudeEffects = false; paint(); }},
+          el('img', {src: t.img, alt: '', loading: 'lazy'}), el('div', {class: 'nm'}, t.name), el('div', {class: 'ds'}, t.blurb))))));
+      } else tplBox.replaceChildren();
+      // effects
+      if (st.mode === 'claude') { fxBox.replaceChildren(el('div', {class: 'hint'}, 'I will choose the effects too, each one on a line you actually say, and tell you what I picked.')); capBox.replaceChildren(); return; }
+      const fx = LIB.effects.filter((e) => e.group !== 'hooks' && (group === 'all' || e.group === group));
+      const chip = (id, label) => el('button', {class: group === id ? 'on' : '', onclick: () => { group = id; paint(); }}, label);
+      const claudeBox = el('input', {type: 'checkbox', id: 'cfx'}); claudeBox.checked = st.claudeEffects; claudeBox.onchange = () => { st.claudeEffects = claudeBox.checked; paint(); };
+      fxBox.replaceChildren(el('div', {class: 'field'},
+        el('label', {}, `Effects${st.effects.length && !st.claudeEffects ? ' · ' + st.effects.length + ' picked' : ''}`),
+        el('label', {class: 'check', for: 'cfx'}, claudeBox, 'Let Claude pick the effects'),
+        st.claudeEffects ? el('div', {class: 'hint'}, 'I will pick them, each on a line you say. Untick to choose them yourself.') : el('div', {},
+          el('div', {class: 'chips', style: 'margin-bottom:8px'}, chip('all', 'All'), ...LIB.groups.filter((g) => g[0] !== 'hooks').map((g) => chip(g[0], g[1]))),
+          el('div', {class: 'fgrid'}, ...fx.map((e) => el('button', {class: 'tile' + (st.effects.includes(e.id) ? ' on' : ''), title: e.when, onclick: () => { st.effects = st.effects.includes(e.id) ? st.effects.filter((x) => x !== e.id) : [...st.effects, e.id]; paint(); }},
+            el('img', {src: e.img, alt: '', loading: 'lazy'}), el('div', {class: 'nm'}, e.name, e.macOnly ? el('span', {class: 'maconly', title: 'On Windows: ' + (e.onWindows || 'a simpler version')}, 'Mac') : null)))))));
+      // captions
+      const caps = LIB.effects.filter((e) => e.id.startsWith('cap-'));
+      capBox.replaceChildren(el('div', {class: 'field'}, el('label', {}, 'Captions'), el('div', {class: 'fgrid'}, ...caps.map((e) => el('button', {class: 'tile' + (st.captions === e.id ? ' on' : ''), title: e.when, onclick: () => { st.captions = st.captions === e.id ? null : e.id; paint(); }},
+        el('img', {src: e.img, alt: '', loading: 'lazy'}), el('div', {class: 'nm'}, e.name.replace(' captions', '')))))), el('div', {class: 'hint'}, st.captions ? '' : 'None picked: your brand default.'));
+    };
+    const send = async (go, btn) => {
+      if (st.mode === 'template' && !st.template) { err.textContent = 'Pick a template first, or switch to your brand guide.'; return; }
+      btn.disabled = true; err.textContent = '';
+      try {
+        await api('/jobs/' + encodeURIComponent(j.slug), {method: 'PATCH', body: JSON.stringify({brief: j.brief || '', go, style: st})});
+        j.go = go; j.style = st; renderBriefed(j);
+      } catch (e) { err.textContent = String(e.message || e); btn.disabled = false; }
+    };
+    const planBtn = el('button', {class: 'btn y'}, 'Send me a plan first'); planBtn.onclick = () => send('plan', planBtn);
+    const cutBtn = el('button', {class: 'btn'}, 'Just cut it'); cutBtn.onclick = () => send('cut', cutBtn);
+    paint();
+    main.replaceChildren(
+      el('button', {class: 'back', style: 'margin-bottom:12px', onclick: () => renderBrief(j)}, '← Notes'),
+      el('div', {class: 'box', style: 'max-width:900px'}, stepsBar(3), el('h2', {}, 'Choose a style'), sameBox, modesBox, lookBox, energyBox, tplBox, fxBox, capBox, cutBox, el('div', {class: 'row'}, planBtn, cutBtn), err));
+  }
+
+  // Taste test: rounds of three from the effects library. They tap the one they would want in their
+  // own reel (or none). The picks go to brand/taste.json and into voice.json's loved effects, so the
+  // brand guide and every plan start from what they actually like.
+  async function renderTaste() {
+    document.body.classList.remove('ws');
+    setPoll(null); current = null;
+    $('#sub').textContent = 'Taste test';
+    if (!LIB) { try { [LIB, TPL, BRAND] = await Promise.all([api('/effects'), api('/templates'), api('/brand')]); } catch { LIB = {groups: [], effects: []}; } }
+    const shuffle = (a) => { a = a.slice(); for (let i = a.length - 1; i > 0; i--) { const k = Math.floor(Math.random() * (i + 1)); [a[i], a[k]] = [a[k], a[i]]; } return a; };
+    const byGroup = {};
+    for (const e of LIB.effects) (byGroup[e.id.startsWith('cap-') ? 'captions' : e.group] ??= []).push(e);
+    const names = Object.fromEntries([['captions', 'Captions'], ...LIB.groups]);
+    const rounds = [];
+    for (const [g, list] of Object.entries(byGroup)) { const sh = shuffle(list); for (let i = 0; i + 3 <= sh.length && rounds.filter((r) => r.g === g).length < 4; i += 3) rounds.push({g, opts: sh.slice(i, i + 3)}); }
+    const plan = shuffle(rounds).slice(0, 20);
+    const love = [], passed = [];
+    let i = 0;
+    const box = el('div', {class: 'box', style: 'max-width:900px'});
+    main.replaceChildren(el('button', {class: 'back', style: 'margin-bottom:12px', onclick: () => boot({stayOnList: true})}, '← All reels'), box);
+    const done = async () => {
+      box.replaceChildren(el('h2', {}, 'Saving your taste…'));
+      try { await api('/taste', {method: 'POST', body: JSON.stringify({love, passed, rounds: plan.length})}); } catch (e) { box.replaceChildren(el('div', {class: 'err'}, 'Not saved. Check the studio is still running, then try again.')); return; }
+      const picks = LIB.effects.filter((e) => love.includes(e.id));
+      box.replaceChildren(el('h2', {}, 'Your taste, saved'),
+        el('div', {class: 'hint', style: 'margin-bottom:12px'}, picks.length ? `You picked ${picks.length}. Claude now starts every plan from these and adds them to your brand guide. Run it again any time.` : 'You passed on all of them. That is useful too: Claude will keep your reels clean and ask before adding effects.'),
+        el('div', {class: 'fgrid'}, ...picks.map((e) => el('div', {class: 'tile on'}, el('img', {src: e.img, alt: '', loading: 'lazy'}), el('div', {class: 'nm'}, e.name)))),
+        el('div', {class: 'row', style: 'margin-top:14px'}, el('button', {class: 'btn y', onclick: () => boot({stayOnList: true})}, 'Done')));
+    };
+    const show = () => {
+      if (i >= plan.length) return done();
+      const r = plan[i];
+      const pick = (e) => { if (e) love.push(e.id); r.opts.filter((o) => o !== e).forEach((o) => passed.push(o.id)); i++; show(); };
+      box.replaceChildren(
+        el('div', {class: 'row', style: 'justify-content:space-between'}, el('h2', {}, 'Which would you want in your reel?'), el('span', {class: 'pill'}, `${i + 1} of ${plan.length}`)),
+        el('div', {class: 'hint', style: 'margin-bottom:12px'}, `${names[r.g] || r.g}. Tap the one you like most, or none of these. No wrong answers.`),
+        el('div', {class: 'tgrid taste'}, ...r.opts.map((e) => el('button', {class: 'tile', title: e.when, onclick: () => pick(e)}, el('img', {src: e.img, alt: '', loading: 'lazy'}), el('div', {class: 'nm'}, e.name), el('div', {class: 'ds'}, e.when)))),
+        el('div', {class: 'row', style: 'margin-top:12px'}, el('button', {class: 'btn', onclick: () => pick(null)}, 'None of these'), i > 2 ? el('button', {class: 'btn', onclick: done}, 'That is enough, save it') : null));
+    };
+    show();
+  }
+
+  // Tiny markdown for the editor's plan: headings, tables, lists, bold, code. Text is escaped first.
+  const esc = (t) => t.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+  const inl = (t) => esc(t).replace(/\*\*([^*]+)\*\*/g, '<b>$1</b>').replace(/\*([^*]+)\*/g, '<i>$1</i>').replace(/`([^`]+)`/g, '<code>$1</code>');
+  function md(src) {
+    const out = [], L = src.replace(/\r/g, '').split('\n');
+    for (let i = 0; i < L.length; i++) {
+      const l = L[i];
+      if (/^\s*\|/.test(l)) {
+        const rows = []; while (i < L.length && /^\s*\|/.test(L[i])) rows.push(L[i++]); i--;
+        const cells = (r) => r.trim().replace(/^\||\|$/g, '').split('|').map((c) => c.trim());
+        const body = rows.filter((r) => !/^\s*\|[\s:|-]+\|\s*$/.test(r));
+        out.push('<table>' + body.map((r, n) => '<tr>' + cells(r).map((c) => n ? `<td>${inl(c)}</td>` : `<th>${inl(c)}</th>`).join('') + '</tr>').join('') + '</table>');
+      } else if (/^#{1,4}\s/.test(l)) { const n = l.match(/^#+/)[0].length; out.push(`<h${n + 2}>${inl(l.replace(/^#+\s*/, ''))}</h${n + 2}>`); }
+      else if (/^\s*([-*]|\d+\.)\s/.test(l)) {
+        const ol = /^\s*\d+\./.test(l), items = [];
+        while (i < L.length && /^\s*([-*]|\d+\.)\s/.test(L[i])) items.push(L[i++].replace(/^\s*([-*]|\d+\.)\s/, '')); i--;
+        out.push(`<${ol ? 'ol' : 'ul'}>` + items.map((x) => `<li>${inl(x)}</li>`).join('') + `</${ol ? 'ol' : 'ul'}>`);
+      } else if (l.trim()) out.push(`<p>${inl(l)}</p>`);
+    }
+    return out.join('');
+  }
+  const htmlEl = (cls, html) => { const d = el('div', {class: cls}); d.innerHTML = html; return d; };
+
+  // What the editor is doing, step by step, so waiting never feels like nothing is happening.
+  const clock = (ms) => new Date(ms).toLocaleTimeString([], {hour: 'numeric', minute: '2-digit'});
+  const ago = (ms) => { const sec = Math.max(0, Math.round((Date.now() - ms) / 1000)); return sec < 60 ? sec + 's' : Math.floor(sec / 60) + 'm ' + String(sec % 60).padStart(2, '0') + 's'; };
+  function workView(slug, a, title) {
+    const log = (a.log || []).map((x) => typeof x === 'string' ? {msg: x} : x);
+    const since = a.since || (log[0] && log[0].t) || a.updatedAt;
+    const live = a.state === 'working';
+    return el('div', {class: 'work'},
+      el('div', {class: 'row', style: 'justify-content:space-between;align-items:baseline'}, el('div', {class: 'say'}, title), since ? el('span', {class: 'hint'}, (live ? 'working for ' : 'took ') + ago(live ? since : since) ) : null),
+      el('ol', {class: 'wlog'}, ...log.map((x, i) => el('li', {class: i === log.length - 1 && live ? 'now' : 'past'},
+        el('span', {class: 'dot'}), el('span', {class: 'm'}, x.msg), x.t ? el('span', {class: 'tm'}, clock(x.t)) : null))),
+      live && a.stillAt && a.stillAt >= (since || 0) ? el('div', {}, el('div', {class: 'hint', style: 'margin:10px 0 6px'}, 'The frames I am checking right now:'), el('img', {class: 'wstill', src: `/api/agent/${encodeURIComponent(slug)}/still?v=${a.stillAt}`, alt: 'Frames being checked'})) : null);
+  }
+
+  // The Moments board: every on-screen moment as a numbered still. Note any of them by number,
+  // preview one as a short clip, then send the notes or say it looks good and render the full reel.
+  const momentNotes = {}, lookPicks = {};
+  const boardTaps = {};
+  function momentsBoard(slug, mo, post2) {
+    const tap = boardTaps[slug] = boardTaps[slug] || makeTap({slug, onEdit: () => { refreshMo.style.display = ''; }});
+    const refreshMo = el('button', {class: 'btn', style: 'display:none'}, 'Refresh my moments');
+    refreshMo.onclick = async () => { refreshMo.disabled = true; refreshMo.textContent = 'Refreshing your moments…'; try { await tap.run('moments'); } catch (e) { alert(String(e.message || e)); } refreshMo.disabled = false; refreshMo.textContent = 'Refresh my moments'; refreshMo.style.display = 'none'; };
+    // pick your hook from three (the editor wrote hookOptions; the others become trial openings)
+    const hookBox = el('div', {});
+    (async () => { try { const hj = await api(`/studio/${encodeURIComponent(slug)}/out/hooks/hooks.json`); if (!hj.hooks || hj.hooks.length < 2) return; const msg = el('div', {class: 'hint'});
+      hookBox.replaceChildren(el('div', {class: 'k', style: 'margin:4px 0 6px'}, 'Pick your hook'), el('div', {class: 'tgrid hooks'}, ...hj.hooks.map((h) => el('button', {class: 'tile', onclick: async () => { msg.textContent = 'Using that one…'; const r = await tap.edit({op: 'hook', n: h.n}, msg); if (r) { try { await tap.run('moments'); } catch {} } }}, el('img', {src: `/api/studio/${encodeURIComponent(slug)}/out/hooks/${h.img}?v=${hj.at}`, alt: ''}), el('div', {class: 'nm'}, h.text.replace(/\n/g, ' '))))), msg); } catch {} })();
+    const notes = momentNotes[slug] = momentNotes[slug] || {};
+    const picks = lookPicks[slug] = lookPicks[slug] || {};
+    const S = encodeURIComponent(slug);
+    const pickBtn = el('button', {class: 'btn y'});
+    const pickMsg = el('span', {class: 'hint'});
+    const refreshPicks = () => { const c = Object.keys(picks).length; pickBtn.textContent = `Use my ${c} new look${c === 1 ? '' : 's'}`; pickBtn.style.display = c ? '' : 'none'; };
+    pickBtn.onclick = async () => { pickBtn.disabled = true; pickMsg.textContent = 'Swapping in your picks…'; try { await api(`/agent/${S}/choose`, {method: 'POST', body: JSON.stringify({picks: Object.entries(picks).map(([n, look]) => ({moment: +n, look}))})}); for (const k in picks) delete picks[k]; } catch (e) { pickMsg.textContent = String(e.message || e); } pickBtn.disabled = false; };
+    // while the studio is making looks, check back until they land
+    const watchLooks = (n, btn) => { const t0 = Date.now(); const iv = setInterval(async () => { try { const st = await api(`/agent/${S}/looking`); if (!st.busy) { clearInterval(iv); if (st.error) { btn.disabled = false; btn.textContent = 'Try another look'; alert(st.error); } } } catch {} if (Date.now() - t0 > 60000) clearInterval(iv); }, 1500); };
+    const count = () => Object.values(notes).filter((v) => v && v.trim()).length;
+    const sendBtn = el('button', {class: 'btn'}, 'Send my moment notes');
+    const goBtn = el('button', {class: 'btn y'}, 'Looks good, render it');
+    const refresh = () => { const c = count(); sendBtn.textContent = c ? `Send ${c} moment note${c === 1 ? '' : 's'}` : 'Send my moment notes'; sendBtn.disabled = !c; };
+    sendBtn.onclick = () => { sendBtn.disabled = true; post2('moments', JSON.stringify(Object.entries(notes).filter(([, v]) => v && v.trim()).map(([n, v]) => ({moment: +n, note: v.trim()})))); for (const k in notes) delete notes[k]; };
+    goBtn.onclick = () => { goBtn.disabled = true; post2('render', ''); };
+    const base = `/api/agent/${encodeURIComponent(slug)}/moment/`;
+    const tiles = mo.moments.map((m) => {
+      const ta = el('textarea', {rows: 2, placeholder: `Note on moment ${m.n}…`, 'aria-label': `Note on moment ${m.n}`}, notes[m.n] || '');
+      ta.oninput = () => { notes[m.n] = ta.value; refresh(); };
+      const pv = el('button', {class: 'chipbtn'}, m.clip ? '▶ Replay' : '▶ Preview');
+      const media = m.clip ? el('video', {src: base + m.clip + '?v=' + mo.at, controls: '', playsinline: '', muted: '', autoplay: '', loop: '', class: 'mimg'}) : el('img', {src: base + m.img + '?v=' + mo.at, alt: m.label, class: 'mimg', loading: 'lazy'});
+      pv.onclick = () => { if (m.clip) { const v = media.tagName === 'VIDEO' ? media : null; if (v) { v.currentTime = 0; v.play(); } return; } pv.disabled = true; pv.textContent = 'Rendering…'; post2('preview', String(m.n)); };
+      const tryBtn = el('button', {class: 'chipbtn'}, m.looks && m.looks.length ? '↻ 3 more looks' : '✦ Try another look');
+      tryBtn.onclick = async () => { tryBtn.disabled = true; tryBtn.textContent = 'Making 3 looks…'; try { await api(`/agent/${S}/try`, {method: 'POST', body: JSON.stringify({n: m.n})}); watchLooks(m.n, tryBtn); } catch (e) { tryBtn.disabled = false; tryBtn.textContent = '✦ Try another look'; alert(String(e.message || e)); } };
+      let looksRow = null;
+      if (m.looks && m.looks.length) {
+        const opts = [{id: null, label: 'Keep', img: m.img}, ...m.looks];
+        const paintRow = () => looksRow.replaceChildren(...opts.map((o) => el('button', {class: 'look' + ((picks[m.n] || null) === o.id ? ' on' : ''), title: o.label, onclick: () => { if (o.id) picks[m.n] = o.id; else delete picks[m.n]; paintRow(); refreshPicks(); }},
+          el('img', {src: base + o.img + '?v=' + mo.at, alt: o.label}), el('span', {}, o.label))));
+        looksRow = el('div', {class: 'looks'}); paintRow();
+      }
+      const edBtn = el('button', {class: 'chipbtn', onclick: () => tap.fx({t: m.start, d: Math.max(0.6, m.end - m.start), label: m.label})}, '✎ Change');
+      return el('div', {class: 'mtile'}, el('div', {class: 'mnum'}, String(m.n)), media,
+        el('div', {class: 'mlab'}, el('b', {}, m.label), el('span', {class: 'hint'}, ` ${m.start.toFixed(1)}s`)), looksRow, el('div', {class: 'row', style: 'gap:6px'}, pv, tryBtn, edBtn), ta);
+    });
+    refresh(); refreshPicks();
+    return el('div', {class: 'box', style: 'margin-top:12px'},
+      el('div', {class: 'say', style: 'font-family:var(--display);font-stretch:112%;font-weight:900;text-transform:uppercase;font-size:20px'}, 'Your moments'),
+      el('div', {class: 'hint', style: 'margin:4px 0 12px'}, `${mo.moments.length} moments before the full render. Leave a note on any by number, preview one in a few seconds, or tap Try another look to see 3 other ways to do that moment.`),
+      hookBox, tap.box,
+      el('div', {class: 'mgrid'}, ...tiles),
+      el('div', {class: 'row', style: 'margin-top:12px'}, pickBtn, goBtn, sendBtn, refreshMo, el('button', {class: 'btn', onclick: () => tap.colour(mo.moments[0] ? mo.moments[0].t : 1, 0)}, 'Colour'), pickMsg));
+  }
+
+  // ---------- Tap to edit ----------
+  // The owner changes a moment by tapping instead of typing a note. Changes go straight into
+  // edit.json on the studio (no editor needed), quick previews render here, and the editor makes
+  // the next version when they say so.
+  // a soft two-note chime when the editor is ready for them (so they can walk away)
+  let audioCtx = null;
+  const chime = () => { try { audioCtx = audioCtx || new (window.AudioContext || window.webkitAudioContext)(); const t = audioCtx.currentTime; [[660, 0], [880, 0.16]].forEach(([f, d]) => { const o = audioCtx.createOscillator(), g = audioCtx.createGain(); o.frequency.value = f; o.type = 'sine'; g.gain.setValueAtTime(0, t + d); g.gain.linearRampToValueAtTime(0.18, t + d + 0.02); g.gain.exponentialRampToValueAtTime(0.001, t + d + 0.5); o.connect(g); g.connect(audioCtx.destination); o.start(t + d); o.stop(t + d + 0.55); }); } catch {} };
+  const lastState = {};
+  const heardState = (slug, a) => { const was = lastState[slug], now = a && a.state; lastState[slug] = now; if ((was === 'working' || was === 'queued') && now === 'idle') { chime(); if (document.hidden) document.title = '● Ready · Reel Review'; } };
+  document.addEventListener('visibilitychange', () => { if (!document.hidden) document.title = 'Reel Review'; });
+
+  function makeTap(ctx) {
+    const {slug} = ctx, S = encodeURIComponent(slug);
+    const box = el('div', {class: 'box tap', style: 'display:none'});
+    const pendingBox = el('div', {class: ctx.compact ? 'pendbar' : 'box pending', style: 'display:none'});
+    let sum = null;
+    const show = (...kids) => { ctx.onShow && ctx.onShow(); box.style.display = ''; box.replaceChildren(el('div', {class: 'row', style: 'justify-content:space-between'}, kids[0], el('button', {class: 'chipbtn', 'aria-label': 'Close', onclick: () => { box.style.display = 'none'; }}, '✕')), ...kids.slice(1)); box.scrollIntoView({behavior: 'smooth', block: 'nearest'}); };
+    const paintPending = () => {
+      const ch = (sum && sum.pending) || [];
+      pendingBox.style.display = ch.length && ctx.renderLabel ? '' : 'none';
+      if (!ch.length || !ctx.renderLabel) return;
+      const go = el('button', {class: 'btn y'}, ctx.renderLabel());
+      go.onclick = async () => { go.disabled = true; try { await api(`/studio/${S}/render`, {method: 'POST', body: '{}'}); await load(); ctx.onRender && ctx.onRender(); } catch (e) { go.disabled = false; alert(String(e.message || e)); } };
+      if (ctx.compact) { go.className = 'btn y sm'; pendingBox.replaceChildren(el('details', {class: 'pend'}, el('summary', {}, `${ch.length} change${ch.length === 1 ? '' : 's'} ready`), el('ul', {class: 'chg'}, ...ch.map((c) => el('li', {}, c.said)))), go); return; }
+      pendingBox.replaceChildren(el('h2', {}, `${ch.length} change${ch.length === 1 ? '' : 's'} ready`), el('ul', {class: 'chg'}, ...ch.map((c) => el('li', {}, c.said))), el('div', {class: 'row'}, go, el('span', {class: 'hint'}, 'The editor renders it, checks it, and the new version lands here.')));
+    };
+    const load = async () => { try { sum = await api(`/studio/${S}/edit`); } catch { sum = null; } paintPending(); return sum; };
+    const edit = async (op, msg) => { try { const r = await api(`/studio/${S}/edit`, {method: 'POST', body: JSON.stringify(op)}); sum = r; paintPending(); if (msg) msg.textContent = '✓ ' + r.said; ctx.onEdit && ctx.onEdit(op, r); return r; } catch (e) { if (msg) msg.textContent = String(e.message || e); return null; } };
+    const run = (what, extra) => api(`/studio/${S}/run`, {method: 'POST', body: JSON.stringify({what, ...extra})}).then(() => new Promise((resolve, reject) => { const iv = setInterval(async () => { try { const r = await api(`/agent/${S}/looking`); if (!r.busy) { clearInterval(iv); r.error ? reject(new Error(r.error)) : resolve(); } } catch {} }, 1500); }));
+    const preview = (from, to, holder, btn) => { btn.disabled = true; btn.textContent = 'Making a preview (under a minute)…'; run('clip', {from, to}).then(() => { holder.replaceChildren(el('video', {src: `/api/studio/${S}/out/clips/clip.mp4?v=${Date.now()}`, controls: '', autoplay: '', playsinline: '', class: 'tapvid'})); btn.textContent = '▶ Preview again'; btn.disabled = false; }).catch((e) => { btn.textContent = '▶ Preview this bit'; btn.disabled = false; holder.textContent = String(e.message || e); }); };
+
+    // one effect, the hook, or a moment: move it, stretch it, take it out, colour it, preview it
+    function fx({t, d = 1, label = '', type}) {
+      const isHook = /^Hook/.test(label), msg = el('div', {class: 'hint'}), holder = el('div', {});
+      if (ctx.locked && ctx.locked()) { show(el('h2', {}, label), el('div', {class: 'hint'}, 'This is an older version. Switch to the latest one to change it.')); return; }
+      let at = t;
+      const op = (o) => edit({...o, t: at, type, label, hook: isHook}, msg).then((r) => { if (r && o.op === 'retime') { ctx.onMove && ctx.onMove(at, o.to); at = o.to; } });
+      const pv = el('button', {class: 'chipbtn'}, '▶ Preview this bit'); pv.onclick = () => preview(Math.max(0, at - 0.6), at + Math.max(d, 1) + 0.6, holder, pv);
+      show(el('h2', {}, label || 'This moment'), el('div', {class: 'hint'}, `At ${fmt(t)}.${isHook ? '' : ' Drag it along the timeline, or tap:'}`),
+        el('div', {class: 'chips'},
+          isHook ? null : el('button', {class: 'chipbtn', onclick: () => op({op: 'retime', to: +Math.max(0, at - 0.25).toFixed(2)})}, '← Earlier'),
+          isHook ? null : el('button', {class: 'chipbtn', onclick: () => op({op: 'retime', to: +(at + 0.25).toFixed(2)})}, 'Later →'),
+          el('button', {class: 'chipbtn', onclick: () => op({op: 'stretch', by: -0.5})}, 'Shorter'),
+          el('button', {class: 'chipbtn', onclick: () => op({op: 'stretch', by: 0.5})}, 'Longer'),
+          isHook ? null : el('button', {class: 'chipbtn', onclick: () => { if (confirm('Take this out of the reel?')) op({op: 'remove'}); }}, 'Remove'),
+          el('button', {class: 'chipbtn', onclick: () => colour(at, Math.max(d, 1.5))}, 'Colour'),
+          el('button', {class: 'chipbtn', onclick: () => add(at)}, '+ Add here'), pv),
+        msg, holder);
+    }
+    // a caption: fix a word's spelling (saved to My words too) or make it the punch word
+    function cap(text) {
+      const words = String(text || '').split(/\s+/).filter(Boolean), msg = el('div', {class: 'hint'}), area = el('div', {});
+      if (ctx.locked && ctx.locked()) { show(el('h2', {}, 'Caption'), el('div', {class: 'hint'}, 'Switch to the latest version to change it.')); return; }
+      const clean = (w) => w.replace(/^["“'(]+|[.,!?;:"”')]+$/g, '');
+      const pick = (w) => {
+        const inp = el('input', {class: 'tapin', value: clean(w), 'aria-label': 'How it should be spelt'});
+        area.replaceChildren(el('div', {class: 'row'}, inp, el('button', {class: 'btn y', onclick: () => edit({op: 'word', from: clean(w), to: inp.value.trim()}, msg)}, 'Fix the spelling'), el('button', {class: 'btn', onclick: () => edit({op: 'highlight', word: clean(w)}, msg)}, 'Make it the punch word')));
+        inp.focus(); inp.select();
+      };
+      show(el('h2', {}, 'Caption'), el('div', {class: 'hint'}, 'Tap a word to fix its spelling or make it the punch word. Spelling fixes are saved to My words for every reel.'),
+        el('div', {class: 'chips'}, ...words.map((w) => el('button', {class: 'chipbtn', onclick: () => pick(w)}, w))), area, msg);
+    }
+    // colour looks, rendered on their own footage at this moment
+    async function colour(t0, span) {
+      const msg = el('div', {class: 'hint'}), grid = el('div', {class: 'cgrid'}, el('div', {class: 'hint'}, 'Making colour previews on your footage (about 30 seconds)…'));
+      let look = (sum && sum.grade && sum.grade.look) || 'natural', strength = (sum && sum.grade && sum.grade.strength) || 1;
+      const slider = el('input', {type: 'range', min: 0, max: 150, value: String(Math.round(strength * 100)), 'aria-label': 'How strong'});
+      const sv = el('span', {class: 'hint'}, Math.round(strength * 100) + '%');
+      slider.oninput = () => { strength = +slider.value / 100; sv.textContent = slider.value + '%'; };
+      show(el('h2', {}, 'Colour'), el('div', {class: 'hint'}, `Your footage at ${fmt(t0)} in each look. Your text and effects keep their own colours.`), grid,
+        el('div', {class: 'row'}, el('span', {class: 'hint'}, 'Strength'), slider, sv),
+        el('div', {class: 'row'}, el('button', {class: 'btn y', onclick: () => edit({op: 'colour', look, strength}, msg)}, 'Use on the whole reel'),
+          span ? el('button', {class: 'btn', onclick: () => edit({op: 'colour', look, strength, start: Math.max(0, t0 - 0.2), dur: span + 0.4}, msg)}, 'Just this moment') : null), msg);
+      try {
+        await run('colours', {t: t0});
+        const cj = await api(`/studio/${S}/out/colour/colours.json`);
+        const paint = () => grid.replaceChildren(...cj.looks.map((c) => el('button', {class: 'tile' + (c.id === look ? ' on' : ''), onclick: () => { look = c.id; paint(); }}, el('img', {src: `/api/studio/${S}/out/colour/${c.img}?v=${cj.at}`, alt: ''}), el('div', {class: 'nm'}, c.name))));
+        paint();
+      } catch (e) { grid.replaceChildren(el('div', {class: 'err'}, String(e.message || e))); }
+    }
+    // add at this moment: something from their shelf goes straight in; a library effect goes to the editor as a note
+    async function add(t0) {
+      const msg = el('div', {class: 'hint'}), shelfGrid = el('div', {class: 'fgrid'});
+      const loadShelf = async () => { let items = []; try { items = await api('/shelf'); } catch {}
+        shelfGrid.replaceChildren(...items.map((it) => el('button', {class: 'tile', title: it.file, onclick: () => edit({op: 'shelf', file: it.file, t: t0}, msg)}, el('img', {src: it.url, alt: ''}), el('div', {class: 'nm'}, it.file))),
+          items.length ? null : el('div', {class: 'hint'}, 'Nothing on your shelf yet. Add your logo, screenshots and photos once and they are here for every reel.')); };
+      const input = el('input', {type: 'file', multiple: '', accept: 'image/*', style: 'display:none'});
+      const drop = el('div', {class: 'shelfdrop', tabindex: '0', role: 'button'}, '+ Drop images onto your shelf, or tap to choose');
+      const upload = async (files) => { if (!files || !files.length) return; const fd = new FormData(); for (const f of files) fd.append('file', f, f.name); msg.textContent = 'Adding to your shelf…';
+        try { const r = await fetch('/api/shelf', {method: 'POST', body: fd}); const j = await r.json(); msg.textContent = r.ok ? `Added ${j.added.length} to your shelf.` : j.error; } catch { msg.textContent = 'That did not upload. Try again.'; } loadShelf(); };
+      drop.onclick = () => input.click(); drop.onkeydown = (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); input.click(); } }; input.onchange = () => upload(input.files);
+      drop.ondragover = (e) => { e.preventDefault(); drop.classList.add('over'); }; drop.ondragleave = () => drop.classList.remove('over'); drop.ondrop = (e) => { e.preventDefault(); drop.classList.remove('over'); upload(e.dataTransfer.files); };
+      if (!LIB) { try { LIB = await api('/effects'); } catch { LIB = {groups: [], effects: []}; } }
+      const fxGrid = el('div', {class: 'fgrid'}, ...LIB.effects.filter((e) => e.group !== 'hooks').map((e) => el('button', {class: 'tile', title: e.when, onclick: async () => { const ok = ctx.addNote ? await ctx.addNote(t0, `Add ${e.name} here (from my effects library: ${e.id}).`) : false; msg.textContent = ok ? `✓ Asked the editor to add ${e.name} at ${fmt(t0)}.` : 'Not saved. Try again.'; }}, el('img', {src: e.img, alt: '', loading: 'lazy'}), el('div', {class: 'nm'}, e.name))));
+      show(el('h2', {}, `Add at ${fmt(t0)}`), el('div', {class: 'k'}, 'From my shelf'), shelfGrid, drop, input, msg,
+        ctx.addNote ? el('div', {class: 'k', style: 'margin-top:8px'}, 'An effect (the editor fits it to what you say there)') : null, ctx.addNote ? fxGrid : null);
+      loadShelf();
+    }
+    load();
+    return {box, pendingBox, fx, cap, colour, add, edit, run, load};
+  }
+
+  // two versions side by side, playing together, so she sees exactly what changed
+  function compareVersions(reel, v) {
+    const vs = reel.versions || []; if (vs.length < 2) return;
+    let left = vs.find((x) => x.v !== v && x.v < v) ? Math.max(...vs.filter((x) => x.v < v).map((x) => x.v)) : vs.find((x) => x.v !== v).v, right = v;
+    const A = el('video', {playsinline: '', preload: 'auto'}), B = el('video', {playsinline: '', preload: 'auto', muted: ''});
+    B.muted = true;
+    const pick = (side) => el('select', {class: 'vsel', onchange: (e) => { if (side === 'L') left = +e.target.value; else right = +e.target.value; load(); }}, vs.map((x) => el('option', {value: x.v, selected: x.v === (side === 'L' ? left : right) ? '' : null}, `v${x.v}`)));
+    const load = () => { A.src = verOf(reel, left).video; B.src = verOf(reel, right).video; };
+    const playBtn = el('button', {class: 'play'}, '▶');
+    playBtn.onclick = () => { if (A.paused) { B.currentTime = A.currentTime; A.play(); B.play(); playBtn.textContent = '❚❚'; } else { A.pause(); B.pause(); playBtn.textContent = '▶'; } };
+    A.addEventListener('seeked', () => { if (Math.abs(B.currentTime - A.currentTime) > 0.1) B.currentTime = A.currentTime; });
+    A.addEventListener('ended', () => { B.pause(); playBtn.textContent = '▶'; });
+    const sound = el('button', {class: 'chipbtn'}, 'Sound: left');
+    sound.onclick = () => { const l = !A.muted; A.muted = l; B.muted = !l; sound.textContent = 'Sound: ' + (l ? 'right' : 'left'); };
+    const scrub = el('input', {type: 'range', min: 0, max: 1000, value: 0, 'aria-label': 'Where in the reel', style: 'flex:1'});
+    scrub.oninput = () => { const d = A.duration || 1; A.currentTime = B.currentTime = (scrub.value / 1000) * d; };
+    A.addEventListener('timeupdate', () => { if (A.duration) scrub.value = String(Math.round((A.currentTime / A.duration) * 1000)); });
+    const close = () => { A.pause(); B.pause(); ov.remove(); };
+    const ov = el('div', {class: 'overlay', onclick: (e) => { if (e.target === ov) close(); }},
+      el('div', {class: 'box cmp'},
+        el('div', {class: 'row', style: 'justify-content:space-between'}, el('h2', {}, 'Compare versions'), el('button', {class: 'chipbtn', onclick: close}, '✕ Close')),
+        el('div', {class: 'cmpgrid'}, el('div', {}, pick('L'), el('div', {class: 'vid'}, A)), el('div', {}, pick('R'), el('div', {class: 'vid'}, B))),
+        el('div', {class: 'row'}, playBtn, scrub, sound)));
+    document.body.append(ov); load();
+  }
+
+  // Cut first: every line of the cut with keep or cut, and a plain preview. Nothing is styled yet.
+  const cutKeeps = {};
+  function cutBoard(slug, cj, post2) {
+    const keep = cutKeeps[slug] = cutKeeps[slug] || Object.fromEntries(cj.lines.map((l) => [l.n, l.keep !== false]));
+    const vid = el('video', {src: `/api/agent/${encodeURIComponent(slug)}/cut/rough.mp4?v=${cj.at}`, controls: '', playsinline: '', preload: 'metadata', class: 'cutvid'});
+    const kept = () => cj.lines.filter((l) => keep[l.n]);
+    const sum = el('div', {class: 'hint'});
+    const lock = el('button', {class: 'btn y'}, 'This is my cut');
+    const refresh = () => { const k = kept(); sum.textContent = `Keeping ${k.length} of ${cj.lines.length} lines, about ${Math.round(k.reduce((a, l) => a + l.out - l.in, 0))}s.`; lock.disabled = !k.length; };
+    const rows = cj.lines.map((l) => {
+      const b = el('button', {class: 'chipbtn'});
+      const row = el('div', {class: 'cutline'}, el('button', {class: 'chipbtn', title: 'Play this line', onclick: () => { vid.currentTime = l.at + 0.01; vid.play(); }}, '▶ ' + fmt(l.at)), el('span', {class: 'ct'}, l.text), b);
+      const paintRow = () => { b.textContent = keep[l.n] ? 'Keep' : 'Cut'; row.classList.toggle('off', !keep[l.n]); };
+      b.onclick = () => { keep[l.n] = !keep[l.n]; paintRow(); refresh(); };
+      paintRow(); return row;
+    });
+    lock.onclick = () => { lock.disabled = true; post2('cutlock', kept().map((l) => l.n).join(',')); delete cutKeeps[slug]; };
+    refresh();
+    return el('div', {class: 'box', style: 'margin-top:12px'},
+      el('div', {class: 'say', style: 'font-family:var(--display);font-stretch:112%;font-weight:900;text-transform:uppercase;font-size:20px'}, 'Your cut, before styling'),
+      el('div', {class: 'hint', style: 'margin:4px 0 12px'}, 'Every line in the order it plays. Tap Keep to cut a line out. Styling starts once you say this is your cut.'),
+      el('div', {class: 'cutwrap'}, vid, el('div', {class: 'cutlines'}, ...rows)),
+      el('div', {class: 'row', style: 'margin-top:12px'}, lock, sum));
+  }
+
+  // After the style step: the editor's workspace for this reel. Its status, the plan, the yes or the
+  // change, then the cut. All of it happens here; a Claude chat running /edit does the work.
+  function renderBriefed(j) {
+    document.body.classList.remove('ws');
+    setPoll(null); current = null;
+    $('#sub').textContent = j.slug;
+    const statusBox = el('div', {}), doneBox = el('div', {}), planBox = el('div', {}), actBox = el('div', {}), err = el('div', {class: 'err'});
+    let last = '', busy = false;
+    const post2 = async (what, text) => { try { await api(`/agent/${encodeURIComponent(j.slug)}/${what}`, {method: 'POST', body: JSON.stringify({text})}); last = ''; tick(); } catch (e) { alert(String(e.message || e)); } };
+    const draw = (a, live, reel) => {
+      const key = JSON.stringify([a.state, a.task, a.queued, a.log, a.plan, a.stillAt, a.cj && a.cj.at, a.mo && [a.mo.at, a.mo.moments.map((m) => [m.n, m.clip, (m.looks || []).length])], live, !!reel, reel && reel.version, a.state === 'working' ? Math.floor(Date.now() / 5000) : 0]);
+      if (key === last) return; last = key;
+      const working = a.state === 'working', waiting = a.state === 'queued' || a.queued > 0;
+      const lines = (a.log || []).slice(-6).map((x) => typeof x === 'string' ? x : x.msg);
+      statusBox.replaceChildren(
+        !live && waiting && !working
+          ? el('div', {class: 'banner'}, el('span', {}, '⏸'), el('span', {}, el('b', {}, 'The editor is switched off. '), 'Your request is saved. In Claude on this Mac, type ', el('code', {}, '/edit'), ' and it starts straight away.'))
+          : working ? workView(j.slug, a, a.task === 'cut' || a.task === 'notes' ? 'Processing your edit' : 'Writing your plan')
+          : waiting ? el('div', {class: 'work'}, el('div', {class: 'say'}, a.task === 'cut' ? 'Got it. Processing your edit' : a.task === 'change' ? 'Got it. Updating the plan' : 'Got it'), el('div', {class: 'hint'}, 'Starting now. Progress shows here.'))
+          : a.state === 'error' ? el('div', {class: 'fail'}, el('b', {}, 'That did not finish. '), lines.slice(-1)[0] || '')
+          : '');
+      planBox.replaceChildren(a.plan && reel ? el('details', {class: 'box plan'}, el('summary', {style: 'cursor:pointer'}, el('b', {}, 'The plan')), htmlEl('md', md(a.plan))) : a.plan ? el('div', {class: 'box plan'}, el('div', {class: 'row', style: 'justify-content:space-between'}, el('h2', {}, 'The plan'), reel ? null : el('span', {class: 'pill'}, working || waiting ? 'updating' : 'ready for you')), htmlEl('md', md(a.plan))) : '');
+      const idle = !working && !waiting;
+      actBox.replaceChildren(); doneBox.replaceChildren(); if (a.task === 'cutfirst' && idle && a.cj && a.cj.lines.length) { doneBox.replaceChildren(cutBoard(j.slug, a.cj, post2)); } else if (a.task === 'moments' && idle && a.mo && a.mo.moments.length) { doneBox.replaceChildren(momentsBoard(j.slug, a.mo, post2)); } else if (reel && idle) doneBox.replaceChildren((a.log || []).length ? el('details', {class: 'wdone'}, el('summary', {}, 'What I did (' + (a.log || []).length + ' steps)'), workView(j.slug, a, 'Done')) : '', el('div', {class: 'done'}, el('div', {class: 'say'}, 'Your edit is ready'), el('div', {class: 'row'}, el('button', {class: 'btn y', onclick: () => openReel(j.slug)}, 'See the edit →'), el('a', {class: 'btn', href: `/api/reels/${encodeURIComponent(j.slug)}/download`, download: j.slug + '.mp4', style: 'text-decoration:none'}, '↓ Download'))));
+      else if (a.plan && idle && a.task !== 'cut' && a.task !== 'cutfirst') {
+        const ta = el('textarea', {placeholder: 'Change something: "drop the line from the other room", "keep 27"…', 'aria-label': 'Change to the plan'});
+        const yes = el('button', {class: 'btn y'}, 'Yes, cut it');
+        const chg = el('button', {class: 'btn'}, 'Send this change');
+        const post = async (what, btn) => { if (busy) return; busy = true; btn.disabled = true; err.textContent = ''; try { const a2 = await api(`/agent/${encodeURIComponent(j.slug)}/${what}`, {method: 'POST', body: JSON.stringify({text: ta.value})}); last = ''; draw({...a2, state: 'queued'}, true, null); tick(); } catch (e) { err.textContent = String(e.message || e); btn.disabled = false; } busy = false; };
+        yes.onclick = () => post('approve', yes); chg.onclick = () => post('change', chg);
+        actBox.replaceChildren(el('div', {class: 'field'}, el('label', {}, 'Happy with it?'), ta, el('div', {class: 'hint'}, 'Anything you type here goes along with "Yes, cut it" too.')), el('div', {class: 'row'}, yes, chg), err);
+      } else actBox.replaceChildren();
+    };
+    const tick = async () => {
+      try {
+        const [a, w, reels2] = await Promise.all([api('/agent/' + encodeURIComponent(j.slug)), api('/watching').catch(() => ({live: false})), api('/reels').catch(() => [])]);
+        if (a.task === 'moments') a.mo = await api('/agent/' + encodeURIComponent(j.slug) + '/moments').catch(() => null);
+        if (a.task === 'cutfirst') a.cj = await api('/agent/' + encodeURIComponent(j.slug) + '/cut').catch(() => null);
+        heardState(j.slug, a);
+        draw(a, w.live, reels2.find((r) => r.slug === j.slug));
+      } catch {}
+    };
+    main.replaceChildren(
+      el('button', {class: 'back', style: 'margin-bottom:12px', onclick: () => boot({stayOnList: true})}, '← All reels'),
+      el('div', {class: 'box', style: 'max-width:900px'},
+        stepsBar(4), el('h2', {}, j.slug),
+        el('div', {class: 'hint'}, (j.brief ? 'What you said: “' + j.brief.slice(0, 160) + (j.brief.length > 160 ? '…”' : '”') : 'No note, so the editor is choosing.') + (j.style ? (j.style.mode === 'template' ? ` Template: ${(TPL || []).find((t) => t.id === j.style.template)?.name || j.style.template}.` : j.style.mode === 'claude' ? ' Style: Claude’s call.' : ' Style: your brand.') : '')),
+        statusBox, doneBox, planBox, actBox,
+        el('div', {class: 'row', style: 'margin-top:14px'},
+          el('button', {class: 'btn', onclick: () => renderBrief(j)}, 'Change what I said'),
+          el('button', {class: 'btn', onclick: () => renderStyle(j)}, 'Change the style'))));
+    tick(); setPoll(tick);
+  }
+
+  // One job at a time, polled, so a reload or a locked phone comes back to the same place.
+  function openJob(slug) {
+    document.body.classList.remove('ws');
+    setPoll(null); current = null;
+    $('#sub').textContent = slug;
+    const head = el('h2', {}, slug);
+    const stepLine = el('div', {class: 'prog'}, 'Checking…');
+    const bar = el('i', {style: 'width:35%'});
+    const logbox = el('div', {class: 'logbox'});
+    const body2 = el('div', {class: 'box', style: 'max-width:620px'}, head, stepLine, el('div', {class: 'bar'}, bar), logbox);
+    const wrap = el('div', {}, el('button', {class: 'back', style: 'margin-bottom:12px', onclick: () => boot({stayOnList: true})}, '← All reels'), body2);
+    main.replaceChildren(wrap);
+
+    const paint = (j) => {
+      if (j.state === 'running') {
+        stepLine.replaceChildren(el('b', {}, j.step === 'new' ? 'Moving your footage into the project…' : 'Getting the footage ready…'),
+          el('div', {class: 'hint'}, j.step === 'prep' ? 'Proxies, the transcript and the contact sheets. This takes a few minutes on a long clip. You can close this page or lock your phone: it keeps going, and this screen comes back when you return.' : 'One moment.'));
+        bar.style.width = j.step === 'new' ? '20%' : '65%';
+        logbox.textContent = (j.log || []).join('\n');
+        logbox.style.display = (j.log || []).length ? 'block' : 'none';
+        return true;
+      }
+      if (j.state === 'ready') { renderBrief(j); return false; }
+      body2.replaceChildren(head, el('div', {class: 'fail'},
+        el('b', {}, 'That did not finish.'),
+        el('div', {}, j.error || 'Ask Claude to take a look.'),
+        (j.log || []).length ? el('div', {class: 'logbox'}, (j.log || []).join('\n')) : null,
+        el('div', {class: 'row'}, el('button', {class: 'btn', onclick: () => clearJob(j.slug)}, 'Dismiss'), el('button', {class: 'btn', onclick: () => renderNew()}, 'Try again'))));
+      return false;
+    };
+
+    const tick = async () => {
+      let j;
+      try { j = await api('/jobs/' + encodeURIComponent(slug)); } catch { return; }
+      if (!paint(j)) { if (poll) clearInterval(poll); poll = null; try { jobs = await api('/jobs'); } catch {} }
+    };
+    tick();
+    poll = setInterval(tick, 2000);
+  }
+
+  // the version being watched: latest by default, any earlier cut on request
+  const verOf = (reel, v) => (reel.versions || []).find((x) => x.v === v) || (reel.versions || [])[(reel.versions || []).length - 1] || reel;
+
+  async function openReel(slug) {
+    setPoll(null);
+    let data;
+    try { data = await api('/reels/' + slug); } catch { boot(); return; }
+    const reel = data.reel;
+    current = {slug, reel, notes: data.notes, filter: 'open', zoom: 1, v: reel.version || 1};
+    const moved = {}; let suppressClick = false;
+    const tap = makeTap({slug, compact: true, onShow: () => showTab('change'), locked: () => current.v !== (current.reel.version || 1),
+      renderLabel: () => `Make version ${(current.reel.version || 1) + 1}`, onRender: () => { edKey = ''; drawEditor(); },
+      onMove: (from, to) => { moved[from] = to; drawMarkers(); },
+      addNote: async (t, text) => { try { const n = await api(`/reels/${slug}/notes`, {method: 'POST', body: JSON.stringify({t: +t.toFixed(2), text, version: current.v})}); current.notes.push(n); current.notes.sort((x, y) => x.t - y.t); drawNotes(); refreshHeader(); drawEditor(); return true; } catch { return false; } }});
+    $('#sub').textContent = reel.title || slug;
+    const video = el('video', {id: 'video', playsinline: '', preload: 'metadata'});
+    const play = el('button', {class: 'play', 'aria-label': 'Play or pause'}, '▶');
+    const tc = el('span', {class: 'tc', id: 'tc'}, '0:00.0');
+    const speed = el('button', {class: 'speed', 'aria-label': 'Playback speed'}, '1×');
+    const vers = (reel.versions || []);
+    const vsel = vers.length > 1
+      ? el('select', {class: 'vsel', id: 'vsel', 'aria-label': 'Which cut to watch', onchange: (e) => switchVersion(+e.target.value)},
+          vers.slice().reverse().map((x) => el('option', {value: x.v, selected: x.v === current.v ? '' : null}, `v${x.v}${x.v === reel.version ? ' (latest)' : ''}`)))
+      : null;
+    const ROWS = [['text', 'Text', 'var(--yellow)'], ['cap', 'Captions', '#E9E6DA'], ['media', 'B-roll', 'var(--blue)'], ['ui', 'UI cards', 'var(--green)'], ['move', 'Moves', 'var(--pink)'], ['cuts', 'Cuts', '#8a908c'], ['notes', 'Notes', 'var(--red)']];
+    const zoomBtns = [1, 2, 4].map((z) => el('button', {'aria-pressed': String(z === 1), 'data-z': z}, z + '×'));
+    const tl = el('div', {class: 'tl', id: 'tl'},
+      el('div', {class: 'tlbar'}, el('span', {class: 'hint'}, 'Tap a block to change it, or drag it along.'), el('div', {class: 'zoom', 'aria-label': 'Timeline zoom'}, zoomBtns), el('button', {class: 'chipbtn tlfold', onclick: (e) => { const on = !document.body.classList.contains('tlmin'); document.body.classList.toggle('tlmin', on); e.currentTarget.textContent = on ? 'Show timeline' : 'Hide timeline'; try { localStorage.setItem('rs-tlmin', on ? '1' : ''); } catch {} }}, (() => { let on = false; try { on = !!localStorage.getItem('rs-tlmin'); } catch {} document.body.classList.toggle('tlmin', on); return on ? 'Show timeline' : 'Hide timeline'; })())),
+      el('div', {class: 'tlgrid'},
+        el('div', {class: 'names'}, el('div', {style: 'height:22px;border-bottom:1px solid var(--line)'}), ROWS.map(([k, n, c]) => el('div', {}, el('i', {style: `background:${c}`}), n))),
+        el('div', {class: 'scroller', id: 'scroller'}, el('div', {class: 'lanes', id: 'lanes'},
+          el('div', {class: 'ruler', id: 'ruler'}),
+          ROWS.map(([k]) => el('div', {class: 'lane', id: 'lane-' + k})),
+          el('div', {class: 'head', id: 'head'})))));
+    zoomBtns.forEach((b) => b.onclick = () => { current.zoom = +b.dataset.z; zoomBtns.forEach((x) => x.setAttribute('aria-pressed', String(x === b))); drawMarkers(); });
+    const now = el('div', {class: 'now', id: 'now'});
+    const older = el('div', {class: 'older', id: 'older', style: 'display:none'});
+    const ta = el('textarea', {id: 'ta', placeholder: 'What should change at this moment?', 'aria-label': 'Note', rows: '2'});
+    const add = el('button', {class: 'btn y', id: 'add'}, 'Add note at 0:00.0');
+    // Quick fixes: one tap leaves a ready-made note at this exact moment
+    const QF = [['Too busy here', 'Too busy here: take something out so the line can breathe.'], ['Feels flat', 'Feels flat here: give this line a moment (an effect or a punch word).'], ['Text on my face', 'Text is covering my face here: move it.'], ['Text size off', 'The text size is off here: make it read comfortably.'], ['Captions late', 'Captions land late here: bring them in a beat earlier.'], ['Wrong word', 'A caption word is wrong here: fix it and save it to My words.'], ['Cut this bit', 'Cut this bit out.'], ['Make this my default', 'I love this: make it my default for future reels (ask me before saving it as a rule).']];
+    const quick = el('div', {class: 'chips qf'}, el('span', {class: 'hint', style: 'width:100%'}, 'Quick fixes (tap to drop a note right here):'), ...QF.map(([nm, txt]) => el('button', {class: 'chipbtn', onclick: async (ev) => {
+      const b = ev.currentTarget; b.disabled = true;
+      try { const n = await api(`/reels/${slug}/notes`, {method: 'POST', body: JSON.stringify({t: +video.currentTime.toFixed(2), text: txt, version: current.v})}); current.notes.push(n); current.notes.sort((x, y) => x.t - y.t); drawNotes(); refreshHeader(); drawEditor(); } catch { err.textContent = 'Note not saved. Try again.'; }
+      b.disabled = false; }}, nm)));
+    const err = el('div', {class: 'err', id: 'err'});
+    const approve = el('button', {class: 'btn g', id: 'approve'}, 'Approve this cut');
+    const filters = el('div', {class: 'filters'}, ['open', 'all'].map((f) => el('button', {class: 'chip', 'data-f': f, 'aria-pressed': String(f === 'open'), onclick: () => { current.filter = f; filters.querySelectorAll('.chip').forEach((c) => c.setAttribute('aria-pressed', String(c.dataset.f === f))); drawNotes(); }}, f === 'open' ? 'Open' : 'All versions')));
+    main.replaceChildren(
+      el('div', {class: 'row', style: 'margin-bottom:12px;justify-content:space-between'},
+        el('button', {class: 'back', onclick: () => { current = null; boot(); }}, '← All reels'),
+        tap.pendingBox,
+        el('div', {class: 'row'}, vsel, el('span', {id: 'ver', class: 'pill'}, 'v1'), el('span', {id: 'status', class: 'pill'}, ''), (jobs.find((x) => x.slug === slug && x.go) ? el('button', {class: 'btn', style: 'padding:6px 14px', onclick: () => { current = null; renderBriefed(jobs.find((x) => x.slug === slug)); }}, 'Plan + moments') : null), el('button', {class: 'btn', style: 'padding:6px 14px', onclick: () => tap.colour(video.currentTime, 0)}, 'Colour'), el('button', {class: 'btn', style: 'padding:6px 14px', onclick: () => tap.add(video.currentTime)}, '+ Add here'), vers.length > 1 ? el('button', {class: 'btn', style: 'padding:6px 14px', onclick: () => compareVersions(reel, current.v)}, 'Compare') : null, el('a', {class: 'btn y', href: `/api/reels/${encodeURIComponent(slug)}/download`, download: slug + '.mp4', style: 'padding:6px 14px;text-decoration:none'}, '↓ Download'))),
+      el('div', {class: 'view ws'},
+        el('div', {class: 'stage'}, older, el('div', {class: 'vid'}, video), el('div', {class: 'ctrls'}, play, tc, speed), now),
+        el('div', {class: 'side'},
+          el('div', {class: 'box compose dock'}, el('div', {class: 'row dockrow'}, ta, add), quick, err),
+          el('div', {class: 'tabs', role: 'tablist'}, ...[['notes', 'Notes'], ['change', 'Change'], ['editor', 'Editor']].map(([k, n]) => el('button', {role: 'tab', id: 'tab-' + k, 'data-tab': k, onclick: () => showTab(k)}, n))),
+          el('div', {class: 'pane', 'data-pane': 'notes'}, el('div', {class: 'row', style: 'justify-content:space-between;margin-bottom:8px'}, el('span', {class: 'hint'}, 'Tap a time to jump there.'), filters), el('div', {class: 'notes', id: 'notes'})),
+          el('div', {class: 'pane', 'data-pane': 'change'}, tap.box, el('div', {class: 'hint changehint'}, 'Tap any block on the timeline, or a caption, to change it here. Or use Colour and + Add here at the top.')),
+          el('div', {class: 'pane', 'data-pane': 'editor'}, el('div', {class: 'box', id: 'editor'}),
+            el('div', {class: 'box'}, el('div', {class: 'row', style: 'justify-content:space-between'}, el('span', {class: 'hint'}, 'Happy with this version? Approve it, then download it to post.'), approve)))),
+        el('div', {class: 'tlrow'}, tl)));
+    document.body.classList.add('ws');
+    function showTab(k) { document.querySelectorAll('.tabs [data-tab]').forEach((b) => b.setAttribute('aria-selected', String(b.dataset.tab === k))); document.querySelectorAll('.pane').forEach((p) => p.classList.toggle('on', p.dataset.pane === k)); }
+    showTab('notes');
+
+    const dur = () => (isFinite(video.duration) && video.duration) || verOf(reel, current.v).duration || reel.duration || 1;
+    const tick = () => { if (!current) return; const t = video.currentTime; tc.textContent = `${fmt(t)} / ${fmt(dur())}`; $('#head').style.left = `${(t / dur()) * 100}%`; const sc = $('#scroller'); if (sc && !video.paused && current.zoom > 1) { const x = (t / dur()) * $('#lanes').offsetWidth; if (x < sc.scrollLeft + 40 || x > sc.scrollLeft + sc.clientWidth - 40) sc.scrollLeft = x - sc.clientWidth / 3; } add.textContent = `Add note at ${fmt(t)}`; const on = (verOf(reel, current.v).markers || []).filter((m) => t >= m.t && t <= m.t + Math.max(m.d, 0.3)); $('#now').replaceChildren(on.length ? el('span', {}, 'On screen: ', el('b', {}, on.map((m) => m.label).join(' · '))) : ''); document.querySelectorAll('.blk').forEach((m) => m.classList.toggle('on', t >= +m.dataset.t && t <= +m.dataset.t + Math.max(+m.dataset.d, 0.3))); play.textContent = video.paused ? '▶' : '❚❚'; requestAnimationFrame(tick); };
+    requestAnimationFrame(tick);
+    play.onclick = () => video.paused ? video.play() : video.pause();
+    video.onclick = play.onclick;
+    const speeds = [1, 0.5, 0.25]; let si = 0;
+    speed.onclick = () => { si = (si + 1) % speeds.length; video.playbackRate = speeds[si]; speed.textContent = speeds[si] + '×'; };
+    const seekRuler = (ev) => { const rect = $('#lanes').getBoundingClientRect(); video.pause(); video.currentTime = Math.min(Math.max((ev.clientX - rect.left) / rect.width, 0), 1) * dur(); };
+    let dragging = false;
+    const ruler = $('#ruler');
+    ruler.addEventListener('pointerdown', (ev) => { dragging = true; ruler.setPointerCapture(ev.pointerId); seekRuler(ev); });
+    ruler.addEventListener('pointermove', (ev) => { if (dragging) seekRuler(ev); });
+    ruler.addEventListener('pointerup', () => { dragging = false; });
+    $('#lanes').addEventListener('click', (ev) => { const b = ev.target.closest('[data-t]'); if (!b) return; if (suppressClick) { suppressClick = false; return; } video.pause(); video.currentTime = +(moved[+b.dataset.t] ?? b.dataset.t) + 0.05;
+      if (b.classList.contains('cap')) tap.cap(b.dataset.label); else if (b.classList.contains('blk')) tap.fx({t: +(moved[+b.dataset.t] ?? b.dataset.t), d: +b.dataset.d, label: b.dataset.label, type: b.dataset.type || undefined}); });
+    let drag = null;
+    $('#lanes').addEventListener('pointerdown', (ev) => { const b = ev.target.closest('.blk'); if (!b || b.classList.contains('cap') || current.v !== (current.reel.version || 1) || /^(Hook|End card|Label)/.test(b.dataset.label || '')) return; drag = {b, x0: ev.clientX, left0: b.offsetLeft, moved: false}; });
+    $('#lanes').addEventListener('pointermove', (ev) => { if (!drag) return; const dx = ev.clientX - drag.x0; if (Math.abs(dx) > 6) drag.moved = true; if (drag.moved) { drag.b.style.left = (drag.left0 + dx) + 'px'; drag.b.classList.add('dragging'); } });
+    const endDrag = async () => { if (!drag) return; const d0 = drag; drag = null; if (!d0.moved) return; suppressClick = true; setTimeout(() => { suppressClick = false; }, 400);
+      const from = +(moved[+d0.b.dataset.t] ?? d0.b.dataset.t), to = Math.max(0, +((d0.b.offsetLeft / $('#lanes').offsetWidth) * dur()).toFixed(2));
+      const r = await tap.edit({op: 'retime', t: from, to, type: d0.b.dataset.type || undefined, label: d0.b.dataset.label});
+      if (r) { moved[+d0.b.dataset.t] = to; video.currentTime = to; } drawMarkers(); };
+    $('#lanes').addEventListener('pointerup', endDrag); $('#lanes').addEventListener('pointerleave', endDrag);
+    document.onkeydown = (ev) => { const f = document.activeElement; if (!current || ev.metaKey || ev.ctrlKey || ev.altKey || [ev.target, f].some((x) => x && x.closest && x.closest('input,textarea,select,button,[contenteditable]'))) return; if (ev.key === 'ArrowRight') video.currentTime += 0.5; if (ev.key === 'ArrowLeft') video.currentTime -= 0.5; if (ev.key === ' ') { ev.preventDefault(); play.onclick(); } };
+    video.addEventListener('loadedmetadata', drawMarkers);
+    ta.addEventListener('focus', () => video.pause());
+    ta.addEventListener('keydown', (ev) => { if (ev.key === 'Enter' && !ev.shiftKey && !ev.isComposing) { ev.preventDefault(); add.onclick(); } });
+    add.onclick = async () => {
+      const text = ta.value.trim(); if (!text) { ta.focus(); return; }
+      add.disabled = true; err.textContent = '';
+      try {
+        const n = await api(`/reels/${slug}/notes`, {method: 'POST', body: JSON.stringify({t: +video.currentTime.toFixed(2), text, version: current.v})});
+        current.notes.push(n); current.notes.sort((a, b) => a.t - b.t);
+        if (current.reel.status === 'approved') current.reel.status = 'review';
+        ta.value = ''; drawNotes(); refreshHeader(); drawEditor();
+      } catch (e) { err.textContent = 'Note not saved. Check the studio is still running, then try again.'; }
+      add.disabled = false;
+    };
+    approve.onclick = async () => {
+      approve.disabled = true;
+      try { current.reel = {...current.reel, ...(await api('/reels/' + slug, {method: 'PATCH', body: JSON.stringify({status: 'approved'})}))}; refreshHeader(); }
+      catch { approve.disabled = false; err.textContent = 'Could not approve. Try again.'; }
+    };
+
+    function switchVersion(v) {
+      current.v = v;
+      const o = $('#older');
+      if (v !== (reel.version || 1)) {
+        o.style.display = 'flex';
+        o.replaceChildren(el('span', {}, `You are watching v${v}. Notes you add are stamped v${v}.`), el('button', {onclick: () => { $('#vsel').value = String(reel.version); switchVersion(reel.version); }}, 'Back to the latest cut'));
+      } else o.style.display = 'none';
+      const src = verOf(reel, v).video;
+      if (src && video.dataset.src !== src) { video.dataset.src = src; video.src = src; video.load(); }
+      drawMarkers(); drawNotes();
+    }
+
+    function refreshHeader() {
+      const open = current.notes.filter((n) => !n.done).length;
+      const [cls, txt] = statusOf(current.reel, open);
+      $('#status').className = `pill ${cls}`; $('#status').textContent = txt;
+      $('#ver').textContent = `v${reel.version || 1}`;
+      $('#approve').textContent = current.reel.status === 'approved' ? 'Approved ✓' : 'Approve this cut';
+      $('#approve').disabled = current.reel.status === 'approved';
+    }
+
+    function drawMarkers() {
+      if (!current || !$('#lanes')) return;
+      const vv = verOf(reel, current.v);
+      const D = (isFinite(video.duration) && video.duration) || vv.duration || reel.duration || 1;
+      $('#lanes').style.width = `${current.zoom * 100}%`;
+      const pct = (t) => `${Math.min(100, Math.max(0, (t / D) * 100))}%`;
+      const wid = (d) => `${Math.max(0.6, (Math.max(d, 0.12) / D) * 100)}%`;
+      const step = current.zoom >= 4 ? 1 : current.zoom >= 2 ? 2 : 5;
+      const ticks = []; for (let x = 0; x <= D; x += step) ticks.push(el('b', {style: `left:${pct(x)}`}), el('span', {style: `left:${pct(x)}`}, `${Math.floor(x / 60)}:${String(Math.round(x % 60)).padStart(2, '0')}`));
+      $('#ruler').replaceChildren(...ticks);
+      const rowOf = {text: [], cap: [], media: [], ui: [], move: []};
+      for (const m of vv.markers || []) (rowOf[m.g] || rowOf.ui).push(m);
+      for (const c of vv.captions || []) rowOf.cap.push({...c, g: 'cap'});
+      for (const [k, list] of Object.entries(rowOf)) {
+        const ends = [0, 0];
+        const nodes = list.sort((a, b) => a.t - b.t).map((m) => {
+          let sub = ends.findIndex((e) => e <= m.t + 0.01); const overlap = sub !== 0;
+          if (sub < 0) sub = 1; ends[sub] = m.t + Math.max(m.d, 0.12);
+          const style = `left:${pct(m.t)};width:${wid(m.d)}` + (overlap || list.some((o) => o !== m && o.t < m.t + m.d && m.t < o.t + o.d) ? `;height:calc((var(--rh) - 12px)/2);top:calc(5px + ${sub} * ((var(--rh) - 12px) / 2 + 2px));bottom:auto;font-size:9px` : '');
+          const st2 = moved[m.t] !== undefined ? style.replace(/^left:[^;]+/, `left:${pct(moved[m.t])}`) : style;
+          return el('div', {class: `blk ${m.g === 'cap' ? 'cap' : m.g}${moved[m.t] !== undefined ? ' moved' : ''}`, 'data-t': m.t, 'data-d': m.d, 'data-label': m.label, 'data-type': m.type || '', title: `${fmt(m.t)}  ${m.label}`, style: st2}, String(m.label).replace(/^[^:]+: /, (x) => k === 'cap' ? '' : x));
+        });
+        $('#lane-' + k).replaceChildren(...nodes);
+      }
+      $('#lane-cuts').replaceChildren(...(vv.cuts || []).map((c) => el('div', {class: 'cut', 'data-t': c, 'data-d': 0, style: `left:${pct(c)}`, title: `Cut at ${fmt(c)}`})));
+      $('#lane-notes').replaceChildren(...current.notes.filter((n) => (n.version || 1) === current.v).map((n) => el('div', {class: `pin${n.done ? ' done' : ''}`, 'data-t': n.t, 'data-d': 0, style: `left:${pct(n.t)}`, title: n.text})));
+    }
+
+    function drawNotes() {
+      const tn = $('#tab-notes'); if (tn) { const o = current.notes.filter((n) => !n.done).length; tn.textContent = o ? `Notes (${o})` : 'Notes'; }
+      const list = current.notes.filter((n) => current.filter === 'all' || !n.done);
+      const box = $('#notes');
+      if (!list.length) { box.replaceChildren(el('div', {class: 'hint'}, current.notes.length ? 'All notes are done. Approve the cut when you’re happy.' : 'No notes yet. Play the reel, pause where something should change, and add a note.')); drawMarkers(); return; }
+      box.replaceChildren(...list.map((n) => el('div', {class: `note${n.done ? ' done' : ''}`},
+        el('button', {class: 'stamp', 'aria-label': `Jump to ${fmt(n.t)}`, onclick: () => { if ((n.version || 1) !== current.v && $('#vsel')) { $('#vsel').value = String(n.version || 1); switchVersion(n.version || 1); } video.currentTime = n.t; video.pause(); }}, fmt(n.t)),
+        el('div', {}, el('div', {class: 'txt'}, n.text), el('div', {class: 'meta'}, `left on v${n.version || 1}${n.reply ? ' · Claude: ' + n.reply : ''}`)),
+        el('button', {class: 'tick', 'aria-label': n.done ? 'Mark not done' : 'Mark done', onclick: async () => { try { await api(`/reels/${slug}/notes/${n.id}`, {method: 'PATCH', body: JSON.stringify({done: !n.done})}); n.done = !n.done; drawNotes(); refreshHeader(); } catch {} }}, n.done ? '✓' : ''))));
+      drawMarkers();
+    }
+
+    switchVersion(current.v);
+    // the editor: send the open notes off, and see it working on them
+    let edKey = '';
+    async function drawEditor() {
+      const box = $('#editor'); if (!box || !current) return;
+      let a = {state: 'none', log: []}, live = false;
+      try { [a, {live}] = await Promise.all([api('/agent/' + encodeURIComponent(slug)), api('/watching').catch(() => ({live: false}))]); } catch {}
+      heardState(slug, a);
+      const open = current.notes.filter((n) => !n.done && !n.sent).length;
+      const working = a.state === 'working', waiting = a.state === 'queued' || a.queued > 0;
+      const key = JSON.stringify([a.state, a.log, a.queued, a.stillAt, live, open, a.state === 'working' ? Math.floor(Date.now() / 5000) : 0]); if (key === edKey) return; edKey = key;
+      const send = el('button', {class: 'btn y'}, `Send ${open} note${open === 1 ? '' : 's'} to the editor`);
+      send.onclick = async () => { send.disabled = true; try { await api(`/agent/${encodeURIComponent(slug)}/notes`, {method: 'POST', body: '{}'}); edKey = ''; drawEditor(); } catch { send.disabled = false; } };
+      box.replaceChildren(el('h2', {}, 'Editor'),
+        working ? workView(slug, a, 'Working on your notes')
+        : waiting ? el('div', {class: 'hint'}, live ? 'The editor has your notes and starts in a moment.' : el('span', {}, 'Your notes are saved. The editor is switched off: in Claude on this Mac, type ', el('code', {}, '/edit'), '.'))
+        : open ? el('div', {}, el('div', {class: 'hint', style: 'margin-bottom:8px'}, 'Leave all your notes first, then send them together.'), send)
+        : el('div', {class: 'hint'}, 'Leave notes on the moments you want changed, then send them to the editor from here.'));
+    }
+    drawEditor();
+    refreshHeader();
+    // the editor works while you watch: pick up new versions and replies
+    setPoll(async () => {
+      if (!current) return;
+      drawEditor();
+      try {
+        const d = await api('/reels/' + slug);
+        const bumped = (d.reel.version || 1) !== (reel.version || 1);
+        Object.assign(reel, d.reel);
+        current.reel = d.reel;
+        const stamp = JSON.stringify(current.notes.map((n) => [n.id, n.done, n.reply]));
+        current.notes = d.notes;
+        if (bumped) { const typing = $('#ta') && ($('#ta').value.trim() || document.activeElement === $('#ta')); if ($('#vsel') && !typing) openReel(slug); else { current.v = reel.version || 1; switchVersion(current.v); } return; }
+        if (stamp !== JSON.stringify(current.notes.map((n) => [n.id, n.done, n.reply]))) drawNotes();
+        refreshHeader();
+      } catch {}
+    });
+  }
+
+  if (location.hash === '#taste') { history.replaceState(null, '', '/'); renderTaste(); } else if (location.hash === '#new') { history.replaceState(null, '', '/'); api('/jobs').then((js) => { jobs = js; renderNew(); }).catch(() => boot()); } else boot();
+})();
+</script>

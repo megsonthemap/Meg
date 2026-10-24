@@ -1,0 +1,106 @@
+{
+ "$schema": "reel-studio/mac-only.json v1",
+ "note": "Effects that need the person cutout (Apple Vision), so they are Mac only for now. For the other session to merge into catalog.py as macOnly: True on these ids (then python3 build.py). On Windows they still render: engine/lib/no-cutout.mjs draws a version that needs no cutout, described in onWindows. Written 21 Oct 2026 from catalog.py; any new effect that puts the person in front of something belongs here too.",
+ "needs": "person cutout",
+ "effects": [
+  {
+   "id": "hook-behind",
+   "name": "Hook behind your head",
+   "onWindows": "The hook sits on top of the shot instead of behind your head."
+  },
+  {
+   "id": "bigword",
+   "name": "Giant word behind your head",
+   "onWindows": "The giant word is drawn in front of you."
+  },
+  {
+   "id": "bigword-serif",
+   "name": "Serif numbers",
+   "onWindows": "The numbers are drawn in front of you."
+  },
+  {
+   "id": "glass",
+   "name": "Glass type",
+   "onWindows": "The glass word is drawn over the shot."
+  },
+  {
+   "id": "cover",
+   "name": "Magazine cover",
+   "onWindows": "The masthead and cover lines are drawn over the shot."
+  },
+  {
+   "id": "paper",
+   "name": "Paper cut",
+   "onWindows": "Shown as a full-screen paper title card, without the white outline around you."
+  },
+  {
+   "id": "colourbg",
+   "name": "Colour title",
+   "onWindows": "Shown as a full-screen colour title card for the same seconds; your voice carries on underneath."
+  },
+  {
+   "id": "backdrop",
+   "name": "Screen behind you",
+   "onWindows": "Becomes a stacked shot: the screenshot or b-roll on the top half, you moved down underneath it."
+  },
+  {
+   "id": "deck-fan",
+   "name": "Photo fan",
+   "onWindows": "The photos are drawn in front of you."
+  },
+  {
+   "id": "deck-snap",
+   "name": "Camera snaps",
+   "onWindows": "The photos are drawn in front of you."
+  },
+  {
+   "id": "deck-wall",
+   "name": "Photo wall",
+   "onWindows": "The photos are drawn in front of you."
+  },
+  {
+   "id": "deck-scatter",
+   "name": "Headline scatter",
+   "onWindows": "The headlines are drawn in front of you."
+  },
+  {
+   "id": "orbit",
+   "name": "Orbit",
+   "onWindows": "The cards circle over the shot rather than passing behind you."
+  },
+  {
+   "id": "uiworld",
+   "name": "App background",
+   "onWindows": "Becomes the prompt bar over your shot, with the same typing."
+  },
+  {
+   "id": "framebreak",
+   "name": "Frame break",
+   "onWindows": "The frame shrinks with you inside it; you do not step out of the frame."
+  },
+  {
+   "id": "pullback",
+   "name": "Pull-back reveal",
+   "onWindows": "The whole shot pulls back, you included."
+  },
+  {
+   "id": "doodle",
+   "name": "Doodle outline",
+   "onWindows": "The doodles wobble around you, without the white outline."
+  },
+  {
+   "id": "vertigo",
+   "name": "Vertigo",
+   "onWindows": "The whole shot zooms; you do not hold still while the room moves."
+  },
+  {
+   "id": "wrap",
+   "name": "Headline wrap",
+   "onWindows": "All the lines are drawn in front of you, none tuck behind your head."
+  }
+ ],
+ "alsoMacOnly": {
+  "sticker cut": "A sticker with \"cut\": true uses the photo as it is on Windows, uncut.",
+  "face box": "The quality check finds the face with Apple Vision. On Windows it checks text and b-roll against a fixed face zone and warns instead of failing, so look at the contact sheet for anything over the face."
+ }
+}

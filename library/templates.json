@@ -1,0 +1,110 @@
+[
+ {
+  "id": "clean",
+  "name": "Clean talking head",
+  "blurb": "Your brand, captions big and early, a few proof moments. The everyday look.",
+  "captions": "cap-stack",
+  "hook": "hook-bars",
+  "cover": "label",
+  "effects": [
+   "label",
+   "counter",
+   "bigword",
+   "sticker",
+   "dm",
+   "zoomblur"
+  ],
+  "img": "/library/img/label.jpg"
+ },
+ {
+  "id": "collage",
+  "name": "Paper collage",
+  "blurb": "Scrapbook energy: polaroids, badges, paper cut-outs and page turns.",
+  "captions": "cap-drop",
+  "hook": "hook-behind",
+  "cover": "polaroids",
+  "effects": [
+   "polaroids",
+   "badges",
+   "collage",
+   "stampcal",
+   "paper",
+   "circle",
+   "pageturn",
+   "curtain"
+  ],
+  "img": "/library/img/polaroids.jpg"
+ },
+ {
+  "id": "screens",
+  "name": "Show the screen",
+  "blurb": "For tools and how-tos: apps behind you, prompts typing, phone mockups, docs.",
+  "captions": "cap-box",
+  "hook": "hook-top",
+  "cover": "uiworld",
+  "effects": [
+   "uiworld",
+   "prompt",
+   "phone",
+   "doc",
+   "notifs",
+   "timeline",
+   "annotate"
+  ],
+  "img": "/library/img/uiworld.jpg"
+ },
+ {
+  "id": "proof",
+  "name": "Proof stack",
+  "blurb": "Results-led: numbers rolling, notifications landing, posts and stamps.",
+  "captions": "cap-stack",
+  "hook": "hook-bars",
+  "cover": "notifs",
+  "effects": [
+   "counter",
+   "statbars",
+   "receipts",
+   "post",
+   "notifs",
+   "stamp",
+   "igpoll",
+   "chart"
+  ],
+  "img": "/library/img/notifs.jpg"
+ },
+ {
+  "id": "story",
+  "name": "Story",
+  "blurb": "Slower and warmer: one word at a time, b-roll behind you, flashbacks.",
+  "captions": "cap-word",
+  "hook": "hook-top",
+  "cover": "backdrop",
+  "effects": [
+   "backdrop",
+   "band",
+   "photostrip",
+   "rewind",
+   "paperslide",
+   "glass"
+  ],
+  "img": "/library/img/backdrop.jpg"
+ },
+ {
+  "id": "loud",
+  "name": "Loud",
+  "blurb": "Big, fast and punchy: burning words, stamps, shakes, split-flap reveals.",
+  "captions": "cap-phrase",
+  "hook": "hook-behind",
+  "cover": "burn",
+  "effects": [
+   "burn",
+   "stamp",
+   "shake",
+   "splitflap",
+   "confetti",
+   "glitch",
+   "orbit"
+  ],
+  "img": "/library/img/burn.jpg"
+ }
+]

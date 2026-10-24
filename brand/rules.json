@@ -1,0 +1,8 @@
+{
+  "$schema": "reel-studio/rules.json v1",
+  "note": "The rules Claude has learned from your review notes. Claude reads this before every cut. Nothing is written here unless you said yes to it, and anything you said no to is kept so you are never asked twice. Run: node engine/reel.mjs learn <slug> after you approve a reel.",
+  "rules": [],
+  "rejected": [],
+  "pending": [],
+  "observations": []
+}

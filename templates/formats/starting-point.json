@@ -1,0 +1,12 @@
+{
+  "slug": "SLUG",
+  "_comment": "The whole starting point. Everything that makes a reel different from the last one is missing on purpose: no hook, no effects, no end card. Those come out of this reel's transcript and this person's brand/voice.json, by way of `node engine/reel.mjs menu <slug>`. Captions, their size and their position come from brand.json, so leave them out unless this reel needs something different.",
+  "cuts": [
+    {
+      "src": "CLIP_ID",
+      "in": 0.0,
+      "out": 30.0
+    }
+  ],
+  "duration": 30
+}

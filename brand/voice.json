@@ -1,0 +1,28 @@
+{
+  "$schema": "reel-studio/voice.json v1",
+  "note": "How YOU write the words on screen: how you ask for something at the end of a reel, the words you use, the words you refuse, the effects you love. Claude fills this in by asking you, one question at a time, and reads it before writing a single written word into a cut. A null means nobody has answered yet, so Claude asks rather than guessing. This is the file that stops your reels looking like everybody else's.",
+  "ask": {
+    "kind": null,
+    "endCard": null,
+    "dmLine": null,
+    "reply": null,
+    "keywords": [],
+    "verbs": [],
+    "notes": null
+  },
+  "words": {
+    "says": [],
+    "never": [],
+    "spelling": null,
+    "punctuation": null
+  },
+  "openers": {
+    "habits": [],
+    "avoid": []
+  },
+  "effects": {
+    "love": [],
+    "avoid": []
+  },
+  "allow": []
+}

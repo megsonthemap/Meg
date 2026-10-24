@@ -1,0 +1,88 @@
+<title>Effects Library</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100..125,500..900&family=Inter:wght@400;500;600&display=swap">
+<style>
+/* Layout: a contact sheet of phone frames, filtered by family, like a stock-library browser. */
+:root{
+  --bg:#F6F6F6; --card:#FFFFFF; --ink:#2C2C2A; --muted:#6C6C67; --line:#E1E0DA; --yellow:#FFE14D; --blue:#9FB8D6; --chipOn:#2C2C2A; --chipOnText:#F6F6F6;
+  --display:'Archivo','Helvetica Neue',Arial,sans-serif; --body:'Inter',-apple-system,'Helvetica Neue',sans-serif;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg:#161716;--card:#202220;--ink:#EDEDE8;--muted:#A0A39D;--line:#333634;--chipOn:#FFE14D;--chipOnText:#161716;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#161716;--card:#202220;--ink:#EDEDE8;--muted:#A0A39D;--line:#333634;--chipOn:#FFE14D;--chipOnText:#161716;color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);margin:0;font-size:15px;line-height:1.45}
+.wrap{max-width:1240px;margin:0 auto;padding-inline:16px;padding-block:28px 64px}
+h1{font-family:var(--display);font-stretch:112%;font-weight:900;text-transform:uppercase;font-size:clamp(34px,6vw,64px);line-height:.95;margin:0;text-wrap:balance}
+h1 span{background:var(--yellow);color:#2C2C2A;padding:0 .15em}
+.lede{color:var(--muted);max-width:60ch;margin:12px 0 22px}
+.bar{display:flex;flex-wrap:wrap;gap:8px;align-items:center;position:sticky;top:env(safe-area-inset-top,0px);background:var(--bg);padding-block:10px;z-index:2}
+.chip{border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:999px;padding:7px 14px;font:600 13px var(--body);cursor:pointer}
+.chip[aria-pressed="true"]{background:var(--chipOn);color:var(--chipOnText);border-color:var(--chipOn)}
+.chip:focus-visible,#q:focus-visible{outline:2px solid var(--blue);outline-offset:2px}
+#q{margin-left:auto;min-width:0;flex:1 1 180px;max-width:280px;border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:999px;padding:8px 14px;font:14px var(--body)}
+section{margin-top:26px}
+h2{font-family:var(--display);font-stretch:112%;font-weight:800;text-transform:uppercase;font-size:20px;margin:0 0 12px;display:flex;gap:10px;align-items:baseline}
+h2 small{font:500 13px var(--body);color:var(--muted);text-transform:none}
+.grid{display:grid;gap:14px;grid-template-columns:repeat(auto-fill,minmax(170px,1fr))}
+.fx{background:var(--card);border:1px solid var(--line);border-radius:16px;overflow:hidden;display:flex;flex-direction:column;min-width:0}
+.fx img{width:100%;aspect-ratio:9/16;object-fit:cover;display:block;background:#222}
+.fx .b{padding:10px 12px 12px;display:grid;gap:5px}
+.fx .n{font-family:var(--display);font-stretch:112%;font-weight:800;font-size:14px;text-transform:uppercase;line-height:1.1}
+.fx .s{font-size:13px;font-style:normal;opacity:.95;margin:2px 0 1px}
+.fx .w{font-size:13px;opacity:.72}
+.fx .s{font-size:11px;color:var(--muted)}
+.fx .id{font:500 11px ui-monospace,Menlo,monospace;color:var(--muted)}
+.none{color:var(--muted);padding:30px 0}
+.lede code{background:var(--card);border:1px solid var(--line);border-radius:5px;padding:1px 5px;font:500 12px ui-monospace,Menlo,monospace}
+@media (prefers-reduced-motion:no-preference){.fx{transition:transform .15s}.fx:hover{transform:translateY(-2px)}}
+</style>
+
+<div class="wrap">
+  <h1>Effects <span>library</span></h1>
+  <p class="lede">Every effect this kit can render. Each still is one frame of a moving effect, and every one is used only when it matches what is being said. <span id="count">{{COUNT}}</span> effects so far, and you can add your own. The line in quotes under each name is what to call it out loud: ask for “cards spinning around your head” and you will get it. The stills below were rendered on the kit’s test reel; re-render them on your own footage and in your own brand any time with <code>node library/build.mjs --project &lt;your slug&gt;</code>.</p>
+  <div class="bar" role="toolbar" aria-label="Filter effects">
+    <div id="chips" style="display:contents"></div>
+    <input id="q" type="search" placeholder="Search effects" aria-label="Search effects">
+  </div>
+  <div id="list"></div>
+</div>
+
+<script>
+const DATA = /*DATA*/[];
+const GROUPS = /*GROUPS*/[];
+let group = 'all', q = '';
+try { group = localStorage.getItem('fxgroup') || 'all'; } catch (e) {}
+const chips = document.getElementById('chips'), list = document.getElementById('list');
+function chip(key, label) {
+  const b = document.createElement('button'); b.className = 'chip'; b.textContent = label; b.dataset.k = key;
+  b.onclick = () => { group = key; try { localStorage.setItem('fxgroup', key); } catch (e) {} render(); };
+  chips.append(b);
+}
+chip('all', 'All'); GROUPS.forEach(([k, l]) => chip(k, l));
+document.getElementById('q').addEventListener('input', (e) => { q = e.target.value.toLowerCase(); render(); });
+function render() {
+  chips.querySelectorAll('.chip').forEach((c) => c.setAttribute('aria-pressed', String(c.dataset.k === group)));
+  list.replaceChildren();
+  let shown = 0;
+  for (const [k, label] of GROUPS) {
+    if (group !== 'all' && group !== k) continue;
+    const items = DATA.filter((d) => d.group === k && (!q || (d.name + ' ' + (d.say||'') + ' ' + (d.earns||'') + ' ' + d.when).toLowerCase().includes(q)));
+    if (!items.length) continue;
+    shown += items.length;
+    const sec = document.createElement('section');
+    const h = document.createElement('h2'); h.textContent = label; const sm = document.createElement('small'); sm.textContent = items.length + (items.length === 1 ? ' effect' : ' effects'); h.append(sm); sec.append(h);
+    const grid = document.createElement('div'); grid.className = 'grid';
+    for (const d of items) {
+      const c = document.createElement('article'); c.className = 'fx';
+      if (d.img) { const im = document.createElement('img'); im.src = d.img; im.alt = d.name + ' example'; im.loading = 'lazy'; c.append(im); }
+      const b = document.createElement('div'); b.className = 'b';
+      const n = document.createElement('div'); n.className = 'n'; n.textContent = d.name;
+      if (d.say) { const s2 = document.createElement('div'); s2.className = 's'; s2.textContent = '“' + d.say + '”'; c.append(s2); }
+      const w = document.createElement('div'); w.className = 'w'; w.textContent = d.when;
+      b.append(n, w); c.append(b); grid.append(c);
+    }
+    sec.append(grid); list.append(sec);
+  }
+  if (!shown) { const p = document.createElement('p'); p.className = 'none'; p.textContent = 'No effects match. Try another word.'; list.append(p); }
+}
+render();
+</script>

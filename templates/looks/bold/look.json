@@ -1,0 +1,38 @@
+{
+ "id": "bold",
+ "name": "Bold",
+ "blurb": "A heavy condensed sans in caps, clean white captions, an orange punch word and quick, punchy timing. Loud and confident.",
+ "fonts": {
+  "display": {
+   "family": "Anton",
+   "files": [
+    {
+     "file": "Anton.ttf",
+     "weight": "100 900"
+    }
+   ]
+  },
+  "serif": {
+   "family": "Inter",
+   "files": [
+    {
+     "file": "Inter.ttf",
+     "weight": "100 900"
+    }
+   ]
+  }
+ },
+ "colours": {
+  "punch": "#FF7A30",
+  "accent": "#2F6BFF",
+  "paper": "#F5F5F0",
+  "ink": "#1A1A1A",
+  "dark": "#111111",
+  "white": "#FFFFFF"
+ },
+ "reel": {
+  "displayStretch": "100%",
+  "design": 2,
+  "energy": "full"
+ }
+}

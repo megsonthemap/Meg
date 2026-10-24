@@ -1,0 +1,1418 @@
+{
+ "version": 1,
+ "groups": [
+  [
+   "hooks",
+   "Hooks + captions"
+  ],
+  [
+   "text",
+   "Type moments"
+  ],
+  [
+   "media",
+   "Photos, b-roll + proof"
+  ],
+  [
+   "ui",
+   "Screens + UI cards"
+  ],
+  [
+   "move",
+   "Moves + transitions"
+  ]
+ ],
+ "patches": {
+  "A": {
+   "captions": {
+    "mode": "stack",
+    "y": 0.6
+   },
+   "hook": {
+    "mode": "bars",
+    "text": "Post three reels\nthis week\nwithout editing",
+    "end": 3.95,
+    "start": -0.4,
+    "y": 0.045,
+    "size": 64,
+    "accentLines": [
+     0,
+     2
+    ]
+   },
+   "checklist": {
+    "title": "Check list",
+    "start": 15.0,
+    "end": 21.0,
+    "y": 0.05,
+    "slots": 3,
+    "items": [
+     {
+      "text": "One clear idea",
+      "at": 15.5
+     },
+     {
+      "text": "One hook",
+      "at": 16.5
+     }
+    ]
+   },
+   "end": {
+    "start": 43.0,
+    "lines": [
+     "Comment",
+     "GUIDE"
+    ]
+   }
+  },
+  "B": {
+   "captions": {
+    "mode": "phrase",
+    "y": 0.6
+   },
+   "hook": {
+    "mode": "top",
+    "text": "Post three reels this week without editing",
+    "end": 3.0,
+    "y": 0.08,
+    "size": 54
+   }
+  },
+  "C": {
+   "captions": {
+    "mode": "word",
+    "y": 0.6
+   },
+   "hook": {
+    "mode": "behind",
+    "text": "Reels\nwith AI",
+    "start": 0,
+    "end": 3.0,
+    "y": 0.16,
+    "size": 190,
+    "accentLines": [
+     1
+    ]
+   }
+  },
+  "D": {
+   "captions": {
+    "mode": "stack",
+    "y": 0.6,
+    "box": true
+   }
+  },
+  "E": {
+   "captions": {
+    "mode": "stack",
+    "y": 0.6,
+    "entry": "blur"
+   }
+  }
+ },
+ "effects": [
+  {
+   "id": "hook-bars",
+   "name": "Highlight-bar hook",
+   "say": "your opening line in highlight bars",
+   "earns": "the first thing you say, when it has to be read before it is heard",
+   "group": "hooks",
+   "when": "Every reel’s first frame. Highlight bars in your punch colour and ink, on screen from frame one.",
+   "patch": "A",
+   "still": 1.0
+  },
+  {
+   "id": "hook-top",
+   "name": "Compact punch hook",
+   "say": "a small opening line above your head",
+   "earns": "an opening where the shot is doing the work",
+   "group": "hooks",
+   "when": "A quieter opener when the shot itself is the hook.",
+   "patch": "B",
+   "still": 1.2
+  },
+  {
+   "id": "hook-behind",
+   "name": "Hook behind your head",
+   "say": "your opening line behind your head",
+   "earns": "an opening of two short words you want shouted",
+   "group": "hooks",
+   "when": "Short, punchy titles (2 lines max) tucked behind your head.",
+   "patch": "C",
+   "still": 2.0
+  },
+  {
+   "id": "cap-stack",
+   "name": "Stacked captions",
+   "say": "stacked captions with the loud word on top",
+   "earns": "the whole reel: the default caption look",
+   "group": "hooks",
+   "when": "Default. your display font for the loud words, small your caption font between.",
+   "patch": "A",
+   "still": 7.9
+  },
+  {
+   "id": "cap-phrase",
+   "name": "Lead-in + punch word",
+   "say": "a quiet lead-in over one huge word",
+   "earns": "the whole reel, when single words carry it",
+   "group": "hooks",
+   "when": "A small quiet lead-in above one huge word in your punch colour.",
+   "patch": "B",
+   "still": 3.75
+  },
+  {
+   "id": "cap-word",
+   "name": "One word at a time",
+   "say": "one word at a time",
+   "earns": "the whole reel, when it is slow and story-led",
+   "group": "hooks",
+   "when": "Calmer, premium, story-led reels.",
+   "patch": "C",
+   "still": 12.6
+  },
+  {
+   "id": "cap-box",
+   "name": "Boxed captions",
+   "say": "captions in a box",
+   "earns": "the whole reel, when the background is busy or bright",
+   "group": "hooks",
+   "when": "Busy or bright backgrounds where floating captions get lost.",
+   "patch": "D",
+   "still": 12.6
+  },
+  {
+   "id": "cap-blur",
+   "name": "Blur-in captions",
+   "say": "captions that blur in",
+   "earns": "the whole reel, when it is reflective rather than punchy",
+   "group": "hooks",
+   "when": "A softer caption entrance for slower, reflective reels.",
+   "patch": "E",
+   "still": 7.75
+  },
+  {
+   "id": "checklist",
+   "name": "Checklist that fills in",
+   "say": "questions filling in one at a time",
+   "earns": "you ask people to check two or three things",
+   "group": "hooks",
+   "when": "\"Ask yourself these 3 questions\" reels. One line fills in per point, as it’s said.",
+   "patch": "A",
+   "still": 17.5
+  },
+  {
+   "id": "endcard",
+   "name": "End card",
+   "say": "a last card with your ask on it",
+   "earns": "the last line, where you ask for something",
+   "group": "hooks",
+   "when": "Last 2 to 3 seconds: the keyword or \"part 2\".",
+   "patch": "A",
+   "still": 44.0
+  },
+  {
+   "id": "bigword",
+   "name": "Giant word behind your head",
+   "say": "one giant word behind your head",
+   "earns": "a single word the whole reel hangs on",
+   "group": "text",
+   "when": "The one word the reel hangs on, behind your head (ICON, LABEL).",
+   "dur": 2.0,
+   "still": 1.4,
+   "fx": [
+    {
+     "type": "bigword",
+     "text": "LABEL",
+     "at": 0,
+     "dur": 2.0,
+     "behind": true,
+     "y": 0.17,
+     "size": 300,
+     "colour": "#FFE14D"
+    }
+   ]
+  },
+  {
+   "id": "bigword-serif",
+   "name": "Serif numbers",
+   "say": "a big number in your quiet font",
+   "earns": "a numbered step, or one number said on its own",
+   "group": "text",
+   "when": "Numbered steps and big moments (\"1 2 3\", \"BETTER RESULT\").",
+   "dur": 2.0,
+   "still": 1.4,
+   "fx": [
+    {
+     "type": "bigword",
+     "text": "1 2 3",
+     "font": "serif",
+     "at": 0,
+     "dur": 2.0,
+     "behind": true,
+     "y": 0.1,
+     "size": 320
+    }
+   ]
+  },
+  {
+   "id": "strike",
+   "name": "Word struck through",
+   "say": "a word crossed out",
+   "earns": "you name the thing people should stop doing",
+   "group": "text",
+   "when": "Killing an old idea on screen.",
+   "dur": 2.0,
+   "still": 1.5,
+   "fx": [
+    {
+     "type": "bigword",
+     "text": "THE OLD WAY",
+     "at": 0,
+     "dur": 2.0,
+     "y": 0.17,
+     "size": 185,
+     "colour": "#444444",
+     "strike": 0.5
+    }
+   ]
+  },
+  {
+   "id": "label",
+   "name": "Name label",
+   "say": "a name tag under what you said",
+   "earns": "you say a person, a step or a section name",
+   "group": "text",
+   "when": "Introducing a person, step or section (\"Step 1 · Photos\").",
+   "dur": 2.0,
+   "still": 1.2,
+   "fx": [
+    {
+     "type": "label",
+     "small": "Step 1",
+     "text": "Photos",
+     "at": 0,
+     "dur": 2.0,
+     "bg": "black",
+     "y": 0.08
+    }
+   ]
+  },
+  {
+   "id": "label-blue",
+   "name": "Accent label bar",
+   "say": "a name bar in your accent colour",
+   "earns": "you say your own show, product or company name",
+   "group": "text",
+   "when": "Brand moments: your show, product or company name on a bar in your accent colour.",
+   "dur": 2.0,
+   "still": 1.2,
+   "fx": [
+    {
+     "type": "label",
+     "small": "How do I",
+     "text": "Your show?",
+     "at": 0,
+     "dur": 2.0,
+     "bg": "blue",
+     "y": 0.12
+    }
+   ]
+  },
+  {
+   "id": "counter",
+   "name": "Counter",
+   "say": "a number counting up",
+   "earns": "a number that changed, or grew",
+   "group": "text",
+   "when": "Any number that changed: 300 to 3,000 plays.",
+   "dur": 2.2,
+   "still": 2.0,
+   "fx": [
+    {
+     "type": "counter",
+     "from": 0,
+     "to": 3000,
+     "at": 0,
+     "dur": 2.2,
+     "label": "plays a week",
+     "y": 0.1
+    }
+   ]
+  },
+  {
+   "id": "counter-roll",
+   "name": "Slot-machine number",
+   "say": "a number rolling like a slot machine",
+   "earns": "a number that is the point of the reel",
+   "group": "text",
+   "when": "A big reveal number (26 effects, $85K).",
+   "dur": 2.0,
+   "still": 1.7,
+   "fx": [
+    {
+     "type": "counter",
+     "from": 0,
+     "to": 26,
+     "roll": true,
+     "at": 0,
+     "dur": 2.0,
+     "label": "video effects",
+     "y": 0.1
+    }
+   ]
+  },
+  {
+   "id": "burn",
+   "name": "Burning word",
+   "say": "a word burning onto the screen",
+   "earns": "a one-word verdict, and only once in a reel",
+   "group": "text",
+   "when": "A dramatic one-liner (\"COOKED.\"). Rarely.",
+   "dur": 2.0,
+   "still": 1.4,
+   "fx": [
+    {
+     "type": "burn",
+     "text": "COOKED.",
+     "at": 0,
+     "dur": 2.0
+    }
+   ]
+  },
+  {
+   "id": "glass",
+   "name": "Glass type",
+   "say": "a glassy title behind you",
+   "earns": "you name a brand, platform or product",
+   "group": "text",
+   "when": "A premium title behind you (a brand, platform or product name).",
+   "dur": 2.0,
+   "still": 1.5,
+   "fx": [
+    {
+     "type": "glass",
+     "text": "YOUR BRAND",
+     "at": 0,
+     "dur": 2.0,
+     "y": 0.14
+    }
+   ]
+  },
+  {
+   "id": "cover",
+   "name": "Magazine cover",
+   "say": "the frame becomes a magazine cover",
+   "earns": "you start telling a story",
+   "group": "text",
+   "when": "Story reels and \"the story of…\" openers.",
+   "dur": 2.0,
+   "still": 1.5,
+   "fx": [
+    {
+     "type": "cover",
+     "title": "STUDIO",
+     "lines": [
+      "How I make",
+      "everything I post"
+     ],
+     "at": 0,
+     "dur": 2.0
+    }
+   ]
+  },
+  {
+   "id": "paper",
+   "name": "Paper cut",
+   "say": "a paper cut-out chapter break",
+   "earns": "you change subject and want it to feel light",
+   "group": "text",
+   "when": "A playful chapter break, with a white sticker outline around you.",
+   "dur": 2.0,
+   "still": 1.4,
+   "fx": [
+    {
+     "type": "paper",
+     "word": "PAPER CUT",
+     "at": 0,
+     "dur": 2.0
+    }
+   ]
+  },
+  {
+   "id": "annotate",
+   "name": "Arrow note",
+   "say": "an arrow pointing at something in the shot",
+   "earns": "you point at something that is really in frame",
+   "group": "text",
+   "when": "Pointing at me or something in frame (\"can’t edit\").",
+   "dur": 2.0,
+   "still": 1.5,
+   "fx": [
+    {
+     "type": "annotate",
+     "text": "can't edit",
+     "at": 0,
+     "dur": 2.0,
+     "x": 0.2,
+     "y": 0.42,
+     "toX": 0.38,
+     "toY": 0.3
+    }
+   ]
+  },
+  {
+   "id": "header",
+   "name": "Pinned question",
+   "say": "a question pinned to the top of the reel",
+   "earns": "the whole reel is answering one question",
+   "group": "text",
+   "when": "Framing the whole reel as a question.",
+   "dur": 2.0,
+   "still": 1.2,
+   "fx": [
+    {
+     "type": "header",
+     "text": "Can Claude edit like a pro editor?",
+     "at": 0,
+     "dur": 2.0
+    }
+   ]
+  },
+  {
+   "id": "colourbg",
+   "name": "Colour title",
+   "say": "the whole screen goes your accent colour behind you",
+   "earns": "an opening line, or a clean break between sections",
+   "group": "text",
+   "when": "Opening line or chapter break: the background turns your accent colour, you stay in front.",
+   "dur": 2.2,
+   "still": 1.6,
+   "fx": [
+    {
+     "type": "colourbg",
+     "colour": "#9FB8D6",
+     "at": 0,
+     "dur": 2.2,
+     "y": 0.1,
+     "lines": [
+      {
+       "t": "ask yourself",
+       "f": "serif",
+       "c": "#1E1E1E"
+      },
+      {
+       "t": "5 questions",
+       "f": "display",
+       "at": 0.4
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "backdrop",
+   "name": "Screen behind you",
+   "say": "a screenshot or clip rising up behind you",
+   "earns": "you say exactly what the screenshot shows",
+   "group": "media",
+   "when": "Real screenshots or b-roll of exactly what is being said, fading in behind you.",
+   "dur": 2.0,
+   "still": 1.4,
+   "fx": [
+    {
+     "type": "backdrop",
+     "src": "demo-assets/shot.jpg",
+     "at": 0,
+     "dur": 2.0,
+     "height": 0.86,
+     "pos": 0.86
+    }
+   ]
+  },
+  {
+   "id": "band",
+   "name": "Stacked shot, blur seam",
+   "say": "a second shot stacked above you, joined by a blur",
+   "earns": "you talk about someone or something you have footage of",
+   "group": "media",
+   "when": "A guest or second angle on top, you below. Never a hard split.",
+   "dur": 2.0,
+   "still": 1.4,
+   "fx": [
+    {
+     "type": "band",
+     "clip": "__CLIP__",
+     "at": 0,
+     "dur": 2.0,
+     "height": 0.5,
+     "shiftMain": 0.2
+    }
+   ]
+  },
+  {
+   "id": "deck-fan",
+   "name": "Photo fan",
+   "say": "photos fanning out like a hand of cards",
+   "earns": "you say a set of things: clients, episodes, products",
+   "group": "media",
+   "when": "Showing a set of things (products, episodes, guests, clients).",
+   "dur": 2.0,
+   "still": 1.4,
+   "fx": [
+    {
+     "type": "deck",
+     "mode": "fan",
+     "srcs": [
+      "demo-assets/card1.jpg",
+      "demo-assets/card2.jpg",
+      "demo-assets/card3.jpg",
+      "demo-assets/card4.jpg",
+      "demo-assets/card5.jpg"
+     ],
+     "at": 0,
+     "dur": 2.0,
+     "y": 0.14
+    }
+   ]
+  },
+  {
+   "id": "deck-snap",
+   "name": "Camera snaps",
+   "say": "photos snapping in, one flash at a time",
+   "earns": "you tell people to go and take photos of something",
+   "group": "media",
+   "when": "\"Take photos of…\" moments, one flash per photo.",
+   "dur": 2.4,
+   "still": 2.1,
+   "fx": [
+    {
+     "type": "deck",
+     "mode": "snap",
+     "srcs": [
+      "demo-assets/card1.jpg",
+      "demo-assets/card2.jpg",
+      "demo-assets/card3.jpg",
+      "demo-assets/card4.jpg",
+      "demo-assets/card5.jpg",
+      "demo-assets/card6.jpg"
+     ],
+     "at": 0,
+     "dur": 2.4,
+     "y": 0.03
+    }
+   ]
+  },
+  {
+   "id": "deck-wall",
+   "name": "Photo wall",
+   "say": "a wall of photos",
+   "earns": "you claim volume: every client, every episode, all year",
+   "group": "media",
+   "when": "Volume and proof (every reel, every client).",
+   "dur": 2.0,
+   "still": 1.5,
+   "fx": [
+    {
+     "type": "deck",
+     "mode": "wall",
+     "srcs": [
+      "demo-assets/card1.jpg",
+      "demo-assets/card2.jpg",
+      "demo-assets/card3.jpg",
+      "demo-assets/card4.jpg",
+      "demo-assets/card5.jpg",
+      "demo-assets/card6.jpg",
+      "demo-assets/card1.jpg",
+      "demo-assets/card2.jpg",
+      "demo-assets/card3.jpg"
+     ],
+     "at": 0,
+     "dur": 2.0
+    }
+   ]
+  },
+  {
+   "id": "deck-scatter",
+   "name": "Headline scatter",
+   "say": "headlines scattering around you",
+   "earns": "you mention press, reviews or DMs you have shots of",
+   "group": "media",
+   "when": "Press, DMs or reviews landing around you.",
+   "dur": 2.0,
+   "still": 1.5,
+   "fx": [
+    {
+     "type": "deck",
+     "mode": "scatter",
+     "srcs": [
+      "demo-assets/card1.jpg",
+      "demo-assets/card2.jpg",
+      "demo-assets/card3.jpg",
+      "demo-assets/card4.jpg",
+      "demo-assets/card5.jpg",
+      "demo-assets/card6.jpg"
+     ],
+     "at": 0,
+     "dur": 2.0
+    }
+   ]
+  },
+  {
+   "id": "orbit",
+   "name": "Orbit",
+   "say": "cards spinning around your head",
+   "earns": "you list tools, guests or platforms",
+   "group": "media",
+   "when": "Cards circling you: tools, guests, platforms.",
+   "dur": 2.2,
+   "still": 1.6,
+   "fx": [
+    {
+     "type": "orbit",
+     "srcs": [
+      "demo-assets/card1.jpg",
+      "demo-assets/card2.jpg",
+      "demo-assets/card3.jpg",
+      "demo-assets/card4.jpg",
+      "demo-assets/card5.jpg"
+     ],
+     "at": 0,
+     "dur": 2.2,
+     "y": 0.3
+    }
+   ]
+  },
+  {
+   "id": "sticker",
+   "name": "Sticker",
+   "say": "a cut-out photo popping in beside you",
+   "earns": "you name one thing you have a photo of",
+   "group": "media",
+   "when": "A logo or cut-out object popping in beside you.",
+   "dur": 2.0,
+   "still": 1.2,
+   "fx": [
+    {
+     "type": "sticker",
+     "src": "demo-assets/card1.jpg",
+     "at": 0,
+     "dur": 2.0,
+     "x": 0.3,
+     "y": 0.16,
+     "width": 0.4,
+     "rotate": -3
+    }
+   ]
+  },
+  {
+   "id": "sticker-strike",
+   "name": "Icon strike",
+   "say": "a logo popping in and getting crossed out",
+   "earns": "you say you do not need a particular tool",
+   "group": "media",
+   "when": "\"You don’t need CapCut\" moments.",
+   "dur": 2.0,
+   "still": 1.4,
+   "fx": [
+    {
+     "type": "sticker",
+     "src": "demo-assets/card1.jpg",
+     "at": 0,
+     "dur": 2.0,
+     "x": 0.3,
+     "y": 0.12,
+     "width": 0.4,
+     "rotate": 0,
+     "outline": false,
+     "strike": 0.6
+    }
+   ]
+  },
+  {
+   "id": "folder",
+   "name": "Folder drop",
+   "say": "files dropping into a folder",
+   "earns": "you say to put things all in one place",
+   "group": "media",
+   "when": "\"Put them all in one folder\" moments.",
+   "dur": 2.6,
+   "still": 2.2,
+   "fx": [
+    {
+     "type": "folder",
+     "name": "Product photos",
+     "srcs": [
+      "demo-assets/card1.jpg",
+      "demo-assets/card2.jpg",
+      "demo-assets/card3.jpg",
+      "demo-assets/card4.jpg",
+      "demo-assets/card5.jpg",
+      "demo-assets/card6.jpg"
+     ],
+     "at": 0,
+     "dur": 2.6,
+     "y": -0.03
+    }
+   ]
+  },
+  {
+   "id": "phone",
+   "name": "Phone with views",
+   "say": "a phone showing a real post, views ticking up",
+   "earns": "you talk about a post that actually did something",
+   "group": "media",
+   "when": "Showing a real post, with its view count ticking up.",
+   "dur": 2.2,
+   "still": 1.8,
+   "fx": [
+    {
+     "type": "phone",
+     "src": "demo-assets/shot.jpg",
+     "at": 0,
+     "dur": 2.2,
+     "side": "right",
+     "y": 0.08,
+     "views": [
+      0,
+      341086
+     ],
+     "tag": "FINAL EDIT"
+    }
+   ]
+  },
+  {
+   "id": "envelope",
+   "name": "Envelope reveal",
+   "say": "an envelope opening with your freebie in it",
+   "earns": "you offer something you will send people",
+   "group": "media",
+   "when": "A free guide or lead magnet in the call to action.",
+   "dur": 2.0,
+   "still": 1.6,
+   "fx": [
+    {
+     "type": "envelope",
+     "label": "BRAND GUIDE",
+     "src": "demo-assets/shot.jpg",
+     "at": 0,
+     "dur": 2.0,
+     "y": 0.55
+    }
+   ]
+  },
+  {
+   "id": "swatches",
+   "name": "Brand swatches",
+   "say": "your brand colours fanning out",
+   "earns": "you talk about branding, colours or fonts",
+   "group": "media",
+   "when": "Branding talk: brand colours and fonts fanning out.",
+   "dur": 2.0,
+   "still": 1.4,
+   "fx": [
+    {
+     "type": "swatches",
+     "at": 0,
+     "dur": 2.0,
+     "y": 0.06
+    }
+   ]
+  },
+  {
+   "id": "receipts",
+   "name": "Receipts",
+   "say": "a receipt of what it costs, then struck out",
+   "earns": "you say what something costs",
+   "group": "media",
+   "when": "What something costs, then striking it out.",
+   "dur": 2.6,
+   "still": 2.4,
+   "fx": [
+    {
+     "type": "receipts",
+     "items": [
+      {
+       "label": "Video editor",
+       "price": 150
+      },
+      {
+       "label": "Video editor",
+       "price": 150
+      },
+      {
+       "label": "Video editor",
+       "price": 150
+      },
+      {
+       "label": "Video editor",
+       "price": 150
+      },
+      {
+       "label": "Video editor",
+       "price": 150
+      }
+     ],
+     "at": 0,
+     "dur": 2.6,
+     "strikeAt": 2.0
+    }
+   ]
+  },
+  {
+   "id": "prompt",
+   "name": "Prompt bar",
+   "say": "the exact prompt typing itself out",
+   "earns": "you say the words you typed",
+   "group": "ui",
+   "when": "The exact prompt, typing out.",
+   "dur": 2.4,
+   "still": 2.0,
+   "fx": [
+    {
+     "type": "prompt",
+     "text": "I'm posting this on Instagram.",
+     "at": 0,
+     "dur": 2.4,
+     "y": 0.06
+    }
+   ]
+  },
+  {
+   "id": "prompt-files",
+   "name": "Prompt with files",
+   "say": "a prompt with your files dropped into it",
+   "earns": "you say you handed files over to something",
+   "group": "ui",
+   "when": "\"I dropped my raw clips in…\" moments.",
+   "dur": 2.4,
+   "still": 2.0,
+   "fx": [
+    {
+     "type": "prompt",
+     "text": "Edit my reel in my style",
+     "files": [
+      "raw_clip_1.mov",
+      "raw_clip_2.mov"
+     ],
+     "at": 0,
+     "dur": 2.4,
+     "y": 0.06
+    }
+   ]
+  },
+  {
+   "id": "chat",
+   "name": "Chat",
+   "say": "a real back-and-forth on screen",
+   "earns": "you quote both sides of a conversation",
+   "group": "ui",
+   "when": "A real back-and-forth with AI or a client.",
+   "dur": 3.2,
+   "still": 3.0,
+   "fx": [
+    {
+     "type": "chat",
+     "at": 0,
+     "dur": 3.2,
+     "y": 0.05,
+     "msgs": [
+      {
+       "from": "me",
+       "text": "Goal: post three reels this week.",
+       "at": 0.2
+      },
+      {
+       "from": "ai",
+       "text": "On it. Which clips should I start from?",
+       "at": 1.6
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "pills",
+   "name": "Approval pile-up",
+   "say": "notifications piling up",
+   "earns": "you describe something multiplying until it is painful",
+   "group": "ui",
+   "when": "Showing a pain multiplying (approvals, notifications).",
+   "dur": 2.0,
+   "still": 1.6,
+   "fx": [
+    {
+     "type": "pills",
+     "text": "Approve this post?",
+     "count": 7,
+     "at": 0,
+     "dur": 2.0,
+     "y": 0.04
+    }
+   ]
+  },
+  {
+   "id": "tasks",
+   "name": "Task list",
+   "say": "a job list ticking itself off",
+   "earns": "you walk through a process that runs without you",
+   "group": "ui",
+   "when": "A process ticking itself off.",
+   "dur": 2.6,
+   "still": 2.3,
+   "fx": [
+    {
+     "type": "tasks",
+     "title": "Working on",
+     "at": 0,
+     "dur": 2.6,
+     "items": [
+      {
+       "text": "Transcribed the take",
+       "at": 0.5
+      },
+      {
+       "text": "Cut the pauses",
+       "at": 1.0
+      },
+      {
+       "text": "Added captions",
+       "at": 1.5
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "calendar",
+   "name": "Calendar",
+   "say": "a week filling in on a calendar",
+   "earns": "you talk about posting or planning across days",
+   "group": "ui",
+   "when": "A content plan or posting week.",
+   "dur": 2.2,
+   "still": 1.9,
+   "fx": [
+    {
+     "type": "calendar",
+     "title": "This week",
+     "at": 0,
+     "dur": 2.2,
+     "rows": 3
+    }
+   ]
+  },
+  {
+   "id": "dropdown",
+   "name": "Dropdown pick",
+   "say": "a menu opening and one option getting picked",
+   "earns": "you say you chose one setting or model",
+   "group": "ui",
+   "when": "Choosing a model, setting or option.",
+   "dur": 2.2,
+   "still": 1.0,
+   "fx": [
+    {
+     "type": "dropdown",
+     "label": "Model",
+     "options": [
+      "Opus 5.5",
+      "Sonnet 5.5",
+      "Haiku 5.5"
+     ],
+     "pick": 0,
+     "at": 0,
+     "dur": 2.2
+    }
+   ]
+  },
+  {
+   "id": "dial",
+   "name": "Effort dial",
+   "say": "a dial turning up to max",
+   "earns": "you say to do more of something",
+   "group": "ui",
+   "when": "“Turn it up to max” moments.",
+   "dur": 2.2,
+   "still": 2.0,
+   "fx": [
+    {
+     "type": "dial",
+     "label": "EFFORT",
+     "at": 0,
+     "dur": 2.2
+    }
+   ]
+  },
+  {
+   "id": "note",
+   "name": "Struck-out note",
+   "say": "a note with the lines crossed out",
+   "earns": "you list what people do not need",
+   "group": "ui",
+   "when": "\"You don’t need X\" lists.",
+   "dur": 2.2,
+   "still": 2.0,
+   "fx": [
+    {
+     "type": "note",
+     "title": "Requirements",
+     "items": [
+      {
+       "text": "Video editing experience",
+       "strike": 0.6
+      },
+      {
+       "text": "AI experience",
+       "strike": 1.2
+      }
+     ],
+     "at": 0,
+     "dur": 2.2
+    }
+   ]
+  },
+  {
+   "id": "spotlight",
+   "name": "Tool spotlight",
+   "say": "a grid of tools, then one steps forward",
+   "earns": "you say the one that actually matters is",
+   "group": "ui",
+   "when": "\"The one that matters is…\": a grid, then one steps forward.",
+   "dur": 2.6,
+   "still": 2.3,
+   "fx": [
+    {
+     "type": "canvas",
+     "at": 0,
+     "dur": 2.6
+    },
+    {
+     "type": "spotlight",
+     "at": 0.05,
+     "dur": 2.55,
+     "items": [
+      {
+       "label": "Titles",
+       "icon": "T"
+      },
+      {
+       "label": "Edit",
+       "icon": "E"
+      },
+      {
+       "label": "Carousel",
+       "icon": "C"
+      },
+      {
+       "label": "Captions",
+       "icon": "C"
+      },
+      {
+       "label": "Reels",
+       "icon": "R"
+      },
+      {
+       "label": "Notes",
+       "icon": "N"
+      }
+     ],
+     "pick": 4,
+     "pickAt": 1.5
+    }
+   ]
+  },
+  {
+   "id": "statbars",
+   "name": "Stat bars",
+   "say": "bars growing, before and after",
+   "earns": "you compare two numbers out loud",
+   "group": "ui",
+   "when": "Show stats, before and after.",
+   "dur": 2.2,
+   "still": 2.0,
+   "fx": [
+    {
+     "type": "statbars",
+     "title": "This week",
+     "at": 0,
+     "dur": 2.2,
+     "rows": [
+      {
+       "label": "Hooks",
+       "value": 82
+      },
+      {
+       "label": "Retention",
+       "value": 64
+      },
+      {
+       "label": "Shares",
+       "value": 41
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "flow",
+   "name": "Flow arrows",
+   "say": "arrows walking through the steps",
+   "earns": "you say first, then, then",
+   "group": "ui",
+   "when": "Any process, step by step, on the explainer board.",
+   "dur": 2.6,
+   "still": 2.4,
+   "fx": [
+    {
+     "type": "canvas",
+     "at": 0,
+     "dur": 2.6
+    },
+    {
+     "type": "flow",
+     "at": 0.05,
+     "dur": 2.55,
+     "steps": [
+      "Raw clips",
+      "Claude plans",
+      "One test edit",
+      "Batch"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "chart",
+   "name": "Glowing chart",
+   "say": "a line climbing up a chart",
+   "earns": "you describe growth over time",
+   "group": "ui",
+   "when": "Growth over time (downloads, followers, revenue).",
+   "dur": 2.2,
+   "still": 2.0,
+   "fx": [
+    {
+     "type": "chart",
+     "points": [
+      3,
+      4,
+      3.5,
+      6,
+      9,
+      14
+     ],
+     "label": "+340%",
+     "at": 0,
+     "dur": 2.2,
+     "y": 0.1
+    }
+   ]
+  },
+  {
+   "id": "timeline",
+   "name": "Edit timeline",
+   "say": "an editing timeline scrubbing past",
+   "earns": "you talk about editing or making the thing",
+   "group": "ui",
+   "when": "Talking about editing or production.",
+   "dur": 2.0,
+   "still": 1.4,
+   "fx": [
+    {
+     "type": "timeline",
+     "at": 0,
+     "dur": 2.0
+    }
+   ]
+  },
+  {
+   "id": "uiworld",
+   "name": "App background",
+   "say": "the whole background becomes the app",
+   "earns": "you name the app you are working inside",
+   "group": "ui",
+   "when": "The whole background becomes the app you are using.",
+   "dur": 2.4,
+   "still": 2.0,
+   "fx": [
+    {
+     "type": "uiworld",
+     "text": "Edit my reel in my style",
+     "at": 0,
+     "dur": 2.4
+    }
+   ]
+  },
+  {
+   "id": "dm",
+   "name": "DM card",
+   "say": "a DM landing with your keyword in it",
+   "earns": "you ask people to send you a word",
+   "group": "ui",
+   "when": "The comment-keyword call to action, with the reply landing.",
+   "dur": 2.4,
+   "still": 2.1,
+   "fx": [
+    {
+     "type": "dm",
+     "keyword": "GUIDE",
+     "text": "for the full list",
+     "at": 0,
+     "dur": 2.4
+    }
+   ]
+  },
+  {
+   "id": "comment",
+   "name": "Comment box",
+   "say": "your keyword typing into a comment box",
+   "earns": "you ask people to comment a word",
+   "group": "ui",
+   "when": "CTA: the keyword typing into a comment, then Follow.",
+   "dur": 2.8,
+   "still": 2.6,
+   "fx": [
+    {
+     "type": "comment",
+     "keyword": "GUIDE",
+     "at": 0,
+     "dur": 2.8,
+     "follow": true
+    }
+   ]
+  },
+  {
+   "id": "framebreak",
+   "name": "Frame break",
+   "say": "you pop out of the frame",
+   "earns": "the biggest moment in the reel, once",
+   "group": "move",
+   "when": "A big moment: you pop out of the frame.",
+   "dur": 2.2,
+   "still": 1.2,
+   "fx": [
+    {
+     "type": "framebreak",
+     "at": 0,
+     "dur": 2.2
+    }
+   ]
+  },
+  {
+   "id": "pullback",
+   "name": "Pull-back reveal",
+   "say": "the camera pulls back to show how it was made",
+   "earns": "you reveal how the thing was actually done",
+   "group": "move",
+   "when": "Revealing the process behind the video.",
+   "dur": 2.6,
+   "still": 1.8,
+   "fx": [
+    {
+     "type": "pullback",
+     "title": "Working on",
+     "at": 0,
+     "dur": 2.6,
+     "tasks": [
+      {
+       "text": "Transcribed",
+       "at": 0.6
+      },
+      {
+       "text": "Cut the pauses",
+       "at": 1.1
+      },
+      {
+       "text": "Added captions",
+       "at": 1.6
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "doodle",
+   "name": "Doodle outline",
+   "say": "a doodle outline drawn around you",
+   "earns": "a light or funny aside",
+   "group": "move",
+   "when": "Light, funny moments.",
+   "dur": 2.0,
+   "still": 1.2,
+   "fx": [
+    {
+     "type": "doodle",
+     "at": 0,
+     "dur": 2.0
+    }
+   ]
+  },
+  {
+   "id": "zoomblur",
+   "name": "Zoom-blur cut",
+   "say": "a zoom-blur jump to the next point",
+   "earns": "you move on to the next point",
+   "group": "move",
+   "when": "Jumping to the next point.",
+   "dur": 1.0,
+   "still": 0.5,
+   "fx": [
+    {
+     "type": "zoomblur",
+     "at": 0.5
+    }
+   ]
+  },
+  {
+   "id": "rip",
+   "name": "Paper rip",
+   "say": "the screen tears like paper",
+   "earns": "you change topic or location hard",
+   "group": "move",
+   "when": "Hard change of topic or location.",
+   "dur": 1.0,
+   "still": 0.75,
+   "fx": [
+    {
+     "type": "rip",
+     "at": 0.9,
+     "dur": 0.5
+    }
+   ]
+  },
+  {
+   "id": "glitch",
+   "name": "Glitch cut",
+   "say": "a glitch cut",
+   "earns": "a quick switch, usually about tech",
+   "group": "move",
+   "when": "Tech moments, quick switches.",
+   "dur": 1.0,
+   "still": 0.5,
+   "fx": [
+    {
+     "type": "glitch",
+     "at": 0.5,
+     "dur": 0.4
+    }
+   ]
+  },
+  {
+   "id": "flash",
+   "name": "Light flash",
+   "say": "a flash of light",
+   "earns": "a jump in time, once in a reel",
+   "group": "move",
+   "when": "Time jumps. Once a reel, max.",
+   "dur": 1.0,
+   "still": 0.5,
+   "fx": [
+    {
+     "type": "flash",
+     "at": 0.5
+    }
+   ]
+  }
+ ]
+}

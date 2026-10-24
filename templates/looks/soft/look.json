@@ -1,0 +1,38 @@
+{
+ "id": "soft",
+ "name": "Soft",
+ "blurb": "A gentle rounded serif, a friendly sans for captions, blush and lilac fields and an easy pace. Warm, personal, story-led.",
+ "fonts": {
+  "display": {
+   "family": "Fraunces",
+   "files": [
+    {
+     "file": "Fraunces.ttf",
+     "weight": "100 900"
+    }
+   ]
+  },
+  "serif": {
+   "family": "DM Sans",
+   "files": [
+    {
+     "file": "DMSans.ttf",
+     "weight": "100 1000"
+    }
+   ]
+  }
+ },
+ "colours": {
+  "punch": "#F7C6D9",
+  "accent": "#C9B8F0",
+  "paper": "#FFF7F2",
+  "ink": "#6E5A7E",
+  "dark": "#4A3B57",
+  "white": "#FFFFFF"
+ },
+ "reel": {
+  "displayStretch": "100%",
+  "design": 2,
+  "energy": "quiet"
+ }
+}

@@ -1,0 +1,38 @@
+{
+ "id": "editorial",
+ "name": "Editorial",
+ "blurb": "A high-contrast fashion serif for the big moments, a book serif for captions, warm cream and terracotta. Calm, considered, magazine-like.",
+ "fonts": {
+  "display": {
+   "family": "Bodoni Moda",
+   "files": [
+    {
+     "file": "BodoniModa.ttf",
+     "weight": "400 900"
+    }
+   ]
+  },
+  "serif": {
+   "family": "Newsreader",
+   "files": [
+    {
+     "file": "Newsreader.ttf",
+     "weight": "200 800"
+    }
+   ]
+  }
+ },
+ "colours": {
+  "punch": "#E9B98E",
+  "accent": "#C46A4A",
+  "paper": "#F4EDE2",
+  "ink": "#6B3F2E",
+  "dark": "#3B2A24",
+  "white": "#FFFFFF"
+ },
+ "reel": {
+  "displayStretch": "100%",
+  "design": 2,
+  "energy": "balanced"
+ }
+}
