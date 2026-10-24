@@ -8,6 +8,7 @@ engine/tools/bin/*
 
 # Regenerated on every render or prep; the finished out/<slug>.mp4 is what is kept
 .stage/
+.remotion/
 projects/*/proxy/
 projects/*/raw/
 projects/*/out/check/
